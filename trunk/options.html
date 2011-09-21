@@ -7,11 +7,19 @@
 <style type="text/css">
 .border
 {
-	border: 1px solid black;
+	border: 0px solid black;
 }
 .newLine
 {
 	width: 135px;
+}
+th
+{
+	background-color:#b0c4de;
+}
+td
+{
+	background-color:#D6EBFF;
 }
 </style>
 
@@ -67,22 +75,21 @@ function restore_options() {
   for (var i = 0; i <= 4; i++) {
     var child = localStorage["mail_picker_"+i];
 	var select = document.getElementById("mail_picker_"+i);
-	if (child == 'true') {
+	if (!child) {
+		// set default
 		select.checked = true;
+	} else {
+		if (child == 'true') {
+			select.checked = true;
+		}
 	}
   }
   
   var beforeMsg = localStorage["mail_before"];
-  if (!beforeMsg) {
-    return;
-  }
   var select = document.getElementById("mail_before");
   select.value = beforeMsg;
   
   var afterMsg = localStorage["mail_after"];
-  if (!afterMsg) {
-    return;
-  }
   var select = document.getElementById("mail_after");
   select.value = afterMsg;
   
@@ -93,9 +100,6 @@ function restore_options() {
   }
   
   var newLineAfterNum = localStorage["newLineAfterNum"];
-  if (!newLineAfterNum) {
-    return;
-  }
   var select = document.getElementById("newLineAfterNum");
   select.value = newLineAfterNum;
   
@@ -106,9 +110,6 @@ function restore_options() {
   }
   
   var newLineBeforeNum = localStorage["newLineBeforeNum"];
-  if (!newLineBeforeNum) {
-    return;
-  }
   var select = document.getElementById("newLineBeforeNum");
   select.value = newLineBeforeNum;
 }
@@ -183,7 +184,7 @@ function getPreview() {
 	newLineBefore = addNewLines(newLineBefore, newLineBeforeNum);
 	
 	// set preview
-	preview.innerHTML = startMessage + newLineAfter +" www.google.com "+ newLineBefore + endMessage;
+	preview.innerHTML = startMessage + newLineAfter +" http://www.google.com "+ newLineBefore + endMessage;
 }
 
 -->

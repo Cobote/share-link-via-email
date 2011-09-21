@@ -2,9 +2,25 @@
 
 // Get stored options
 var favoriteMailto = localStorage["mail_picker_1"];
+if (!favoriteMailto) {
+	// set default
+	favoriteMailto = 'true';
+}
 var favoriteGmail = localStorage["mail_picker_2"];
+if (!favoriteGmail) {
+	// set default
+	favoriteGmail = 'true';
+}
 var favoriteHotmail = localStorage["mail_picker_3"];
+if (!favoriteHotmail) {
+	// set default
+	favoriteHotmail = 'true';
+}
 var favoriteYmail = localStorage["mail_picker_4"];
+if (!favoriteYmail) {
+	// set default
+	favoriteYmail = 'true';
+}
 
 var beforeMsg = localStorage["mail_before"];
 console.log("before message " + localStorage["mail_before"]);
