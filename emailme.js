@@ -1,37 +1,24 @@
-// This is mine, but used the web for help, so some bit might not be
+// This is mine, but I used the web for help, so some bits might not be
 
 // Get stored options
-var favoriteMailto = localStorage["mail_picker_1"];
-if (!favoriteMailto) {
-	// set default
-	favoriteMailto = 'true';
-}
-var favoriteGmail = localStorage["mail_picker_2"];
-if (!favoriteGmail) {
-	// set default
-	favoriteGmail = 'true';
-}
-var favoriteHotmail = localStorage["mail_picker_3"];
-if (!favoriteHotmail) {
-	// set default
-	favoriteHotmail = 'true';
-}
-var favoriteYmail = localStorage["mail_picker_4"];
-if (!favoriteYmail) {
-	// set default
-	favoriteYmail = 'true';
-}
+mailOptions = new Array();
+mailOptions = get_options();
 
-var beforeMsg = localStorage["mail_before"];
-console.log("before message " + localStorage["mail_before"]);
+var favoriteMailto = mailOptions["mail_picker_1"];
+var favoriteGmail = mailOptions["mail_picker_2"];
+var favoriteHotmail = mailOptions["mail_picker_3"];
+var favoriteYmail = mailOptions["mail_picker_4"];
 
-var afterMsg = localStorage["mail_after"];
-console.log("after message " + localStorage["mail_after"]);
+var beforeMsg = mailOptions["mail_before"];
+console.log("before message " + beforeMsg);
 
-var newLineAfter = localStorage["newLineAfter"];
-var newLineAfterNum = localStorage["newLineAfterNum"];
-var newLineBefore = localStorage["newLineBefore"];
-var newLineBeforeNum = localStorage["newLineBeforeNum"];
+var afterMsg = mailOptions["mail_after"];
+console.log("after message " + afterMsg);
+
+var newLineAfter = mailOptions["newLineAfter"];
+var newLineAfterNum = mailOptions["newLineAfterNum"];
+var newLineBefore = mailOptions["newLineBefore"];
+var newLineBeforeNum = mailOptions["newLineBeforeNum"];
 
 
 if (favoriteMailto == 'true') {
@@ -141,11 +128,14 @@ function emailLink(info, tab) {
 function gmailLink(info, tab) {
   var pageUrl = getLink(info, tab);
   var pageTitle = getTitle(info, tab);
+  pageTitle = encodeURIComponent(pageTitle); // fix bad chars for url
   var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
   var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
   var emailBody = beforeMsg + newLineAfterBody + encodeURIComponent(pageUrl) + newLineBeforeBody +  afterMsg;
-  //emailBody = encodeURIComponent(emailBody);
-  window.open('http://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&su='+pageTitle+'&body='+emailBody);
+  chrome.tabs.create({
+      'url':'http://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&su='+pageTitle+'&body='+emailBody,
+      'selected':true
+    });
   console.log("link " + pageUrl + " - " + pageTitle + " was sent");
   console.log("item " + info.menuItemId + " was clicked");
   console.log("info: " + JSON.stringify(info));
@@ -156,6 +146,7 @@ function gmailLink(info, tab) {
 function hotmailLink(info, tab) {
   var pageUrl = getLink(info, tab);
   var pageTitle = getTitle(info, tab);
+  pageTitle = encodeURIComponent(pageTitle); // fix bad chars for url
   var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
   var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
   var emailBody = beforeMsg + newLineAfterBody + pageUrl + newLineBeforeBody +  afterMsg;
@@ -171,6 +162,7 @@ function hotmailLink(info, tab) {
 function ymailLink(info, tab) {
   var pageUrl = getLink(info, tab);
   var pageTitle = getTitle(info, tab);
+  pageTitle = encodeURIComponent(pageTitle); // fix bad chars for url
   var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
   var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
   var emailBody = beforeMsg + newLineAfterBody + encodeURIComponent(pageUrl) + newLineBeforeBody +  afterMsg;

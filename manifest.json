@@ -1,6 +1,6 @@
 {
   "name": "Share link via email",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Adds a context menu item to send the page or a link via email",
   "icons": {
     "16": "stock_mail.png",
