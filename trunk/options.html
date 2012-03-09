@@ -13,6 +13,22 @@
 {
 	width: 135px;
 }
+.clear
+{
+	background-color:white;
+}
+.nopadding
+{
+	padding:0px;
+}
+.centre
+{
+	text-align: center;
+}
+table.tablewidth
+{
+	width:430px;
+}
 th
 {
 	background-color:#b0c4de;
@@ -20,19 +36,77 @@ th
 td
 {
 	background-color:#D6EBFF;
+	padding-left: 10px; 
+	padding-right: 10px;
+}
+h1
+{
+	text-align: center;
+}
+div
+{
+	margin-left:auto;
+	margin-right:auto;
+	width:70%;
+}
+table
+{
+	margin-left:auto;
+	margin-right:auto;
 }
 </style>
 
+<script type="text/javascript" src="functions.js"></script>
+
 <script type="text/javascript">
 <!--
+// get saved values 
+mailOptions = new Array();
+mailOptions = get_options();
 
-// Saves options to localStorage.
-function save_options() {
+// use the saved values for the form 
+function restore_options() {
+  // Restores check box state
   for (var i = 0; i <= 4; i++) {
-    var child = document.getElementById("mail_picker_"+i);
-	localStorage["mail_picker_"+i] = child.checked;
+    var mailtype = mailOptions["mail_picker_"+i];
+	var select = document.getElementById("mail_picker_"+i);
+	if (mailtype == 'true') {
+		select.checked = true;
+	}
   }
   
+  var beforeMsg = mailOptions["mail_before"];
+  var select = document.getElementById("mail_before");
+  select.value = beforeMsg;
+  
+  var afterMsg = mailOptions["mail_after"];
+  var select = document.getElementById("mail_after");
+  select.value = afterMsg;
+  
+  var newLineAfter = mailOptions["newLineAfter"];
+  var select = document.getElementById("newLineAfter");
+  if (newLineAfter == 'true') {
+	select.checked = true;
+  }
+  
+  var newLineAfterNum = mailOptions["newLineAfterNum"];
+  var select = document.getElementById("newLineAfterNum");
+  select.value = newLineAfterNum;
+  
+  var newLineBefore = mailOptions["newLineBefore"];
+  var select = document.getElementById("newLineBefore");
+  if (newLineBefore == 'true') {
+	select.checked = true;
+  }
+  
+  var newLineBeforeNum = mailOptions["newLineBeforeNum"];
+  var select = document.getElementById("newLineBeforeNum");
+  select.value = newLineBeforeNum;
+}
+
+//Saves options to localStorage.
+// only email body section
+function save_body_options() {  
   select = document.getElementById("mail_before");
   var mail_before = select.value;
   localStorage["mail_before"] = mail_before;
@@ -59,59 +133,29 @@ function save_options() {
 
   // Update status to let user know options were saved.
   var status = document.getElementById("status");
-  status.innerHTML = "Options Saved.";
+  status.innerHTML = "Email body saved";
   setTimeout(function() {
     status.innerHTML = "";
   }, 750);
   
-  //reload with new settings
+  //reload context menu with new settings
   chrome.contextMenus.removeAll();
   chrome.extension.getBackgroundPage().window.location.reload();
 }
 
-// Restores saved values from localStorage.
-function restore_options() {
-  // Restores check box state
+//Saves options to localStorage.
+// only email sender selection
+function save_sender_options() {
   for (var i = 0; i <= 4; i++) {
-    var child = localStorage["mail_picker_"+i];
-	var select = document.getElementById("mail_picker_"+i);
-	if (!child) {
-		// set default
-		select.checked = true;
-	} else {
-		if (child == 'true') {
-			select.checked = true;
-		}
-	}
+    var child = document.getElementById("mail_picker_"+i);
+	localStorage["mail_picker_"+i] = child.checked;
   }
+
+  // Update status to let user know options were saved.
   
-  var beforeMsg = localStorage["mail_before"];
-  var select = document.getElementById("mail_before");
-  select.value = beforeMsg;
-  
-  var afterMsg = localStorage["mail_after"];
-  var select = document.getElementById("mail_after");
-  select.value = afterMsg;
-  
-  var newLineAfter = localStorage["newLineAfter"];
-  var select = document.getElementById("newLineAfter");
-  if (newLineAfter == 'true') {
-	select.checked = true;
-  }
-  
-  var newLineAfterNum = localStorage["newLineAfterNum"];
-  var select = document.getElementById("newLineAfterNum");
-  select.value = newLineAfterNum;
-  
-  var newLineBefore = localStorage["newLineBefore"];
-  var select = document.getElementById("newLineBefore");
-  if (newLineBefore == 'true') {
-	select.checked = true;
-  }
-  
-  var newLineBeforeNum = localStorage["newLineBeforeNum"];
-  var select = document.getElementById("newLineBeforeNum");
-  select.value = newLineBeforeNum;
+  //reload context menu with new settings
+  chrome.contextMenus.removeAll();
+  chrome.extension.getBackgroundPage().window.location.reload();
 }
 
 // select/clear all toggle
@@ -196,47 +240,47 @@ function getPreview() {
 <h1>Share link via email - Options</h1>
 
 <div>
-	<table class="border">
+	<table class="border tablewidth">
 		<tr>
 			<th colspan="2" class="border">
-			Email sender selction:
+			Email Sender Selection:
 			</th>
 		</tr>
 		<tr>
-			<td>
-			<input type="checkbox" id="mail_picker_0" value="all" onchange="changeAll(this)" />
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_0" value="all" onchange="changeAll(this);save_sender_options();" />
 			</td>
 			<td class="border">
 			All
 			</td>
 		</tr>
 		<tr>
-			<td>
-			<input type="checkbox" id="mail_picker_1" value="mailto" onchange="changeCheck()" />
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_1" value="mailto" onchange="changeCheck();save_sender_options();" />
 			</td>
 			<td class="border">
 			External
 			</td>
 		</tr>
 		<tr>
-			<td>
-			<input type="checkbox" id="mail_picker_2" value="Gmail" onchange="changeCheck()" />
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_2" value="Gmail" onchange="changeCheck();save_sender_options();" />
 			</td>
 			<td class="border">
 			Gmail
 			</td>
 		</tr>
 		<tr>
-			<td>
-			<input type="checkbox" id="mail_picker_3" value="Hotmail" onchange="changeCheck()" />
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_3" value="Hotmail" onchange="changeCheck();save_sender_options();" />
 			</td>
 			<td class="border">
 			Hotmail
 			</td>
 		</tr>
 		<tr>
-			<td>
-			<input type="checkbox" id="mail_picker_4" value="Ymail" onchange="changeCheck()" />
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_4" value="Ymail" onchange="changeCheck();save_sender_options();" />
 			</td>
 			<td class="border">
 			Ymail (Can't use new lines)
@@ -248,10 +292,10 @@ function getPreview() {
 </div>
 
 <div>
-	<table class="border">
+	<table class="border tablewidth">
 		<tr>
 			<th colspan="2" class="border">
-			Email sender selction:
+			Email Body Settings:
 			</th>
 		</tr>
 		<tr>
@@ -294,11 +338,20 @@ function getPreview() {
 				</table>
 			</td>
 		</tr>
+		<tr>
+			<td class="clear">&nbsp;</td>
+			<td class="clear" style="text-align: right">
+				<button onclick="save_body_options()">Save</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="clear" style="text-align: right">
+				&nbsp;<span id="status">&nbsp;</span>
+			</td>
+		</tr>
 	</table>
 	
-	<br/>
-	
-	<table class="border">
+	<table class="border tablewidth">
 		<tr>
 			<th class="border">
 			Email Body Preview:
@@ -310,14 +363,6 @@ function getPreview() {
 			</td>
 		</tr>
 	</table>
-</div>
-
-<div>
-
-<br/>
-<button onclick="save_options()">Save</button>
-<br/>
-<span id="status"></span>
 </div>
 
 </body>
