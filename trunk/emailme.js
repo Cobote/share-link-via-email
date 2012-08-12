@@ -1,72 +1,70 @@
 // This is mine, but I used the web for help, so some bits might not be
 
+// check for first run
+var firstRun = (localStorage['firstRun'] == 'true');
+// now save that first run has started
+if (!firstRun) {
+  localStorage['firstRun'] = 'true';
+}  
+// check if any settings have been saved
+if (!firstRun) { 
+    var mailOptionsLength = 5;
+    for (var i = 0; i <= mailOptionsLength; i++) {
+       if (localStorage["mail_picker_"+i] == 'true' || localStorage["mail_picker_"+i] == 'false' ) {
+           firstRun = 'true';
+           console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"'] as "+ localStorage["mail_picker_"+i]);
+           break;
+       }
+    }
+}
+console.log("False if first time: " + firstRun);
+// run actions if first run & no settings saved
+if (!firstRun) {
+  // Set all options to default
+  save_default_options();
+} 
+
 // Get stored options
 mailOptions = new Array();
 mailOptions = get_options();
+
 
 var favoriteMailto = mailOptions["mail_picker_1"];
 var favoriteGmail = mailOptions["mail_picker_2"];
 var favoriteHotmail = mailOptions["mail_picker_3"];
 var favoriteYmail = mailOptions["mail_picker_4"];
+var favoriteAOL = mailOptions["mail_picker_5"];
 
 var beforeMsg = mailOptions["mail_before"];
-console.log("before message " + beforeMsg);
+console.log("before message: " + beforeMsg);
 
 var afterMsg = mailOptions["mail_after"];
-console.log("after message " + afterMsg);
+console.log("after message: " + afterMsg);
 
 var newLineAfter = mailOptions["newLineAfter"];
 var newLineAfterNum = mailOptions["newLineAfterNum"];
 var newLineBefore = mailOptions["newLineBefore"];
 var newLineBeforeNum = mailOptions["newLineBeforeNum"];
 
+var context;
+var title;
+var id;
 
+// Create email menu option for each context type in this order
 if (favoriteMailto == 'true') {
-	// Create email page option for each context type.
-	var contexts = ["page","link"];
-	for (var i = 0; i < contexts.length; i++) {
-	  var context = contexts[i];
-	  var title = "Send page via Email";
-	  var id = chrome.contextMenus.create({"title": title, "contexts":[context],
-										   "onclick": emailLink});
-	  console.log("'" + context + "' item:" + id);
-	}
+    createContext('Email', emailLink);
 }
-
+if (favoriteAOL == 'true') {
+        createContext('AOL Mail', aolLink);
+}
 if (favoriteGmail == 'true') {
-	// Create Gmail page option for each context type.
-	contexts = ["page","link"];
-	for (var i = 0; i < contexts.length; i++) {
-	  var context = contexts[i];
-	  var title = "Send page via Gmail";
-	  var id = chrome.contextMenus.create({"title": title, "contexts":[context],
-										   "onclick": gmailLink});
-	  console.log("'" + context + "' item:" + id);
-	}
+        createContext('Gmail', gmailLink);
 }
-
 if (favoriteHotmail == 'true') {
-	// Create Gmail page option for each context type.
-	contexts = ["page","link"];
-	for (var i = 0; i < contexts.length; i++) {
-	  var context = contexts[i];
-	  var title = "Send page via Hotmail";
-	  var id = chrome.contextMenus.create({"title": title, "contexts":[context],
-										   "onclick": hotmailLink});
-	  console.log("'" + context + "' item:" + id);
-	}
+        createContext('Outlook', hotmailLink);
 }
-
 if (favoriteYmail == 'true') {
-	// Create Gmail page option for each context type.
-	contexts = ["page","link"];
-	for (var i = 0; i < contexts.length; i++) {
-	  var context = contexts[i];
-	  var title = "Send page via Ymail";
-	  var id = chrome.contextMenus.create({"title": title, "contexts":[context],
-										   "onclick": ymailLink});
-	  console.log("'" + context + "' item:" + id);
-	}
+        createContext('Ymail', ymailLink);
 }
 
 // get link
@@ -78,7 +76,7 @@ function getLink(info, tab) {
 	pageUrl = tab.url;
   }
   //pageUrl = encodeURIComponent(pageUrl);
-  console.log("context " + pageUrl);
+  console.log("page url: " + pageUrl);
   return pageUrl;
 }
 
@@ -90,86 +88,47 @@ function getTitle(info, tab) {
   } else {
 	pageTitle = tab.title;
   }
-  console.log("context " + pageTitle);
+  console.log("page title: " + pageTitle);
   return pageTitle;
-}
-
-// add new lines
-function addNewLines(varName, lineCount) {
-	if (varName) {
-		varName = "";
-		for (i=0;i<lineCount;i++) {
-			varName = varName + '%0A';
-		}
-	} else {
-		varName = "";
-	}
-	
-	return varName;
 }
 
 // create a new email
 function emailLink(info, tab) {
-  var pageUrl = getLink(info, tab);
-  var pageTitle = getTitle(info, tab);
-  var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
-  var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
-  var emailBody = beforeMsg + newLineAfterBody + pageUrl + newLineBeforeBody + afterMsg;
+    var mailsrvr = 'mailto:?Subject=';
+    var newLineChar = '%0A';
+    createEmailTab(info, tab, mailsrvr, newLineChar);
+    
+  /* 
   chrome.tabs.getSelected(null, function (tab){ 
-		chrome.tabs.update(tab.id, { url: 'mailto:?Subject='+pageTitle+'&body='+emailBody });
-  }); 
-  console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-  console.log("item " + info.menuItemId + " was clicked");
-  console.log("info: " + JSON.stringify(info));
-  console.log("tab: " + JSON.stringify(tab));
+		chrome.tabs.update(tab.id, { url: mailsrvr+pageTitle+'&body='+emailBody });
+  }); */
 }
 
 // create a new Gmail
 function gmailLink(info, tab) {
-  var pageUrl = getLink(info, tab);
-  var pageTitle = getTitle(info, tab);
-  pageTitle = encodeURIComponent(pageTitle); // fix bad chars for url
-  var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
-  var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
-  var emailBody = beforeMsg + newLineAfterBody + encodeURIComponent(pageUrl) + newLineBeforeBody +  afterMsg;
-  chrome.tabs.create({
-      'url':'http://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&su='+pageTitle+'&body='+emailBody,
-      'selected':true
-    });
-  console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-  console.log("item " + info.menuItemId + " was clicked");
-  console.log("info: " + JSON.stringify(info));
-  console.log("tab: " + JSON.stringify(tab));
+    var mailsrvr = 'http://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&su=';
+    var newLineChar = '%0A';
+    createEmailTab(info, tab, mailsrvr, newLineChar);
 }
 
 // create a new hotmail
 function hotmailLink(info, tab) {
-  var pageUrl = getLink(info, tab);
-  var pageTitle = getTitle(info, tab);
-  pageTitle = encodeURIComponent(pageTitle); // fix bad chars for url
-  var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
-  var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
-  var emailBody = beforeMsg + newLineAfterBody + pageUrl + newLineBeforeBody +  afterMsg;
-  //emailBody = encodeURIComponent(emailBody);
-  window.open('http://mail.live.com/?rru=compose?&subject='+pageTitle+'&body='+emailBody);
-  console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-  console.log("item " + info.menuItemId + " was clicked");
-  console.log("info: " + JSON.stringify(info));
-  console.log("tab: " + JSON.stringify(tab));
+    var mailsrvr = 'http://mail.live.com/?rru=compose&subject=';
+    var newLineChar = '%0A';
+    createEmailTab(info, tab, mailsrvr, newLineChar);
 }
 
 // create a new ymail
 function ymailLink(info, tab) {
-  var pageUrl = getLink(info, tab);
-  var pageTitle = getTitle(info, tab);
-  pageTitle = encodeURIComponent(pageTitle); // fix bad chars for url
-  var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum);
-  var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum);
-  var emailBody = beforeMsg + newLineAfterBody + encodeURIComponent(pageUrl) + newLineBeforeBody +  afterMsg;
-  emailBody = encodeURIComponent(emailBody);
-  window.open('http://compose.mail.yahoo.com?subj='+pageTitle+'&body='+emailBody);
-  console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-  console.log("item " + info.menuItemId + " was clicked");
-  console.log("info: " + JSON.stringify(info));
-  console.log("tab: " + JSON.stringify(tab));
+    var mailsrvr = 'http://us.mg40.mail.yahoo.com/neo/launch?action=compose&subj=';
+    //var mailsrvr = 'http://compose.mail.yahoo.com?subj=';
+    var newLineChar = '%0A';
+    createEmailTab(info, tab, mailsrvr, newLineChar);
+}
+
+// create a new AOL mail
+function aolLink(info, tab) {
+    var mailsrvr = 'http://mail.aol.com/mail/ComposeMessage.aspx?subject=';
+    var newLineChar = '%0A';
+    createEmailTab(info, tab, mailsrvr, newLineChar);
 }
