@@ -1,0 +1,22 @@
+{
+  "name": "Share link via email",
+  "version": "1.0",
+  "description": "Adds a context menu item to send the page or a link via email",
+  "manifest_version": 2,
+  "icons": {
+    "16": "stock_mail.png",
+    "48": "stock_mail.png",
+    "128": "stock_mail.png"
+  },
+  "permissions": [
+    "contextMenus",
+	"tabs"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "scripts": [
+        "functions.js", 
+        "emailme.js"
+    ]
+  }
+}

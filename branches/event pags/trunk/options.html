@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+<title>Share link via email Options</title>
+
+<style type="text/css">
+.border
+{
+	border: 0px solid black;
+}
+.newLine
+{
+	width: 135px;
+}
+.clear
+{
+	background-color:white;
+}
+.nopadding
+{
+	padding:0px;
+}
+.centre
+{
+	text-align: center;
+}
+input.newLineNum {
+    width: 25px;
+}
+.tooltip {
+    text-decoration: underline;
+}
+
+table.tablewidth
+{
+	width:440px;
+}
+th
+{
+	background-color:#b0c4de;
+}
+td
+{
+	background-color:#D6EBFF;
+	padding-left: 10px; 
+	padding-right: 10px;
+}
+h1
+{
+	text-align: center;
+}
+div
+{
+	margin-left:auto;
+	margin-right:auto;
+	width:70%;
+}
+table
+{
+	margin-left:auto;
+	margin-right:auto;
+}
+</style>
+
+<script type="text/javascript" src="functions.js"></script>
+<script type="text/javascript" src="options_events.js"></script>
+</head>
+
+<body>
+
+<h1>Share link via email - Options</h1>
+
+<div>
+	<table class="border tablewidth">
+		<tr>
+			<th colspan="2" class="border">
+			Email Sender Selection:
+			</th>
+		</tr>
+		<tr>
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_0" value="all" />
+			</td>
+			<td class="border">
+			All
+			</td>
+		</tr>
+		<tr>
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_1" value="mailto" />
+			</td>
+			<td class="border">
+			Default email client
+                        <span class="tooltip" title="Uses your mailto: application">?</span>
+			</td>
+		</tr>
+                <tr>
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_5" value="mailto" />
+			</td>
+			<td class="border">
+			AOL mail
+			</td>
+		</tr>
+		<tr>
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_2" value="Gmail" />
+			</td>
+			<td class="border">
+			Gmail
+			</td>
+		</tr>
+		<tr>
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_3" value="Hotmail" />
+			</td>
+			<td class="border">
+			Outlook (Formerly Hotmail)
+                        <span class="tooltip" title="Doesn't allow new lines. Sorry">?</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="nopadding centre">
+			<input type="checkbox" id="mail_picker_4" value="Ymail"/>
+			</td>
+			<td class="border">
+			Ymail
+                        <span class="tooltip" title="Doesn't allow new lines. Sorry">?</span>
+			</td>
+		</tr>
+	</table>
+	
+	<br/>
+</div>
+
+<div>
+	<table class="border tablewidth">
+		<tr>
+			<th colspan="2" class="border">
+			Email Body Settings:
+			</th>
+		</tr>
+		<tr>
+			<td class="border">
+			Before URL message:
+			<br/>
+			<input type="text" id="mail_before"></input>
+			</td>
+			<td class="border">
+				<table>
+					<tr>
+						<td class="newLine">
+						New line before URL
+						</td>
+						<td>
+						<input type="checkbox" id="newLineAfter" value="newLineAfter" />
+						<input type="text" id="newLineAfterNum" class="newLineNum" value="0"/>
+						</td>
+					</tr>
+				</table> 
+			</td>
+		</tr>
+		<tr>
+			<td class="border">
+			After URL message:
+			<br/>
+			<input type="text" id="mail_after"></input>
+			</td>
+			<td class="border">
+				<table>
+					<tr>
+						<td class="newLine">
+						New line after URL 
+						</td>
+						<td>
+						<input type="checkbox" id="newLineBefore" value="newLineBefore"/>
+						<input type="text" id="newLineBeforeNum" class="newLineNum" value="0"/>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td class="clear">&nbsp;</td>
+			<td class="clear" style="text-align: right">
+				<button id="btn_save">Save</button>
+                                <button id="btn_restore">Cancel</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="clear" style="text-align: right">
+				&nbsp;<span id="status">&nbsp;</span>
+			</td>
+		</tr>
+	</table>
+	
+	<table class="border tablewidth">
+		<tr>
+			<th class="border">
+			Email Body Preview:
+			</th>
+		</tr>
+		<tr>
+			<td class="border">
+			<span id="previewText"></span>
+			</td>
+		</tr>
+	</table>
+</div>
+
+</body>
+</html>
