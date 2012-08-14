@@ -207,7 +207,7 @@ function changeCheck() {
 function addNewLines(linesEnabled, lineCount, breakChar) {
     // add new lines
     var lineString = ""
-        if (linesEnabled == 'true' && lineCount >= 1) {
+        if ((linesEnabled || linesEnabled == 'true') && lineCount >= 1) {
             for (i=0;i<lineCount;i++) {
                     lineString = lineString + breakChar;
                     //lineString = lineString + "<br/>";
@@ -230,7 +230,10 @@ function getPreview() {
 	var newLineAfterNum = document.getElementById("newLineAfterNum");
 	var newLineBefore = document.getElementById("newLineBefore").checked;
 	var newLineBeforeNum = document.getElementById("newLineBeforeNum");
+        
+        var previewText = "";
         var exampleAddress = "http://www.google.com";
+        var newLineAfterBody, newLineBeforeBody;
 	  
 	// test if value is set
 	function isValueSet(inputName) {
@@ -252,13 +255,15 @@ function getPreview() {
 	newLineBeforeNum = isValueSet(newLineBeforeNum);
 	
         // get new line string
-	newLineAfter = addNewLines(newLineAfter, newLineAfterNum, "<br/>");
-	newLineBefore = addNewLines(newLineBefore, newLineBeforeNum, "<br/>");
+        newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, "<br/>");
+        newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, "<br/>");
+
+        // set preview text
+        previewText = startMessage + newLineAfterBody + exampleAddress + newLineBeforeBody + endMessage;
 	
-	// set preview
-	//startMessage = String.prototype.trim(startMessage);
-	//endMessage = String.prototype.trim(endMessage);
-	preview.innerHTML = startMessage + newLineAfter + exampleAddress + newLineBefore + endMessage;
+	// send preview to diplay
+	//preview.innerHTML = startMessage + newLineAfter + exampleAddress + newLineBefore + endMessage;
+	preview.innerHTML = previewText;
 }
 
 // Create email page option for each context type.
@@ -292,6 +297,17 @@ function save_default_options() {
 }
 
 function createEmailTab(info, tab, mailsrvr, newLineChar) {
+    var emailBody = "";
+    emailBody = createEmailMessage(info, tab, mailsrvr, newLineChar);
+    
+    window.open(mailsrvr+pageTitle+'&body='+emailBody);
+    console.log("link " + pageUrl + " - " + pageTitle + " was sent");
+    console.log("item " + info.menuItemId + " was clicked");
+    console.log("info: " + JSON.stringify(info));
+    console.log("tab: " + JSON.stringify(tab));
+}
+
+function createEmailMessage(info, tab, mailsrvr, newLineChar) {
     var pageUrl = getLink(info, tab);
     var pageTitle = getTitle(info, tab);
     var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, newLineChar);
@@ -308,9 +324,5 @@ function createEmailTab(info, tab, mailsrvr, newLineChar) {
     afterMsgEncoded = encodeURIComponent(afterMsgEncoded);
 
     emailBody = beforeMsgEncoded + newLineAfterBody + pageUrl + newLineBeforeBody + afterMsgEncoded;
-    window.open(mailsrvr+pageTitle+'&body='+emailBody);
-    console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-    console.log("item " + info.menuItemId + " was clicked");
-    console.log("info: " + JSON.stringify(info));
-    console.log("tab: " + JSON.stringify(tab));
+    return emailBody;
 }
