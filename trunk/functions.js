@@ -206,8 +206,8 @@ function changeCheck() {
 
 function addNewLines(linesEnabled, lineCount, breakChar) {
     // add new lines
-    var lineString = ""
-        if ((linesEnabled || linesEnabled == 'true') && lineCount >= 1) {
+    var lineString = "";
+        if (( linesEnabled != false && linesEnabled != 'false') && lineCount >= 1) {
             for (i=0;i<lineCount;i++) {
                     lineString = lineString + breakChar;
                     //lineString = lineString + "<br/>";
@@ -246,17 +246,22 @@ function getPreview() {
 		return inputName;
 	}	
 	
-	// use above function
-	startMessage = isValueSet(startMessage);
-        startMessage = (startMessage != "" ? startMessage+" " : startMessage);
-	endMessage = isValueSet(endMessage);
-        endMessage = (endMessage != "" ? " "+endMessage : endMessage);
-	newLineAfterNum = isValueSet(newLineAfterNum);
-	newLineBeforeNum = isValueSet(newLineBeforeNum);
-	
-        // get new line string
+         // get new line string
+         newLineAfterNum = isValueSet(newLineAfterNum);
+	 newLineBeforeNum = isValueSet(newLineBeforeNum);
+        
         newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, "<br/>");
         newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, "<br/>");
+        
+	// use above function
+	startMessage = isValueSet(startMessage);
+        if (startMessage != "" && newLineAfterBody =="") {
+            startMessage = startMessage+" ";
+        }
+	endMessage = isValueSet(endMessage);
+        if (endMessage != "" && newLineBeforeBody =="") {
+            endMessage = " "+endMessage;
+        }
 
         // set preview text
         previewText = startMessage + newLineAfterBody + exampleAddress + newLineBeforeBody + endMessage;
@@ -309,7 +314,7 @@ function createEmailTab(info, tab, mailsrvr, newLineChar) {
 
 function createEmailMessage(info, tab, mailsrvr, newLineChar) {
     var pageUrl = getLink(info, tab);
-    var pageTitle = getTitle(info, tab);
+    var pageTitle = getTitle(info, tab);    
     var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, newLineChar);
     var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, newLineChar);
     var emailBody = '';
@@ -318,10 +323,17 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
 
     pageUrl = encodeURIComponent(pageUrl);
     pageTitle = encodeURIComponent(pageTitle);
-    beforeMsgEncoded = (beforeMsgEncoded != "" ? beforeMsgEncoded+" " : beforeMsgEncoded);
+    
+    if (beforeMsgEncoded != "" && newLineAfterBody =="") {
+        beforeMsgEncoded = beforeMsgEncoded+" ";
+    }
     beforeMsgEncoded = encodeURIComponent(beforeMsgEncoded);
-    afterMsgEncoded = (afterMsgEncoded != "" ? " "+afterMsgEncoded : afterMsgEncoded);
+    
+    if (afterMsgEncoded != "" && newLineBeforeBody =="") {
+        afterMsgEncoded = " "+afterMsgEncoded;
+    }
     afterMsgEncoded = encodeURIComponent(afterMsgEncoded);
+        
 
     emailBody = beforeMsgEncoded + newLineAfterBody + pageUrl + newLineBeforeBody + afterMsgEncoded;
     return emailBody;
