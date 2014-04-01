@@ -9,7 +9,8 @@
     "128": "stock_mail.png"
   },
   "permissions": [
-    "contextMenus"
+    "contextMenus",
+    "tabs"
   ],
   "options_page": "options.html",
   "background": {
