@@ -182,9 +182,11 @@ function save_body_options() {
 
     // Update status to let user know options were saved.
     status = $("#status");
-    status.html("Email body settings saved");
+    status.html("<strong>Email body settings saved</strong>");
+    status.parent().addClass("alert alert-success");
     setTimeout(function() {
     	status.html("");
+    	status.parent().removeClass("alert alert-success");
     }, 1500);
 
     //reload context menu with new settings
