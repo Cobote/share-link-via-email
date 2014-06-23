@@ -187,7 +187,7 @@ function save_body_options() {
 
     // Update status to let user know options were saved.
     var status = document.getElementById("status");
-    status.innerHTML = "Email body saved";
+    status.innerHTML = "Email body settings saved";
     setTimeout(function() {
         status.innerHTML = "";
     }, 1500);
@@ -394,4 +394,35 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
 
     emailBody = beforeMsgEncoded + newLineAfterBody + pageUrl + newLineBeforeBody + afterMsgEncoded;
     return emailBody;
+}
+
+//only email body section
+function validate_body_options() {
+	var errorFound = false;
+	var currentItem;
+	
+	if ( document.getElementById("newLineAfter").checked ) {
+		currentItem = document.getElementById("newLineAfterNum");
+		if ( currentItem.value < 0 ) {
+			//alert("New line before URL needs to be 0 or higher");
+			errorFound = true;
+		}
+		if ( (isNaN(currentItem.value) || currentItem.value === "") ) {
+			//alert("New line before URL is not a number");
+			errorFound = true;
+		}
+	}
+	if ( document.getElementById("newLineBefore").checked ) {
+		currentItem = document.getElementById("newLineBeforeNum");
+		if ( currentItem.value < 0 ) {
+			//alert("New line after URL needs to be 0 or higher");
+			errorFound = true;
+		}
+		if ( (isNaN(currentItem.value) || currentItem.value === "") ) {
+			//alert("New line after URL is not a number");
+			errorFound = true;
+		}
+	}
+	
+	return errorFound;
 }
