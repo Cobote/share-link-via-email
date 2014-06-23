@@ -1,25 +1,28 @@
 // functions used by the "Options" page of the extension
 
 function btn_save_clickHandler(e) {
-    save_body_options();
+	var isInvalid = validate_body_options();
+	if (!isInvalid) {
+		save_body_options();
+	}
     save_sender_options();
 }
 function newLineAfter_clickHandler(e) {
-    var object_var = document.getElementById("newLineAfterNum");
-    if (!object_var.disabled) {
-        object_var.disabled = "disabled";
+    var optionDisable = $("#newLineAfterNum");
+    if (!optionDisable.prop("disabled")) {
+    	optionDisable.prop("disabled", "disabled");
     } else {
-        object_var.disabled = "";
+    	optionDisable.prop("disabled", false);
     }
 
     getPreview();
 }
 function newLineBefore_clickHandler(e) {
-    var object_var = document.getElementById("newLineBeforeNum");
-    if (!object_var.disabled) {
-        object_var.disabled = "disabled";
+    var optionDisable = $("#newLineBeforeNum");
+    if (!optionDisable.prop("disabled")) {
+    	optionDisable.prop("disabled", "disabled");
     } else {
-        object_var.disabled = "";
+    	optionDisable.prop("disabled", false);
     }
 
     getPreview();
@@ -55,26 +58,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // end on load
 
     // listeners
-    document.querySelector('#btn_save').addEventListener('click', btn_save_clickHandler);
-    document.querySelector('#btn_restore').addEventListener('click', btn_reset_clickHandler);
-    document.querySelector('#newLineAfter').addEventListener('change', newLineAfter_clickHandler);
-    document.querySelector('#newLineBefore').addEventListener('change', newLineBefore_clickHandler);
-    document.querySelector('#newLineAfterNum').addEventListener('keyup', getPreview);
-    document.querySelector('#newLineBeforeNum').addEventListener('keyup', getPreview);
-    document.querySelector('#mail_before').addEventListener('keyup', getPreview);
-    document.querySelector('#mail_after').addEventListener('keyup', getPreview);
+    $('#btn_save').click(btn_save_clickHandler);
+    $('#btn_restore').click(btn_reset_clickHandler);
+    $('#newLineAfter').change(newLineAfter_clickHandler);
+    $('#newLineBefore').change(newLineBefore_clickHandler);
+    $('#newLineAfterNum').keyup(getPreview);
+    $('#newLineBeforeNum').keyup(getPreview);
+    $('#mail_before').keyup(getPreview);
+    $('#mail_after').keyup(getPreview);
 
-    document.querySelector('#mail_picker_0').addEventListener('change', mail_picker_0_clickHandler);
-    document.querySelector('#mail_picker_1').addEventListener('change', mail_picker_clickHandler);
-    document.querySelector('#mail_picker_2').addEventListener('change', mail_picker_clickHandler);
-    document.querySelector('#mail_picker_3').addEventListener('change', mail_picker_clickHandler);
-    document.querySelector('#mail_picker_4').addEventListener('change', mail_picker_clickHandler);
-    document.querySelector('#mail_picker_5').addEventListener('change', mail_picker_clickHandler);
+    $('#mail_picker_0').change(mail_picker_0_clickHandler);
+    $('#mail_picker_1').change(mail_picker_clickHandler);
+    $('#mail_picker_2').change(mail_picker_clickHandler);
+    $('#mail_picker_3').change(mail_picker_clickHandler);
+    $('#mail_picker_4').change(mail_picker_clickHandler);
+    $('#mail_picker_5').change(mail_picker_clickHandler);
 
-    document.querySelector('#new_window_0').addEventListener('change', new_window_0_clickHandler);
-    document.querySelector('#new_window_1').addEventListener('change', new_window_clickHandler);
-    document.querySelector('#new_window_2').addEventListener('change', new_window_clickHandler);
-    document.querySelector('#new_window_3').addEventListener('change', new_window_clickHandler);
-    document.querySelector('#new_window_4').addEventListener('change', new_window_clickHandler);
-    document.querySelector('#new_window_5').addEventListener('change', new_window_clickHandler);
+    $('#new_window_0').change(new_window_0_clickHandler);
+    $('#new_window_1').change(new_window_clickHandler);
+    $('#new_window_2').change(new_window_clickHandler);
+    $('#new_window_3').change(new_window_clickHandler);
+    $('#new_window_4').change(new_window_clickHandler);
+    $('#new_window_5').change(new_window_clickHandler);
+    
+    // stop normal form submission
+    $( "form" ).submit(function( event ) {
+	  event.preventDefault();
+	});
 });
