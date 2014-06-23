@@ -30,34 +30,53 @@
 		        <div class="row body-options">
 		        	<div class="col-md-6">
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="mail_picker_0" value="all" /> All
+		        			<label>
+		        				<input type="checkbox" id="mail_picker_0" value="all" /> All
+		        			</label>
 		        		</div>
 		        	</div>
 		        </div>
 		        <div class="row body-options">
-		        	<div class="col-md-6 col-xs-6">
+		        	<div class="col-md-12">
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="mail_picker_1" value="mailto" /> Default email client
+		        			<div class="row">
+			        			<div class="col-xs-6">
+				        			<label>
+				        				<input type="checkbox" id="mail_picker_1" value="mailto" /> Default email client
+				        			</label>
+			        			</div>
+			        			<div class="col-xs-6"> 
+			        				<span class="tooltip-options">Uses 'mailto' protocol handler</span>
+			        			</div>
+		        			</div>
 		        		</div>
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="mail_picker_5" value="mailto" /> AOL mail
+		        			<label>
+		        				<input type="checkbox" id="mail_picker_5" value="mailto" /> AOL mail
+		        			</label>
 		        		</div>
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="mail_picker_2" value="mailto" /> Gmail
+		        			<div class="row">
+			        			<div class="col-xs-6">
+			        				<label>
+			        					<input type="checkbox" id="mail_picker_2" value="mailto" /> Gmail
+			        				</label>
+			        			</div>
+			        			<div class="col-xs-6">
+			        				<span class="tooltip-options" >Can use new lines</span>
+			        			</div>
+			        		</div>
 		        		</div>
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="mail_picker_3" value="mailto" /> Outlook.com
+		        			<label>
+		        				<input type="checkbox" id="mail_picker_3" value="mailto" /> Outlook.com
+		        			</label>
 		        		</div>
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="mail_picker_4" value="mailto" /> Yahoo! Mail
+		        			<label>
+		        				<input type="checkbox" id="mail_picker_4" value="mailto" /> Yahoo! Mail
+		        			</label>
 		        		</div>
-		        	</div>
-		        	<div class="col-md-6 col-xs-6">
-		        		<div class="match-row">
-		        			<span class="tooltip-options">Uses 'mailto' protocol handler</span>
-		       			</div>
-						<br/>
-		        		<span class="tooltip-options" >Can use new lines</span>
 		        	</div>
 		        </div>
         	</div>
@@ -70,26 +89,38 @@
 		        <div class="row body-options">
 		        	<div class="col-md-6">
 		        		<div class="checkbox">
-		        			<input type="checkbox" id="new_window_0" value="all"/> All
+		        			<label>
+		        				<input type="checkbox" id="new_window_0" value="all"/> All
+		        			</label>
 		        		</div>
 		        	</div>
 		        </div>
 		        <div class="row body-options">
 		        	<div class="col-md-6">
 		        		<div class="checkbox new-win-checkbox">
-		        			<input type="checkbox" id="new_window_1" value="newWindow"/> Default email client
+		        			<label>
+		        				<input type="checkbox" id="new_window_1" value="newWindow"/> Default email client
+		        			</label>
 		        		</div>
 		        		<div class="checkbox new-win-checkbox">
-		        			<input type="checkbox" id="new_window_5" value="newWindow"/> AOL mail
+		        			<label>
+		        				<input type="checkbox" id="new_window_5" value="newWindow"/> AOL mail
+		        			</label>
 		        		</div>
 		        		<div class="checkbox new-win-checkbox">
-		        			<input type="checkbox" id="new_window_2" value="newWindow"/> Gmail
+		        			<label>
+		        				<input type="checkbox" id="new_window_2" value="newWindow"/> Gmail
+		        			</label>
 		        		</div>
 		        		<div class="checkbox new-win-checkbox">
-		        			<input type="checkbox" id="new_window_3" value="newWindow"/> Outlook.com
+		        			<label>
+		        				<input type="checkbox" id="new_window_3" value="newWindow"/> Outlook.com
+		        			</label>
 		        		</div>
 		        		<div class="checkbox new-win-checkbox">
-		        			<input type="checkbox" id="new_window_4" value="newWindow"/> Yahoo! Mail
+		        			<label>
+		        				<input type="checkbox" id="new_window_4" value="newWindow"/> Yahoo! Mail
+		        			</label>
 		        		</div>
 		        	</div>
 		        </div>
@@ -118,11 +149,15 @@
 		        	<input type="text" id="mail_before" class="form-control" />
 	        	</div>
 	        </div>
-	        <div class="col-md-5">
+	        <div class="col-md-2 col-xs-3">
 		        <div class="checkbox">
-		        New line before URL <input type="checkbox" id="newLineAfter" value="newLineAfter" />
+			        <label>
+			        	New line before URL <input type="checkbox" id="newLineAfter" value="newLineAfter" />
+			        </label>
 		        </div>
-		        <div class="form-group col-md-4">
+	        </div>
+	        <div class="col-md-4 col-xs-9">
+		        <div class="form-group col-xs-4">
 		        	<input type="number" min="0" id="newLineAfterNum" class="form-control" value="0"/>
 		        </div>
 	        </div>
@@ -134,11 +169,15 @@
 		        	<input type="text" id="mail_after" class="form-control"></input>
 	        	</div>
 	        </div>
-	        <div class="col-md-5">
+	        <div class="col-md-2 col-xs-3">
 		        <div class="checkbox">
-		        New line after URL <input type="checkbox" id="newLineBefore" value="newLineBefore"/>
+			        <label>
+			        	New line after URL <input type="checkbox" id="newLineBefore" value="newLineBefore"/>
+			        </label>
 		        </div>
-		        <div class="form-group col-md-4">
+	        </div>
+	        <div class="col-md-4 col-xs-9">
+		        <div class="form-group col-xs-4">
 		        	<input type="number" min="0" id="newLineBeforeNum" class="form-control" value="0"/>
 		        </div>
 	        </div>
