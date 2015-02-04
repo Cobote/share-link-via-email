@@ -140,8 +140,8 @@ function ymailLink(info, tab) {
     var newWindow = newWindowYmail;
     var mailTo = toEmailAdd;
     
-    // mailsrvr = 'http://compose.mail.yahoo.com?subj=';
-    mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
+    mailsrvr = 'http://compose.mail.yahoo.com?to=' + mailTo + '&subject=';
+    //mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
