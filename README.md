@@ -5,6 +5,8 @@ Allows the current page URL or a link to be emailed by an email client by right 
 Email Clients to choose from:
 Default mail application, AOL mail, Gmail, Outlook/Hotmail and Y! mail
 
+Chrome web store https://chrome.google.com/webstore/detail/ejdbkikfbnnhmachnnomjfgjbgkcnjkb
+
 --
 Major changes:
 - v1.4 - Improvements to the options page.
