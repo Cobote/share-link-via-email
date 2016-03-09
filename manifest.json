@@ -1,7 +1,12 @@
 {
   "name": "Share link via email",
+<<<<<<< HEAD
   "version": "2.0",
   "description": "Adds a button and context menu item to send the page or a link via email",
+=======
+  "version": "1.6",
+  "description": "Adds a context menu item to send the page URL or a link via email",
+>>>>>>> refs/remotes/origin/master
   "manifest_version": 2,
   "icons": {
     "16": "stock_mail.png",
