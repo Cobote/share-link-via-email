@@ -154,6 +154,26 @@ function restore_options() {
     toggle_newWindow_chbox();
 }
 
+// use the saved values for the form 
+function showHide_options() {
+    // get saved values 
+    var mailOptions = new Array();
+    var mailOptionsLength = localStorage['mailOptionsLength'];
+    var select, mailtype, toEmailAdd, beforeMsg, afterMsg;
+    var newLineAfter, newLineAfterNum, newLineBefore, newLineBeforeNum;
+    
+    mailOptions = get_options();
+
+    // Hide options not selected
+    for (var i = 0; i <= mailOptionsLength; i++) {
+        mailtype = mailOptions["mail_picker_" + i];
+        select = $("#mail_picker_" + i);
+        if (mailtype !== 'true') {
+            select.hide();
+        }
+    }
+}
+
 //Saves options to localStorage.
 // only email body section
 function save_body_options() {
@@ -437,4 +457,33 @@ function toggle_newWindow_chbox() {
 			$("#new_window_" + i).prop("disabled", false);
 		}
     }
+}
+
+// handle email link
+function open_email_handler(mail_picker_int) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+        var tab = tabs[0];
+        var info = "";
+
+        switch (mail_picker_int) {
+        case 1:
+            emailLink(info, tab);
+            break;
+        case 5:
+            aolLink(info, tab);
+            break;
+        case 2:
+            gmailLink(info, tab);
+            break;
+        case 6:
+            inboxLink(info, tab);
+            break;
+        case 3:
+            hotmailLink(info, tab);
+            break;
+        case 4:
+            ymailLink(info, tab);
+            break;
+        }
+    });
 }
