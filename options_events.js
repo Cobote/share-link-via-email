@@ -52,6 +52,7 @@ function new_window_clickHandler(e) {
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
 document.addEventListener('DOMContentLoaded', function() {
+	var mailOptionsLength = localStorage['mailOptionsLength'];
     // on load events
     restore_options();
     getPreview();
@@ -68,18 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#mail_after').keyup(getPreview);
 
     $('#mail_picker_0').change(mail_picker_0_clickHandler);
-    $('#mail_picker_1').change(mail_picker_clickHandler);
-    $('#mail_picker_2').change(mail_picker_clickHandler);
-    $('#mail_picker_3').change(mail_picker_clickHandler);
-    $('#mail_picker_4').change(mail_picker_clickHandler);
-    $('#mail_picker_5').change(mail_picker_clickHandler);
+	for (var i = 1; i <= mailOptionsLength; i++) {
+		$('#mail_picker_' + i).change(mail_picker_clickHandler);
+	}
 
     $('#new_window_0').change(new_window_0_clickHandler);
-    $('#new_window_1').change(new_window_clickHandler);
-    $('#new_window_2').change(new_window_clickHandler);
-    $('#new_window_3').change(new_window_clickHandler);
-    $('#new_window_4').change(new_window_clickHandler);
-    $('#new_window_5').change(new_window_clickHandler);
+	for (var i = 1; i <= mailOptionsLength; i++) {
+		$('#new_window_' + i).change(new_window_clickHandler);
+	}
     
     // stop normal form submission
     $( "form" ).submit(function( event ) {

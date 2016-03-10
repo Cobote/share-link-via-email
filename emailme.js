@@ -1,4 +1,5 @@
 // Creates each of the links to be used by each type of Email client
+localStorage['mailOptionsLength'] = 6;
 
 // check for first run
 var firstRun = (localStorage['firstRun'] === 'true');
@@ -8,7 +9,7 @@ if (!firstRun) {
 }  
 // check if any settings have been saved
 if (!firstRun) { 
-    var mailOptionsLength = 5;
+    var mailOptionsLength = localStorage['mailOptionsLength'];
     for (var i = 0; i <= mailOptionsLength; i++) {
        if (localStorage["mail_picker_"+i] === 'true' || localStorage["mail_picker_"+i] === 'false' ) {
            firstRun = 'true';
@@ -34,12 +35,14 @@ var favoriteGmail = mailOptions["mail_picker_2"];
 var favoriteHotmail = mailOptions["mail_picker_3"];
 var favoriteYmail = mailOptions["mail_picker_4"];
 var favoriteAOL = mailOptions["mail_picker_5"];
+var favoriteInbox = mailOptions["mail_picker_6"];
 
 var newWindowMailto = mailOptions["new_window_1"];
 var newWindowGmail = mailOptions["new_window_2"];
 var newWindowHotmail = mailOptions["new_window_3"];
 var newWindowYmail = mailOptions["new_window_4"];
 var newWindowAOL = mailOptions["new_window_5"];
+var newWindowInbox = mailOptions["new_window_6"];
 
 var toEmailAdd = mailOptions["mail_to"];
 
@@ -67,6 +70,9 @@ if (favoriteAOL === 'true') {
 }
 if (favoriteGmail === 'true') {
     createContext('Gmail', gmailLink);
+}
+if (favoriteInbox === 'true') {
+    createContext('Inbox', inboxLink);
 }
 if (favoriteHotmail === 'true') {
     createContext('Outlook.com', hotmailLink);
@@ -153,5 +159,16 @@ function aolLink(info, tab) {
     var mailTo = toEmailAdd;
     
     mailsrvr = 'https://mail.aol.com/mail/ComposeMessage.aspx?to=' + mailTo + '&subject=';
+    createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
+}
+
+// create a new Inbox
+function inboxLink(info, tab) {
+    var mailsrvr = '';
+    var newLineChar = '%0A';
+    var newWindow = newWindowInbox;
+    var mailTo = toEmailAdd;
+	
+	mailsrvr = 'https://inbox.google.com/u/0/?to=' + mailTo + '&subject=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
