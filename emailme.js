@@ -81,6 +81,14 @@ if (favoriteYmail === 'true') {
     createContext('Yahoo! Mail', ymailLink);
 }
 
+// Check if only one option selected
+if (getOptionsShownCount() === 1) {
+  chrome.browserAction.setPopup({ popup: ''});
+  chrome.browserAction.onClicked.addListener(function(tab) {
+    open_email_handler(getSingleOptionInt());
+  });
+}
+
 // get link
 function getLink(info, tab) {
   if (info.linkUrl) {

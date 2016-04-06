@@ -9,7 +9,6 @@ Chrome web store https://chrome.google.com/webstore/detail/ejdbkikfbnnhmachnnomj
 
 --
 Major changes:
-- v2.0 - Added browser action menu
 - v1.4 - Improvements to the options page.
 - v1.2 - Added option to use the current tab or a new tab. Added field for who to send the email to.
 - V1.0 - Added AOL mail

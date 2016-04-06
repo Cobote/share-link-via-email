@@ -13,6 +13,9 @@ function mail_picker_clickHandler(e) {
     mail_picker_int = parseInt(mail_picker_int, 10);
     console.log(mail_picker_int);
     open_email_handler(mail_picker_int);
+
+    // Use timeout or email will not be created
+    setTimeout(function(){ window.close(); }, 100);
 }
 
 // Add event listeners once the DOM has fully loaded by listening for the
@@ -20,6 +23,7 @@ function mail_picker_clickHandler(e) {
 // specific elements when it triggers.
 document.addEventListener('DOMContentLoaded', function() {
 	var mailOptionsLength = localStorage['mailOptionsLength'];
+    var i;
     // on load events
     showHide_options();
     // end on load
@@ -27,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // listeners
     $('#optionsLink').click(openOptionsPage);
 
-    for (var i = 1; i <= mailOptionsLength; i++) {
+    for (i = 1; i <= mailOptionsLength; i++) {
         $('#mail_picker_' + i).click(mail_picker_clickHandler);
     }
 });

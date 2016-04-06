@@ -159,8 +159,7 @@ function showHide_options() {
     // get saved values 
     var mailOptions = new Array();
     var mailOptionsLength = localStorage['mailOptionsLength'];
-    var select, mailtype, toEmailAdd, beforeMsg, afterMsg;
-    var newLineAfter, newLineAfterNum, newLineBefore, newLineBeforeNum;
+    var select, mailtype;
     
     mailOptions = get_options();
 
@@ -172,6 +171,47 @@ function showHide_options() {
             select.hide();
         }
     }
+}
+
+// Count how many mail options are enabled
+function getOptionsShownCount() {
+    // get saved values 
+    var mailOptions = new Array();
+    var mailOptionsLength = localStorage['mailOptionsLength'];
+    var select, mailtype, optionsShownCount;
+    
+    mailOptions = get_options();
+    optionsShownCount = 0;
+
+    // Hide options not selected
+    for (var i = 0; i <= mailOptionsLength; i++) {
+        mailtype = mailOptions["mail_picker_" + i];
+        if (mailtype === 'true') {
+            optionsShownCount = optionsShownCount + 1;
+        }
+    }
+
+    return optionsShownCount;
+}
+
+// Get the currently enabled mail option
+function getSingleOptionInt() {
+    // get saved values 
+    var mailOptions = new Array();
+    var mailOptionsLength = localStorage['mailOptionsLength'];
+    var select, mailtype, optionInt;
+    
+    mailOptions = get_options();
+
+    // Hide options not selected
+    for (var i = 0; i <= mailOptionsLength; i++) {
+        mailtype = mailOptions["mail_picker_" + i];
+        if (mailtype === 'true') {
+            optionInt = i;
+        }
+    }
+
+    return optionInt;
 }
 
 //Saves options to localStorage.
@@ -354,7 +394,7 @@ function save_default_options() {
         localStorage["mail_picker_" + i] = true;
     }
     for (var i = 0; i <= mailOptionsLength; i++) {
-        localStorage["new_window_" + i] = true;
+        localStorage["new_window_" + i] = false;
     }
 }
 
