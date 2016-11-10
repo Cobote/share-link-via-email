@@ -1,6 +1,6 @@
 # share-link-via-email
-Adds a context menu item to send the page or a link via email.
-Allows the current page URL or a link to be emailed by an email client by right clicking. The list of mail clients shown can be changed. You can also set up any text to be added before the page URL in the email as well as a signature.
+Adds a context menu item to send the current page URL or a link URL via email.
+Allows the current page URL or a link URL to be emailed by an email client by right clicking. The list of mail clients shown can be changed. You can also set up any text to be added before the page URL in the email as well as a signature.
 
 Email Clients to choose from:
 Default mail application, AOL mail, Gmail, Outlook/Hotmail and Y! mail
