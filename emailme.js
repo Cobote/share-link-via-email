@@ -87,6 +87,8 @@ if (getOptionsShownCount() === 1) {
   chrome.browserAction.onClicked.addListener(function(tab) {
     open_email_handler(getSingleOptionInt());
   });
+} else {
+    chrome.browserAction.setPopup({ popup: 'popup.html'});
 }
 
 // get link
