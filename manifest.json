@@ -1,5 +1,6 @@
 {
   "name": "Share link via email",
+  "short_name": "Share Link",
   "version": "2.3",
   "description": "Adds a button and context menu item to send the page URL or a link URL via email",
   "manifest_version": 2,
