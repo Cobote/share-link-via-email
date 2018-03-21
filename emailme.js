@@ -145,7 +145,8 @@ function hotmailLink(info, tab) {
     var newWindow = newWindowHotmail;
     var mailTo = toEmailAdd;
     
-    mailsrvr = 'http://mail.live.com/?rru=compose&to=' + mailTo + '&subject=';
+    // mailsrvr = 'http://mail.live.com/?rru=compose&to=' + mailTo + '&subject=';
+    mailsrvr = 'https://outlook.live.com/owa/?path=/mail/action/compose&to=' + mailTo + '&subject=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
