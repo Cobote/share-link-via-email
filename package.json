@@ -1,0 +1,15 @@
+{
+  "name": "share-link-via-email",
+  "version": "2.4.0",
+  "description": "Adds a button and context menu item to send the page URL or a link URL via email",
+  "main": "index.js",
+  "repository": "https://github.com/Cobote/share-link-via-email.git",
+  "author": "Robin Smith <robin99smith@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  },
+  "dependencies": {}
+}

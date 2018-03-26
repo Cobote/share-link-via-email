@@ -366,7 +366,7 @@ function getPreview() {
 
 // Create email page option for each context type.
 function createContext(contextName, onc_link) {
-    var contexts = ["page", "link"];
+    var contexts = ["page", "link", "selection"];
     var context;
     var title;
     var id;
