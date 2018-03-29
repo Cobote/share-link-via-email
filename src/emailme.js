@@ -27,7 +27,7 @@ if (!firstRun) {
 
 // Get stored options
 mailOptions = new Array();
-mailOptions = get_options();
+mailOptions = getOptions();
 
 
 var favoriteMailto = mailOptions["mail_picker_1"];
