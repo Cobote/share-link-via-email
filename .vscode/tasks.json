@@ -5,12 +5,13 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "build",
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "script": "babel",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "uglifyjs",
+            "problemMatcher": []
         }
     ]
 }

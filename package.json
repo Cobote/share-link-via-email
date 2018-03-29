@@ -7,14 +7,16 @@
   "author": "Robin Smith <robin99smith@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel src -d lib"
+    "babel": "babel src -d babel_lib",
+    "uglifyjs": "uglifyjs-folder babel_lib -eo lib"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0"
+    "eslint-plugin-import": "^2.9.0",
+    "uglifyjs-folder": "^1.5.0"
   },
   "dependencies": {
     "bootstrap": "^4.0.0",
