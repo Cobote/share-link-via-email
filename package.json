@@ -6,7 +6,12 @@
   "repository": "https://github.com/Cobote/share-link-via-email.git",
   "author": "Robin Smith <robin99smith@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "babel src -d lib"
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0"
