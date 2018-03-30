@@ -4,119 +4,125 @@
 // if none saved, use default values
 function getOptions() {
   const mailOptions = [];
-  var mailOptionsLength = localStorage['mailOptionsLength'];
+  const [mailOptionsLength] = localStorage;
+  let i;
 
   // Restores each mail type
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    if (localStorage["mail_picker_" + i]) {
-      mailOptions["mail_picker_" + i] = localStorage["mail_picker_" + i];
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    if (localStorage[`mail_picker_${i}`]) {
+      mailOptions[`mail_picker_${i}`] = localStorage[`mail_picker_${i}`];
     } else {
       // if not set, leave as off
-      mailOptions["mail_picker_" + i] = 'false';
+      mailOptions[`mail_picker_${i}`] = 'false';
       // console.log("mail_picker_" + i + " not found");
     }
     // console.log("mail_picker_" + i + ": " + localStorage["mail_picker_" + i]);
   }
 
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    if (localStorage["new_window_" + i]) {
-      mailOptions["new_window_" + i] = localStorage["new_window_" + i];
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    if (localStorage[`new_window_${i}`]) {
+      mailOptions[`new_window_${i}`] = localStorage[`new_window_${i}`];
     } else {
       // if not set, leave as off
-      mailOptions["new_window_" + i] = 'false';
+      mailOptions[`new_window_${i}`] = 'false';
       // console.log("new_window_" + i + " not found");
     }
     // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
   }
 
-  if (localStorage["mail_to"]) {
-    mailOptions["mail_to"] = localStorage["mail_to"];
+  if (localStorage.mail_to) {
+    mailOptions.mail_to = localStorage.mail_to;
   } else {
     // default
-    mailOptions["mail_to"] = "";
+    mailOptions.mail_to = '';
   }
 
   // email body
-  if (localStorage["mail_before"]) {
-    mailOptions["mail_before"] = localStorage["mail_before"];
+  if (localStorage.mail_before) {
+    mailOptions.mail_before = localStorage.mail_before;
   } else {
     // default
-    mailOptions["mail_before"] = "";
+    mailOptions.mail_before = '';
   }
-  if (localStorage["mail_after"]) {
-    mailOptions["mail_after"] = localStorage["mail_after"];
+  if (localStorage.mail_after) {
+    mailOptions.mail_after = localStorage.mail_after;
   } else {
     // default
-    mailOptions["mail_after"] = "";
+    mailOptions.mail_after = '';
   }
 
   // email body new lines
-  if (localStorage["newLineAfter"]) {
-    mailOptions["newLineAfter"] = localStorage["newLineAfter"];
+  if (localStorage.newLineAfter) {
+    mailOptions.newLineAfter = localStorage.newLineAfter;
   } else {
     // default
-    mailOptions["newLineAfter"] = false;
+    mailOptions.newLineAfter = false;
   }
-  if (localStorage["newLineAfterNum"]) {
-    mailOptions["newLineAfterNum"] = localStorage["newLineAfterNum"];
+  if (localStorage.newLineAfterNum) {
+    mailOptions.newLineAfterNum = localStorage.newLineAfterNum;
   } else {
     // default
-    mailOptions["newLineAfterNum"] = 1;
+    mailOptions.newLineAfterNum = 1;
   }
-  if (localStorage["newLineBefore"]) {
-    mailOptions["newLineBefore"] = localStorage["newLineBefore"];
+  if (localStorage.newLineBefore) {
+    mailOptions.newLineBefore = localStorage.newLineBefore;
   } else {
     // default
-    mailOptions["newLineBefore"] = false;
+    mailOptions.newLineBefore = false;
   }
-  if (localStorage["newLineBeforeNum"]) {
-    mailOptions["newLineBeforeNum"] = localStorage["newLineBeforeNum"];
+  if (localStorage.newLineBeforeNum) {
+    mailOptions.newLineBeforeNum = localStorage.newLineBeforeNum;
   } else {
     // default
-    mailOptions["newLineBeforeNum"] = 1;
+    mailOptions.newLineBeforeNum = 1;
   }
 
   return mailOptions;
 }
 
-// use the saved values for the form 
-function restore_options() {
-  // get saved values 
-  var mailOptions = new Array();
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var select, mailtype, toEmailAdd, beforeMsg, afterMsg;
-  var newLineAfter, newLineAfterNum, newLineBefore, newLineBeforeNum;
+// use the saved values for the form
+function restoreOptions() {
+  // get saved values
+  let mailOptions = [];
+  const [mailOptionsLength] = localStorage;
+  let select;
+  let mailtype;
+  let newLineAfter;
+  let newLineAfterNum;
+  let newLineBefore;
+  let newLineBeforeNum;
+  let i;
 
   mailOptions = getOptions();
 
   // Restores check box state
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    mailtype = mailOptions["mail_picker_" + i];
-    select = $("#mail_picker_" + i);
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    mailtype = mailOptions[`mail_picker_${i}`];
+    select = $(`mail_picker_${i}`);
     if (mailtype === 'true') {
-      select.prop("checked", true);
+      select.prop('checked', true);
     } else {
-      select.prop("checked", false);
+      select.prop('checked', false);
     }
   }
-  for (i = 0; i <= mailOptionsLength; i++) {
-    mailtype = mailOptions["new_window_" + i];
-    select = $("#new_window_" + i);
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    mailtype = mailOptions[`new_window_${i}`];
+    select = $(`#new_window_${i}`);
     if (mailtype === 'true') {
-      select.prop("checked", true);
+      select.prop('checked', true);
     } else {
-      select.prop("checked", false);
+      select.prop('checked', false);
     }
   }
 
-  toEmailAdd = mailOptions["mail_to"];
-  $("#mail_to").val(toEmailAdd);
+  const toEmailAdd = mailOptions.mail_to;
+  $('#mail_to').val(toEmailAdd);
 
-  beforeMsg = mailOptions["mail_before"];
-  $("#mail_before").val(beforeMsg);
+  const beforeMsg = mailOptions.mail_before;
+  $('#mail_before').val(beforeMsg);
 
-  afterMsg = mailOptions["mail_after"];
-  $("#mail_after").val(afterMsg);
+  const afterMsg = mailOptions.mail_after;
+  $('#mail_after').val(afterMsg);
 
   newLineAfter = mailOptions["newLineAfter"];
   select = $("#newLineAfter");
