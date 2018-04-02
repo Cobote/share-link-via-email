@@ -149,15 +149,16 @@ function restoreOptions() {
 
 // use the saved values for the form
 function showHideOptions() {
-  // get saved values 
-  var mailOptions = new Array();
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var select, mailtype;
+  // get saved values
+  const [mailOptionsLength] = localStorage;
+  let select;
+  let mailtype;
+  let i;
 
-  mailOptions = getOptions();
+  const mailOptions = getOptions();
 
   // Hide options not selected
-  for (var i = 0; i <= mailOptionsLength; i++) {
+  for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions["mail_picker_" + i];
     select = $("#mail_picker_" + i);
     if (mailtype !== 'true') {
