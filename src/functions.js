@@ -87,10 +87,6 @@ function restoreOptions() {
   const [mailOptionsLength] = localStorage;
   let select;
   let mailtype;
-  let newLineAfter;
-  let newLineAfterNum;
-  let newLineBefore;
-  let newLineBeforeNum;
   let i;
 
   mailOptions = getOptions();
@@ -124,35 +120,35 @@ function restoreOptions() {
   const afterMsg = mailOptions.mail_after;
   $('#mail_after').val(afterMsg);
 
-  newLineAfter = mailOptions["newLineAfter"];
-  select = $("#newLineAfter");
+  const [newLineAfter] = mailOptions;
+  select = $('#newLineAfter');
   if (newLineAfter === 'true') {
-    select.prop("checked", true);
-    $("#newLineAfterNum").prop("disabled", false);
+    select.prop('checked', true);
+    $('#newLineAfterNum').prop('disabled', false);
   } else {
-    $("#newLineAfterNum").prop("disabled", true);
+    $('#newLineAfterNum').prop('disabled', true);
   }
 
-  newLineAfterNum = mailOptions["newLineAfterNum"];
-  $("#newLineAfterNum").val(newLineAfterNum);
+  const [newLineAfterNum] = mailOptions;
+  $('#newLineAfterNum').val(newLineAfterNum);
 
-  newLineBefore = mailOptions["newLineBefore"];
-  select = $("#newLineBefore");
+  const [newLineBefore] = mailOptions;
+  select = $('#newLineBefore');
   if (newLineBefore === 'true') {
-    select.prop("checked", true);
-    $("#newLineBeforeNum").prop("disabled", false);
+    select.prop('checked', true);
+    $('#newLineBeforeNum').prop('disabled', false);
   } else {
-    $("#newLineBeforeNum").prop("disabled", true);
+    $('#newLineBeforeNum').prop('disabled', true);
   }
 
-  newLineBeforeNum = mailOptions["newLineBeforeNum"];
-  $("#newLineBeforeNum").val(newLineBeforeNum);
+  const [newLineBeforeNum] = mailOptions;
+  $('#newLineBeforeNum').val(newLineBeforeNum);
 
   toggle_newWindow_chbox();
 }
 
-// use the saved values for the form 
-function showHide_options() {
+// use the saved values for the form
+function showHideOptions() {
   // get saved values 
   var mailOptions = new Array();
   var mailOptionsLength = localStorage['mailOptionsLength'];
