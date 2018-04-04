@@ -1,3 +1,5 @@
 Thumbs.db
 node_modules/
 babel_lib/
+build/
+build_dev/

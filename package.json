@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "babel": "babel src -d babel_lib",
-    "uglifyjs": "uglifyjs-folder babel_lib -eo lib"
+    "uglifyjs": "uglifyjs-folder babel_lib -eo lib",
+    "grunt watch": "grunt watch"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -17,6 +18,8 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
     "grunt": "^1.0.2",
+    "grunt-babel": "^7.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-eslint": "^20.1.0",
     "uglifyjs-folder": "^1.5.0"
   },

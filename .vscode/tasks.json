@@ -17,6 +17,21 @@
             "type": "grunt",
             "task": "default",
             "problemMatcher": []
+        },
+        {
+            "type": "grunt",
+            "task": "babel",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "grunt watch",
+            "problemMatcher": []
+        },
+        {
+            "type": "grunt",
+            "task": "eslint",
+            "problemMatcher": []
         }
     ]
 }
