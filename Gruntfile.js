@@ -9,9 +9,10 @@ module.exports = function gruntFn(grunt) {
         presets: ['env'],
       },
       build_dev: {
-        files: {
-          'build_dev/functions.js': 'src/functions.js',
-        },
+        expand: true,
+        cwd: 'src/',
+        src: ['**/*.js'],
+        dest: 'build_dev/',
       },
       build: {
         files: {
