@@ -5,7 +5,6 @@ module.exports = function gruntFn(grunt) {
     },
     babel: {
       options: {
-        sourceMap: true,
         presets: ['env'],
       },
       build_dev: {
@@ -24,12 +23,27 @@ module.exports = function gruntFn(grunt) {
       files: ['<%= eslint.src %>'],
       tasks: ['babel'],
     },
+    clean: {
+      build_dev: ['build_dev'],
+      build: ['build'],
+    },
+    copy: {
+      build_dev: {
+        files: [{
+          src: ['src/**/*.html', 'src/**/*.css', 'manifest.json', 'images/stock_mail.png'],
+          dest: 'build_dev/',
+          expand: true,
+        }],
+      },
+    },
   });
 
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['babel:build_dev']);
-  grunt.registerTask('build', ['babel:build']);
+  grunt.registerTask('default', ['clean:build_dev', 'babel:build_dev', 'copy:build_dev']);
+  grunt.registerTask('build', ['clean:build', 'babel:build']);
 };
