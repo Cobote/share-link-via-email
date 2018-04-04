@@ -7,8 +7,6 @@
   "author": "Robin Smith <robin99smith@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "babel": "babel src -d babel_lib",
-    "uglifyjs": "uglifyjs-folder babel_lib -eo lib",
     "grunt watch": "grunt watch"
   },
   "devDependencies": {
