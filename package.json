@@ -16,6 +16,8 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
+    "grunt": "^1.0.2",
+    "grunt-eslint": "^20.1.0",
     "uglifyjs-folder": "^1.5.0"
   },
   "dependencies": {

@@ -12,6 +12,11 @@
             "type": "npm",
             "script": "uglifyjs",
             "problemMatcher": []
+        },
+        {
+            "type": "grunt",
+            "task": "default",
+            "problemMatcher": []
         }
     ]
 }
