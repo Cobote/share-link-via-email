@@ -8,9 +8,14 @@ module.exports = function gruntFn(grunt) {
         sourceMap: true,
         presets: ['env'],
       },
-      dist: {
+      build_dev: {
         files: {
           'build_dev/functions.js': 'src/functions.js',
+        },
+      },
+      build: {
+        files: {
+          'build/functions.js': 'src/functions.js',
         },
       },
     },
@@ -24,5 +29,6 @@ module.exports = function gruntFn(grunt) {
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['babel']);
+  grunt.registerTask('default', ['babel:build_dev']);
+  grunt.registerTask('build', ['babel:build']);
 };
