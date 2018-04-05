@@ -14,11 +14,6 @@
             "problemMatcher": []
         },
         {
-            "type": "npm",
-            "script": "grunt watch",
-            "problemMatcher": []
-        },
-        {
             "type": "grunt",
             "task": "eslint",
             "problemMatcher": []
@@ -34,6 +29,11 @@
         {
             "type": "grunt",
             "task": "copy",
+            "problemMatcher": []
+        },
+        {
+            "type": "grunt",
+            "task": "watch",
             "problemMatcher": []
         }
     ]

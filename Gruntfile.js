@@ -20,8 +20,8 @@ module.exports = function gruntFn(grunt) {
       },
     },
     watch: {
-      files: ['<%= eslint.src %>'],
-      tasks: ['babel'],
+      files: ['src/**/*.*'],
+      tasks: ['clean:build_dev', 'babel:build_dev', 'copy:build_dev'],
     },
     clean: {
       build_dev: ['build_dev'],
@@ -35,7 +35,7 @@ module.exports = function gruntFn(grunt) {
           dest: 'build_dev/',
           expand: true,
         }, {
-          src: ['manifest.json', 'images/stock_mail.png'],
+          src: ['manifest.json', 'images/stock_mail.png', 'lib/**/*.js'],
           dest: 'build_dev/',
           expand: true,
         }],

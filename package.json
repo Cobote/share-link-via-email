@@ -6,9 +6,6 @@
   "repository": "https://github.com/Cobote/share-link-via-email.git",
   "author": "Robin Smith <robin99smith@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "grunt watch": "grunt watch"
-  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
