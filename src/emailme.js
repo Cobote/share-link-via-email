@@ -1,33 +1,34 @@
 // Creates each of the links to be used by each type of Email client
-localStorage['mailOptionsLength'] = 6;
+localStorage.mailOptionsLength = 6;
 
 // check for first run
-var firstRun = (localStorage['firstRun'] === 'true');
+let firstRun = (localStorage.firstRun === 'true');
 // now save that first run has started
 if (!firstRun) {
-  localStorage['firstRun'] = 'true';
-}  
-// check if any settings have been saved
-if (!firstRun) { 
-    var mailOptionsLength = localStorage['mailOptionsLength'];
-    for (var i = 0; i <= mailOptionsLength; i++) {
-       if (localStorage["mail_picker_"+i] === 'true' || localStorage["mail_picker_"+i] === 'false' ) {
-           firstRun = 'true';
-           console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"'] as "+ localStorage["mail_picker_"+i]);
-           break;
-       }
-    }
+  localStorage.firstRun = 'true';
 }
-console.log("False if first time: " + firstRun);
+// check if any settings have been saved
+if (!firstRun) {
+  const [mailOptionsLength] = localStorage;
+  let i;
+
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    if (localStorage[`mail_picker_${i}`] === 'true' || localStorage[`mail_picker_${i}`] === 'false') {
+      firstRun = 'true';
+      // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"'] as "+ localStorage["mail_picker_"+i]);
+      break;
+    }
+  }
+}
+// console.log("False if first time: " + firstRun);
 // run actions if first run & no settings saved
 if (!firstRun) {
   // Set all options to default
   save_default_options();
-} 
+}
 
 // Get stored options
-mailOptions = new Array();
-mailOptions = getOptions();
+const mailOptions = getOptions();
 
 
 var favoriteMailto = mailOptions["mail_picker_1"];
@@ -122,8 +123,8 @@ function emailLink(info, tab) {
     var newLineChar = '%0A';
     var newWindow = newWindowMailto;
     var mailTo = toEmailAdd;
-    
-    mailsrvr = 'mailto:' + mailTo + '?Subject=';    
+
+    mailsrvr = 'mailto:' + mailTo + '?Subject=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
@@ -133,7 +134,7 @@ function gmailLink(info, tab) {
     var newLineChar = '%0A';
     var newWindow = newWindowGmail;
     var mailTo = toEmailAdd;
-    
+
     mailsrvr = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&to=' + mailTo + '&su=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
@@ -144,7 +145,7 @@ function hotmailLink(info, tab) {
     var newLineChar = '%0A';
     var newWindow = newWindowHotmail;
     var mailTo = toEmailAdd;
-    
+
     // mailsrvr = 'http://mail.live.com/?rru=compose&to=' + mailTo + '&subject=';
     mailsrvr = 'https://outlook.live.com/owa/?path=/mail/action/compose&to=' + mailTo + '&subject=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
@@ -156,7 +157,7 @@ function ymailLink(info, tab) {
     var newLineChar = '%0A';
     var newWindow = newWindowYmail;
     var mailTo = toEmailAdd;
-    
+
     mailsrvr = 'http://compose.mail.yahoo.com?to=' + mailTo + '&subject=';
     //mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
@@ -168,7 +169,7 @@ function aolLink(info, tab) {
     var newLineChar = '%20'; //using space
     var newWindow = newWindowAOL;
     var mailTo = toEmailAdd;
-    
+
     mailsrvr = 'https://mail.aol.com/mail/ComposeMessage.aspx?to=' + mailTo + '&subject=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
@@ -179,7 +180,7 @@ function inboxLink(info, tab) {
     var newLineChar = '%0A';
     var newWindow = newWindowInbox;
     var mailTo = toEmailAdd;
-	
+
 	mailsrvr = 'https://inbox.google.com/u/0/?to=' + mailTo + '&subject=';
     createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }

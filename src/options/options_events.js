@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	for (var i = 1; i <= mailOptionsLength; i++) {
 		$('#new_window_' + i).change(new_window_clickHandler);
 	}
-    
+
     // stop normal form submission
     $( "form" ).submit(function( event ) {
 	  event.preventDefault();
