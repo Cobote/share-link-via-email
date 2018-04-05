@@ -124,68 +124,62 @@ function getTitle(info, tab) {
 
 // create a new email
 function emailLink(info, tab) {
-  let mailsrvr = '';
   const newLineChar = '%0A';
   const newWindow = newWindowMailto;
   const mailTo = toEmailAdd;
 
-  mailsrvr = `mailto:${mailTo}?Subject=`;
+  const mailsrvr = `mailto:${mailTo}?Subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
 // create a new Gmail
 function gmailLink(info, tab) {
-  let mailsrvr = '';
   const newLineChar = '%0A';
   const newWindow = newWindowGmail;
   const mailTo = toEmailAdd;
 
-  mailsrvr = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&to=${mailTo}&su=`;
+  const mailsrvr = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&=1&to=${mailTo}&su=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
 // create a new hotmail
 function hotmailLink(info, tab) {
-  let mailsrvr = '';
   const newLineChar = '%0A';
   const newWindow = newWindowHotmail;
   const mailTo = toEmailAdd;
 
   // mailsrvr = 'http://mail.live.com/?rru=compose&to=' + mailTo + '&subject=';
-  mailsrvr = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${mailTo}&subject=`;
+  const mailsrvr = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
 // create a new ymail
 function ymailLink(info, tab) {
-  let mailsrvr = '';
   const newLineChar = '%0A';
   const newWindow = newWindowYmail;
   const mailTo = toEmailAdd;
 
-  mailsrvr = `http://compose.mail.yahoo.com?to=${mailTo}&subject=`;
+  const mailsrvr = `http://compose.mail.yahoo.com?to=${mailTo}&subject=`;
   // mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
 // create a new AOL mail
 function aolLink(info, tab) {
-  let mailsrvr = '';
   const newLineChar = '%20'; // using space
   const newWindow = newWindowAOL;
   const mailTo = toEmailAdd;
 
-  mailsrvr = `https://mail.aol.com/mail/ComposeMessage.aspx?to=${mailTo}&subject=`;
+  const mailsrvr = `https://mail.aol.com/mail/ComposeMessage.aspx?to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
 // create a new Inbox
 function inboxLink(info, tab) {
-  let mailsrvr = '';
   const newLineChar = '%0A';
   const newWindow = newWindowInbox;
   const mailTo = toEmailAdd;
 
-  mailsrvr = `https://inbox.google.com/u/0/?to=${mailTo}&subject=`;
+  const mailsrvr = `https://inbox.google.com/u/0/?to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
