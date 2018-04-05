@@ -30,7 +30,12 @@ module.exports = function gruntFn(grunt) {
     copy: {
       build_dev: {
         files: [{
-          src: ['src/**/*.html', 'src/**/*.css', 'manifest.json', 'images/stock_mail.png'],
+          cwd: 'src/',
+          src: ['**/*.html', '**/*.css'],
+          dest: 'build_dev/',
+          expand: true,
+        }, {
+          src: ['manifest.json', 'images/stock_mail.png'],
           dest: 'build_dev/',
           expand: true,
         }],
