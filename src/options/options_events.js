@@ -1,31 +1,34 @@
 // functions used by the "Options" page of the extension
 
-function btn_save_clickHandler(e) {
-	var isInvalid = validate_body_options();
-	if (!isInvalid) {
-		save_body_options();
-	}
-    save_sender_options();
-}
-function newLineAfter_clickHandler(e) {
-    var optionDisable = $("#newLineAfterNum");
-    if (!optionDisable.prop("disabled")) {
-    	optionDisable.prop("disabled", "disabled");
-    } else {
-    	optionDisable.prop("disabled", false);
-    }
+function btnSaveClickHandler() {
+  const isInvalid = validate_body_options();
 
-    getPreview();
+  if (!isInvalid) {
+    save_body_options();
+  }
+  save_sender_options();
 }
-function newLineBefore_clickHandler(e) {
-    var optionDisable = $("#newLineBeforeNum");
-    if (!optionDisable.prop("disabled")) {
-    	optionDisable.prop("disabled", "disabled");
-    } else {
-    	optionDisable.prop("disabled", false);
-    }
+function newLineAfterClickHandler() {
+  const optionDisable = $('#newLineAfterNum');
 
-    getPreview();
+  if (!optionDisable.prop('disabled')) {
+    optionDisable.prop('disabled', 'disabled');
+  } else {
+    optionDisable.prop('disabled', false);
+  }
+
+  getPreview();
+}
+function newLineBeforeClickHandler() {
+  const optionDisable = $('#newLineBeforeNum');
+
+  if (!optionDisable.prop('disabled')) {
+    optionDisable.prop('disabled', 'disabled');
+  } else {
+    optionDisable.prop('disabled', false);
+  }
+
+  getPreview();
 }
 function btn_reset_clickHandler(e) {
     restore_options();
