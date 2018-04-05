@@ -1,3 +1,4 @@
+/* global chrome */
 // Common functions used by the extension
 
 // Restores saved values from localStorage.
@@ -159,8 +160,8 @@ function showHideOptions() {
 
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    mailtype = mailOptions["mail_picker_" + i];
-    select = $("#mail_picker_" + i);
+    mailtype = mailOptions[`mail_picker_${i}`];
+    select = $(`#mail_picker_${i}`);
     if (mailtype !== 'true') {
       select.hide();
     }
@@ -169,19 +170,20 @@ function showHideOptions() {
 
 // Count how many mail options are enabled
 function getOptionsShownCount() {
-  // get saved values 
-  var mailOptions = new Array();
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var select, mailtype, optionsShownCount;
+  // get saved values
+  const mailOptions = getOptions();
+  const [mailOptionsLength] = localStorage;
+  let mailtype;
+  let optionsShownCount;
+  let i;
 
-  mailOptions = getOptions();
   optionsShownCount = 0;
 
   // Hide options not selected
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    mailtype = mailOptions["mail_picker_" + i];
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    mailtype = mailOptions[`mail_picker_${i}`];
     if (mailtype === 'true') {
-      optionsShownCount = optionsShownCount + 1;
+      optionsShownCount += 1;
     }
   }
 
@@ -190,16 +192,16 @@ function getOptionsShownCount() {
 
 // Get the currently enabled mail option
 function getSingleOptionInt() {
-  // get saved values 
-  var mailOptions = new Array();
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var select, mailtype, optionInt;
-
-  mailOptions = getOptions();
+  // get saved values
+  const mailOptions = getOptions();
+  const [mailOptionsLength] = localStorage;
+  let mailtype;
+  let optionInt;
+  let i;
 
   // Hide options not selected
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    mailtype = mailOptions["mail_picker_" + i];
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    mailtype = mailOptions[`mail_picker_${i}`];
     if (mailtype === 'true') {
       optionInt = i;
     }
@@ -208,118 +210,121 @@ function getSingleOptionInt() {
   return optionInt;
 }
 
-//Saves options to localStorage.
+// Saves options to localStorage.
 // only email body section
-function save_body_options() {
-  var mail_to, mail_before, mail_after, newLineAfter, newLineBefore, newLineBeforeNum, status;
+function saveBodyOptions() {
+  const mailTo = $('#mail_to').val();
+  localStorage.mail_to = mailTo;
 
-  mail_to = $("#mail_to").val();
-  localStorage["mail_to"] = mail_to;
+  const mailBefore = $('#mail_before').val();
+  localStorage.mail_before = mailBefore;
 
-  mail_before = $("#mail_before").val();
-  localStorage["mail_before"] = mail_before;
+  const mailAfter = $('#mail_after').val();
+  localStorage.mail_after = mailAfter;
 
-  mail_after = $("#mail_after").val();
-  localStorage["mail_after"] = mail_after;
+  const newLineAfter = $('#newLineAfter').prop('checked');
+  localStorage.newLineAfter = newLineAfter;
 
-  newLineAfter = $("#newLineAfter").prop("checked");
-  localStorage["newLineAfter"] = newLineAfter;
+  const newLineAfterNum = $('#newLineAfterNum').val();
+  localStorage.newLineAfterNum = newLineAfterNum;
 
-  newLineAfterNum = $("#newLineAfterNum").val();
-  localStorage["newLineAfterNum"] = newLineAfterNum;
+  const newLineBefore = $('#newLineBefore').prop('checked');
+  localStorage.newLineBefore = newLineBefore;
 
-  newLineBefore = $("#newLineBefore").prop("checked");
-  localStorage["newLineBefore"] = newLineBefore;
-
-  newLineBeforeNum = $("#newLineBeforeNum").val();
-  localStorage["newLineBeforeNum"] = newLineBeforeNum;
+  const newLineBeforeNum = $('#newLineBeforeNum').val();
+  localStorage.newLineBeforeNum = newLineBeforeNum;
 
   // Update status to let user know options were saved.
-  status = $("#status");
-  statusCss = "alert alert-success text-center";
-  status.html("<strong>Email body settings saved</strong>");
+  const status = $('#status');
+  const statusCss = 'alert alert-success text-center';
+  status.html('<strong>Email body settings saved</strong>');
   status.parent().addClass(statusCss);
   status.parent().hide();
   status.parent().slideToggle();
-  setTimeout(function () {
-    status.parent().slideToggle(function () {
-      status.html("");
+  setTimeout(() => {
+    status.parent().slideToggle(() => {
+      status.html('');
       status.parent().removeClass(statusCss);
     });
   }, 3000);
 
-  //reload context menu with new settings
+  // reload context menu with new settings
   chrome.contextMenus.removeAll();
   chrome.extension.getBackgroundPage().window.location.reload();
 }
 
-//Saves options to localStorage.
+// Saves options to localStorage.
 // only email sender selection
-function save_sender_options() {
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var child;
+function saveSenderOptions() {
+  const [mailOptionsLength] = localStorage;
+  let child;
+  let i;
 
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    child = $("#mail_picker_" + i);
-    localStorage["mail_picker_" + i] = child.prop("checked");
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    child = $(`#mail_picker_${i}`);
+    localStorage[`mail_picker_${i}`] = child.prop('checked');
   }
 
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    child = $("#new_window_" + i);
-    localStorage["new_window_" + i] = child.prop("checked");
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    child = $(`#new_window_${i}`);
+    localStorage[`new_window_${i}`] = child.prop('checked');
   }
 
   toggle_newWindow_chbox();
 
   // Update status to let user know options were saved.
 
-  //reload context menu with new settings
+  // reload context menu with new settings
   chrome.contextMenus.removeAll();
   chrome.extension.getBackgroundPage().window.location.reload();
 }
 
 // select/clear all toggle
 function changeAll(checkbox, element) {
-  var mailOptionsLength = localStorage['mailOptionsLength'];
+  const [mailOptionsLength] = localStorage;
+  let i;
 
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    if ($(checkbox).prop("checked")) {
-      $("#" + element + "_" + i).prop("checked", true);
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    if ($(checkbox).prop('checked')) {
+      $(`#${element}_${i}`).prop('checked', true);
     } else {
-      $("#" + element + "_" + i).prop("checked", false);
+      $(`#${element}_${i}`).prop('checked', false);
     }
   }
 }
 
 // select/clear all checker
 function changeCheck(element) {
-  var changeChecker = true;
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var select;
+  let changeChecker = true;
+  const [mailOptionsLength] = localStorage;
+  let select;
+  let i;
 
-  for (var i = 1; i <= mailOptionsLength; i++) {
-    select = $("#" + element + "_" + i);
-    if (!select.prop("checked")) {
+  for (i = 1; i <= mailOptionsLength; i += 1) {
+    select = $(`#${element}_${i}`);
+    if (!select.prop('checked')) {
       changeChecker = false;
     }
   }
 
   // set All check value
-  select = $("#" + element + "_0");
-  select.prop("checked", changeChecker);
+  select = $(`#${element}_0`);
+  select.prop('checked', changeChecker);
 }
 
 function addNewLines(linesEnabled, lineCount, breakChar) {
   // add new lines
-  var lineString = "";
+  let lineString = '';
+  let i;
+
   if ((linesEnabled !== false && linesEnabled !== 'false') && lineCount >= 1) {
-    for (var i = 0; i < lineCount; i++) {
-      lineString = lineString + breakChar;
-      //lineString = lineString + "<br/>";
-      //varName = varName + '%0A';
+    for (i = 0; i < lineCount; i += 1) {
+      lineString += breakChar;
+      // lineString = lineString + "<br/>";
+      // varName = varName + '%0A';
     }
   } else {
-    lineString = "";
+    lineString = '';
   }
 
   return lineString;
@@ -328,27 +333,26 @@ function addNewLines(linesEnabled, lineCount, breakChar) {
 // update preview
 function getPreview() {
   // update preview text
-  var preview = $("#previewText");
-  var startMessage = $("#mail_before").val();
-  var endMessage = $("#mail_after").val();
-  var newLineAfter = $("#newLineAfter").prop("checked");
-  var newLineAfterNum = $("#newLineAfterNum").val();
-  var newLineBefore = $("#newLineBefore").prop("checked");
-  var newLineBeforeNum = $("#newLineBeforeNum").val();
+  const preview = $('#previewText');
+  let startMessage = $('#mail_before').val();
+  let endMessage = $('#mail_after').val();
+  const newLineAfter = $('#newLineAfter').prop('checked');
+  const newLineAfterNum = $('#newLineAfterNum').val();
+  const newLineBefore = $('#newLineBefore').prop('checked');
+  const newLineBeforeNum = $('#newLineBeforeNum').val();
 
-  var previewText = "";
-  var exampleAddress = "http://www.google.com";
-  var newLineAfterBody, newLineBeforeBody;
+  let previewText = '';
+  const exampleAddress = 'http://www.google.com';
 
   // get new line string
-  newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, "<br/>");
-  newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, "<br/>");
+  const newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, '<br/>');
+  const newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, '<br/>');
 
-  if (startMessage !== "" && newLineAfterBody === "") {
-    startMessage = startMessage + " ";
+  if (startMessage !== '' && newLineAfterBody === '') {
+    startMessage += ' ';
   }
-  if (endMessage !== "" && newLineBeforeBody === "") {
-    endMessage = " " + endMessage;
+  if (endMessage !== '' && newLineBeforeBody === '') {
+    endMessage = ` ${endMessage}`;
   }
 
   // set preview text
@@ -359,56 +363,59 @@ function getPreview() {
 }
 
 // Create email page option for each context type.
-function createContext(contextName, onc_link) {
-  var contexts = ["page", "link", "selection"];
-  var context;
-  var title;
-  var id;
+function createContext(contextName, oncLink) {
+  const contexts = ['page', 'link', 'selection'];
+  let context;
+  let title;
+  let i;
 
-  for (var i = 0; i < contexts.length; i++) {
+  for (i = 0; i < contexts.length; i += 1) {
     context = contexts[i];
-    title = "Send " + context + " via " + contextName;
-    id = chrome.contextMenus.create({
-      "title": title, "contexts": [context],
-      "onclick": onc_link
+    title = `Send ${context} via ${contextName}`;
+    chrome.contextMenus.create({
+      title,
+      contexts: [context],
+      onclick: oncLink,
     });
-    // console.log("added '" + context + "' for " + contextName + " as item:" + id);
+    // console.log("added '" + context + "' for " + contextName);
   }
 }
 
-function save_default_options() {
-  localStorage["mail_before"] = "";
-  localStorage["mail_after"] = "";
-  localStorage["mail_to"] = "";
-  localStorage["newLineAfter"] = false;
-  localStorage["newLineAfterNum"] = 1;
-  localStorage["newLineBefore"] = false;
-  localStorage["newLineBeforeNum"] = 1;
+function saveDefaultOptions() {
+  let i;
 
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    localStorage["mail_picker_" + i] = true;
+  localStorage.mail_before = '';
+  localStorage.mail_after = '';
+  localStorage.mail_to = '';
+  localStorage.newLineAfter = false;
+  localStorage.newLineAfterNum = 1;
+  localStorage.newLineBefore = false;
+  localStorage.newLineBeforeNum = 1;
+
+  const [mailOptionsLength] = localStorage;
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    localStorage[`mail_picker_${i}`] = true;
   }
-  for (var i = 0; i <= mailOptionsLength; i++) {
-    localStorage["new_window_" + i] = false;
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    localStorage[`new_window_${i}`] = false;
   }
 }
 
 function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
-  var emailBody = "";
-  var urlString = "";
-  var pageUrl = getLink(info, tab);
-  var pageTitle = getTitle(info, tab);
+  let emailBody = '';
+  let urlString = '';
+  // const pageUrl = getLink(info, tab);
+  let pageTitle = getTitle(info, tab);
 
-  pageUrl = encodeURIComponent(pageUrl);
+  // pageUrl = encodeURIComponent(pageUrl);
   pageTitle = encodeURIComponent(pageTitle);
 
   emailBody = createEmailMessage(info, tab, mailsrvr, newLineChar);
 
-  urlString = mailsrvr + pageTitle + '&body=' + emailBody;
+  urlString = `${mailsrvr}${pageTitle}&body=${emailBody}`;
 
   // open link in new tab
-  //window.open(mailsrvr+pageTitle+'&body='+emailBody); // JS method
+  // window.open(mailsrvr+pageTitle+'&body='+emailBody); // JS method
   if (newWindow === 'true') {
     chrome.tabs.create({ url: urlString }); // chrome api method - new tab
   } else {
@@ -423,24 +430,24 @@ function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
 }
 
 function createEmailMessage(info, tab, mailsrvr, newLineChar) {
-  var pageUrl = getLink(info, tab);
-  var pageTitle = getTitle(info, tab);
-  var newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, newLineChar);
-  var newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, newLineChar);
-  var emailBody = '';
-  var beforeMsgEncoded = beforeMsg;
-  var afterMsgEncoded = afterMsg;
+  let pageUrl = getLink(info, tab);
+  // const pageTitle = getTitle(info, tab);
+  const newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, newLineChar);
+  const newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, newLineChar);
+  let emailBody = '';
+  let beforeMsgEncoded = beforeMsg;
+  let afterMsgEncoded = afterMsg;
 
   pageUrl = encodeURIComponent(pageUrl);
-  pageTitle = encodeURIComponent(pageTitle);
+  // pageTitle = encodeURIComponent(pageTitle);
 
-  if (beforeMsgEncoded !== "" && newLineAfterBody === "") {
-    beforeMsgEncoded = beforeMsgEncoded + " ";
+  if (beforeMsgEncoded !== '' && newLineAfterBody === '') {
+    beforeMsgEncoded += ' ';
   }
   beforeMsgEncoded = encodeURIComponent(beforeMsgEncoded);
 
-  if (afterMsgEncoded !== "" && newLineBeforeBody === "") {
-    afterMsgEncoded = " " + afterMsgEncoded;
+  if (afterMsgEncoded !== '' && newLineBeforeBody === '') {
+    afterMsgEncoded = ` ${afterMsgEncoded}`;
   }
   afterMsgEncoded = encodeURIComponent(afterMsgEncoded);
 
@@ -449,30 +456,30 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   return emailBody;
 }
 
-//only email body section
-function validate_body_options() {
-  var errorFound = false;
-  var currentItem;
+// only email body section
+function validateBodyOptions() {
+  let errorFound = false;
+  let currentItem;
 
-  if ($("#newLineAfter").prop("checked")) {
-    currentItem = $("#newLineAfterNum");
+  if ($('#newLineAfter').prop('checked')) {
+    currentItem = $('#newLineAfterNum');
     if (currentItem.val() < 0) {
-      //alert("New line before URL needs to be 0 or higher");
+      // alert("New line before URL needs to be 0 or higher");
       errorFound = true;
     }
-    if ((isNaN(currentItem.val()) || currentItem.val() === "")) {
-      //alert("New line before URL is not a number");
+    if ((Number.isNaN(currentItem.val()) || currentItem.val() === '')) {
+      // alert("New line before URL is not a number");
       errorFound = true;
     }
   }
-  if ($("#newLineBefore").prop("checked")) {
-    currentItem = $("#newLineBeforeNum");
+  if ($('#newLineBefore').prop('checked')) {
+    currentItem = $('#newLineBeforeNum');
     if (currentItem.val() < 0) {
-      //alert("New line after URL needs to be 0 or higher");
+      // alert("New line after URL needs to be 0 or higher");
       errorFound = true;
     }
-    if ((isNaN(currentItem.val()) || currentItem.val() === "")) {
-      //alert("New line after URL is not a number");
+    if ((Number.isNaN(currentItem.val()) || currentItem.val() === '')) {
+      // alert("New line after URL is not a number");
       errorFound = true;
     }
   }
@@ -480,28 +487,29 @@ function validate_body_options() {
   return errorFound;
 }
 
-//toggle new window checkbox when mail sender is unchecked
-function toggle_newWindow_chbox() {
-  var mailOptionsLength = localStorage['mailOptionsLength'];
-  var child;
+// toggle new window checkbox when mail sender is unchecked
+function toggleNewWindowChbox() {
+  const [mailOptionsLength] = localStorage;
+  let child;
+  let i;
 
-  for (var i = 1; i <= mailOptionsLength; i++) {
-    child = localStorage["mail_picker_" + i];
+  for (i = 1; i <= mailOptionsLength; i += 1) {
+    child = localStorage[`mail_picker_${i}`];
     if (child === 'false') {
-      $("#new_window_" + i).prop("disabled", true);
+      $(`#new_window_ ${i}`).prop('disabled', true);
     } else {
-      $("#new_window_" + i).prop("disabled", false);
+      $(`#new_window_${i}`).prop('disabled', false);
     }
   }
 }
 
 // handle email link
-function open_email_handler(mail_picker_int) {
-  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-    var tab = tabs[0];
-    var info = "";
+function openEmailHandler(mailPickerInt) {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+    const tab = tabs[0];
+    const info = '';
 
-    switch (mail_picker_int) {
+    switch (mailPickerInt) {
       case 1:
         emailLink(info, tab);
         break;
@@ -519,6 +527,8 @@ function open_email_handler(mail_picker_int) {
         break;
       case 4:
         ymailLink(info, tab);
+        break;
+      default:
         break;
     }
   });
