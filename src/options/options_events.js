@@ -87,3 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('optionsForm');
   form.onsubmit = () => false;
 });
+
+export const btnSaveClickHandlerFn = btnSaveClickHandler;
+export const newLineAfterClickHandlerFn = newLineAfterClickHandler;
+export const newLineBeforeClickHandlerFn = newLineBeforeClickHandler;
+export const btnResetClickHandlerFn = btnResetClickHandler;
+export const mailPicker0ClickHandlerFn = mailPicker0ClickHandler;
