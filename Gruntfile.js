@@ -5,6 +5,7 @@ module.exports = function gruntFn(grunt) {
     },
     babel: {
       options: {
+        sourceMap: true,
         presets: ['env'],
       },
       build_dev: {
