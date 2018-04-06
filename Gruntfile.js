@@ -38,6 +38,11 @@ module.exports = function gruntFn(grunt) {
           src: ['manifest.json', 'images/stock_mail.png', 'lib/**/*.js'],
           dest: 'build_dev/',
           expand: true,
+        }, {
+          src: ['node_modules/bootstrap/dist/css/bootstrap.min.css'],
+          dest: 'build_dev/lib',
+          expand: true,
+          flatten: true,
         }],
       },
     },
