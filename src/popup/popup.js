@@ -1,6 +1,8 @@
 /* global chrome */
 // functions used by the "popup" page of the extension
 
+import './popup.css';
+
 function openOptionsPage() {
   chrome.runtime.openOptionsPage();
 }

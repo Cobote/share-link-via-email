@@ -35,6 +35,11 @@
             "type": "grunt",
             "task": "watch",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "problemMatcher": []
         }
     ]
 }

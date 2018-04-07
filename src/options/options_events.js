@@ -1,5 +1,7 @@
 // functions used by the "Options" page of the extension
 
+import './options.css';
+
 function btnSaveClickHandler() {
   const isInvalid = validate_body_options();
 

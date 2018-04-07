@@ -1,4 +1,7 @@
 /* global chrome */
+
+import '../images/stock_mail.png';
+
 // Creates each of the links to be used by each type of Email client
 localStorage.mailOptionsLength = 6;
 
