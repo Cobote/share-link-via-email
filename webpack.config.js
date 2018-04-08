@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     emailme: './src/emailme.js',
-    options: './src/options/options_events.js',
+    options_events: './src/options/options_events.js',
     popup: './src/popup/popup.js',
   },
   output: {
@@ -35,7 +35,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['build_dev']),
     new HtmlWebpackPlugin({
-      title: 'Output Management',
+      chunks: ['options_events'],
+      template: 'src/options/options.html',
+      filename: 'options.html',
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ['popup'],
+      template: 'src/popup/popup.html',
+      filename: 'popup.html',
     }),
     new CopyWebpackPlugin([
       { from: 'manifest.json' },
