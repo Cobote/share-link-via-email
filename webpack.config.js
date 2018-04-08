@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -33,6 +34,9 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['build_dev']),
+    new HtmlWebpackPlugin({
+      title: 'Output Management',
+    }),
     new CopyWebpackPlugin([
       { from: 'manifest.json' },
     ]),
