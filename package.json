@@ -7,7 +7,8 @@
   "author": "Robin Smith <robin99smith@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --config webpack.config.js"
+    "start": "webpack --config webpack.config.js",
+    "watch": "webpack --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
