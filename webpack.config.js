@@ -2,6 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -10,17 +11,17 @@ module.exports = {
     popup: './src/popup/popup.js',
   },
   output: {
-    filename: '[name].js',
+    filename: 'js/[name].js',
     path: path.resolve(__dirname, 'build_dev'),
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       }, {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
@@ -34,6 +35,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['build_dev']),
+    new ExtractTextPlugin('css/[name].css'),
     new HtmlWebpackPlugin({
       chunks: ['options_events'],
       template: 'src/options/options.html',

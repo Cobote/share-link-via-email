@@ -1,6 +1,4 @@
 Thumbs.db
 node_modules/
-babel_lib/
 build/
 build_dev/
-build_dev_copy/
