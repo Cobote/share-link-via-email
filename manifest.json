@@ -18,13 +18,12 @@
       "19": "images/stock_mail.png",
       "38": "images/stock_mail.png"
     },
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup.html"
   },
-  "options_page": "options/options.html",
+  "options_page": "options.html",
   "background": {
     "scripts": [
-        "functions.js",
-        "emailme.js"
+        "js/emailme.js"
     ]
   }
 }

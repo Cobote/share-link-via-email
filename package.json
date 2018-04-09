@@ -9,7 +9,7 @@
   "scripts": {
     "build_dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "watch": "webpack --watch"
+    "watch": "webpack --config webpack.dev.js --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

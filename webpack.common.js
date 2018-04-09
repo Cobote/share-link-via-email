@@ -1,5 +1,4 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -32,7 +31,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['build_dev']),
     new ExtractTextPlugin('css/[name].css'),
     new HtmlWebpackPlugin({
       chunks: ['options_events'],
