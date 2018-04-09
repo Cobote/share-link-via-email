@@ -26,7 +26,7 @@ function mailPickerClickHandler() {
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
 document.addEventListener('DOMContentLoaded', () => {
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let i;
   // on load events
   showHide_options();

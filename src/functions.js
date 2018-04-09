@@ -5,7 +5,7 @@
 // if none saved, use default values
 function getOptions() {
   const mailOptions = [];
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let i;
 
   // Restores each mail type
@@ -85,7 +85,7 @@ function getOptions() {
 function restoreOptions() {
   // get saved values
   let mailOptions = [];
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let select;
   let mailtype;
   let i;
@@ -151,7 +151,7 @@ function restoreOptions() {
 // use the saved values for the form
 function showHideOptions() {
   // get saved values
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let select;
   let mailtype;
   let i;
@@ -172,7 +172,7 @@ function showHideOptions() {
 function getOptionsShownCount() {
   // get saved values
   const mailOptions = getOptions();
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let mailtype;
   let optionsShownCount;
   let i;
@@ -194,7 +194,7 @@ function getOptionsShownCount() {
 function getSingleOptionInt() {
   // get saved values
   const mailOptions = getOptions();
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let mailtype;
   let optionInt;
   let i;
@@ -256,7 +256,7 @@ function saveBodyOptions() {
 // Saves options to localStorage.
 // only email sender selection
 function saveSenderOptions() {
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let child;
   let i;
 
@@ -281,7 +281,7 @@ function saveSenderOptions() {
 
 // select/clear all toggle
 function changeAll(checkbox, element) {
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
@@ -296,7 +296,7 @@ function changeAll(checkbox, element) {
 // select/clear all checker
 function changeCheck(element) {
   let changeChecker = true;
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let select;
   let i;
 
@@ -392,7 +392,7 @@ function saveDefaultOptions() {
   localStorage.newLineBefore = false;
   localStorage.newLineBeforeNum = 1;
 
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   for (i = 0; i <= mailOptionsLength; i += 1) {
     localStorage[`mail_picker_${i}`] = true;
   }
@@ -489,7 +489,7 @@ function validateBodyOptions() {
 
 // toggle new window checkbox when mail sender is unchecked
 function toggleNewWindowChbox() {
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let child;
   let i;
 
@@ -533,3 +533,7 @@ function openEmailHandler(mailPickerInt) {
     }
   });
 }
+
+export const restoreOptionsFn = restoreOptions;
+export const showHideOptionsFn = showHideOptions;
+export const getPreviewFn = getPreview;

@@ -2,6 +2,7 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './options.css';
+import { restoreOptionsFn } from '../functions';
 
 function btnSaveClickHandler() {
   const isInvalid = validate_body_options();
@@ -58,11 +59,11 @@ function newWindowClickHandler() {
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
 document.addEventListener('DOMContentLoaded', () => {
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let i;
 
   // on load events
-  restore_options();
+  restoreOptionsFn();
   getPreview();
   // end on load
 
