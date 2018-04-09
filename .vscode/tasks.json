@@ -4,39 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "grunt",
-            "task": "default",
-            "problemMatcher": []
-        },
-        {
-            "type": "grunt",
-            "task": "babel",
-            "problemMatcher": []
-        },
-        {
-            "type": "grunt",
-            "task": "eslint",
-            "problemMatcher": []
-        },
-        {
-            "type": "grunt",
-            "task": "build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "type": "grunt",
-            "task": "copy",
-            "problemMatcher": []
-        },
-        {
-            "type": "grunt",
-            "task": "watch",
-            "problemMatcher": []
-        },
-        {
             "type": "npm",
             "script": "start",
             "problemMatcher": []
