@@ -1,5 +1,6 @@
 // functions used by the "Options" page of the extension
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './options.css';
 
 function btnSaveClickHandler() {
