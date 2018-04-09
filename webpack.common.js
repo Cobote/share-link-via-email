@@ -1,20 +1,16 @@
-const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
   entry: {
     emailme: './src/emailme.js',
     options_events: './src/options/options_events.js',
     popup: './src/popup/popup.js',
   },
-  devtool: 'inline-source-map',
   output: {
     filename: 'js/[name].js',
-    path: path.resolve(__dirname, 'build_dev'),
   },
   module: {
     rules: [
