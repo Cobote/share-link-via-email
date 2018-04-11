@@ -113,21 +113,21 @@ function restoreOptionsFn() {
   }
 
   const toEmailAdd = mailOptions.mail_to;
-  $('#mail_to').val(toEmailAdd);
+  document.getElementById('mail_to').value = toEmailAdd;
 
   const beforeMsg = mailOptions.mail_before;
-  $('#mail_before').val(beforeMsg);
+  document.getElementById('mail_before').value = beforeMsg;
 
   const afterMsg = mailOptions.mail_after;
-  $('#mail_after').val(afterMsg);
+  document.getElementById('mail_after').value = afterMsg;
 
   const [newLineAfter] = mailOptions;
   select = $('#newLineAfter');
   if (newLineAfter === 'true') {
     select.prop('checked', true);
-    $('#newLineAfterNum').prop('disabled', false);
+    document.getElementById('newLineAfterNum').setAttribute('disabled', '');
   } else {
-    $('#newLineAfterNum').prop('disabled', true);
+    document.getElementById('newLineAfterNum').setAttribute('disabled', 'true');
   }
 
   const [newLineAfterNum] = mailOptions;
