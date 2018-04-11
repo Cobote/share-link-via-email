@@ -1,6 +1,7 @@
 /* global chrome */
 
 import '../images/stock_mail.png';
+import { saveDefaultOptions, getOptions, createEmailTab, createContext, getOptionsShownCount, openEmailHandler, getSingleOptionInt } from './functions';
 
 // Creates each of the links to be used by each type of Email client
 localStorage.mailOptionsLength = 6;
@@ -13,13 +14,14 @@ if (!firstRun) {
 }
 // check if any settings have been saved
 if (!firstRun) {
-  const [mailOptionsLength] = localStorage;
+  const { mailOptionsLength } = localStorage;
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     if (localStorage[`mail_picker_${i}`] === 'true' || localStorage[`mail_picker_${i}`] === 'false') {
       firstRun = 'true';
-      // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"'] as "+ localStorage["mail_picker_"+i]);
+      // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"']
+      // as "+ localStorage["mail_picker_"+i]);
       break;
     }
   }
@@ -28,7 +30,7 @@ if (!firstRun) {
 // run actions if first run & no settings saved
 if (!firstRun) {
   // Set all options to default
-  save_default_options();
+  saveDefaultOptions();
 }
 
 // Get stored options
@@ -51,79 +53,20 @@ const newWindowInbox = mailOptions.new_window_6;
 
 const toEmailAdd = mailOptions.mail_to;
 
-const beforeMsg = mailOptions.mail_before;
+// const beforeMsg = mailOptions.mail_before;
 // console.log("before message: " + beforeMsg);
 
-const afterMsg = mailOptions.mail_after;
+// const afterMsg = mailOptions.mail_after;
 // console.log("after message: " + afterMsg);
 
-const [newLineAfter] = mailOptions;
-const [newLineAfterNum] = mailOptions;
-const [newLineBefore] = mailOptions;
-const [newLineBeforeNum] = mailOptions;
+// const [newLineAfter] = mailOptions;
+// const [newLineAfterNum] = mailOptions;
+// const [newLineBefore] = mailOptions;
+// const [newLineBeforeNum] = mailOptions;
 
-let context;
-let title;
-let id;
-
-// Create email menu option for each context type in this order
-if (favoriteMailto === 'true') {
-  createContext('Email', emailLink);
-}
-if (favoriteAOL === 'true') {
-  createContext('AOL Mail', aolLink);
-}
-if (favoriteGmail === 'true') {
-  createContext('Gmail', gmailLink);
-}
-if (favoriteInbox === 'true') {
-  createContext('Inbox', inboxLink);
-}
-if (favoriteHotmail === 'true') {
-  createContext('Outlook.com', hotmailLink);
-}
-if (favoriteYmail === 'true') {
-  createContext('Yahoo! Mail', ymailLink);
-}
-
-// Check if only one option selected
-if (getOptionsShownCount() === 1) {
-  chrome.browserAction.setPopup({ popup: '' });
-  chrome.browserAction.onClicked.addListener((tab) => {
-    open_email_handler(getSingleOptionInt());
-  });
-} else {
-  chrome.browserAction.setPopup({ popup: 'popup.html'});
-}
-
-// get link
-function getLink(info, tab) {
-  let pageUrl;
-
-  if (info.linkUrl) {
-    // context if link
-    pageUrl = info.linkUrl;
-  } else {
-    pageUrl = tab.url;
-  }
-  // pageUrl = encodeURIComponent(pageUrl);
-  // console.log("page url: " + pageUrl);
-  return pageUrl;
-}
-
-// get title
-function getTitle(info, tab) {
-  let pageTitle;
-
-  if (info.linkUrl) {
-    // context if link
-    pageTitle = '';
-  } else {
-    pageTitle = tab.title;
-  }
-  // console.log("page title: " + pageTitle);
-  return pageTitle;
-}
+// let context;
+// let title;
+// let id;
 
 // create a new email
 function emailLink(info, tab) {
@@ -185,4 +128,34 @@ function inboxLink(info, tab) {
 
   const mailsrvr = `https://inbox.google.com/u/0/?to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
+}
+
+// Create email menu option for each context type in this order
+if (favoriteMailto === 'true') {
+  createContext('Email', emailLink);
+}
+if (favoriteAOL === 'true') {
+  createContext('AOL Mail', aolLink);
+}
+if (favoriteGmail === 'true') {
+  createContext('Gmail', gmailLink);
+}
+if (favoriteInbox === 'true') {
+  createContext('Inbox', inboxLink);
+}
+if (favoriteHotmail === 'true') {
+  createContext('Outlook.com', hotmailLink);
+}
+if (favoriteYmail === 'true') {
+  createContext('Yahoo! Mail', ymailLink);
+}
+
+// Check if only one option selected
+if (getOptionsShownCount() === 1) {
+  chrome.browserAction.setPopup({ popup: '' });
+  chrome.browserAction.onClicked.addListener(() => {
+    openEmailHandler(getSingleOptionInt());
+  });
+} else {
+  chrome.browserAction.setPopup({ popup: 'popup.html' });
 }

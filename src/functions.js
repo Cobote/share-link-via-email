@@ -3,7 +3,7 @@
 
 // Restores saved values from localStorage.
 // if none saved, use default values
-function getOptions() {
+function getOptionsFn() {
   const mailOptions = [];
   const { mailOptionsLength } = localStorage;
   let i;
@@ -82,7 +82,7 @@ function getOptions() {
 }
 
 // use the saved values for the form
-function restoreOptions() {
+function restoreOptionsFn() {
   // get saved values
   let mailOptions = [];
   const { mailOptionsLength } = localStorage;
@@ -90,7 +90,7 @@ function restoreOptions() {
   let mailtype;
   let i;
 
-  mailOptions = getOptions();
+  mailOptions = getOptionsFn();
 
   // Restores check box state
   for (i = 0; i <= mailOptionsLength; i += 1) {
@@ -149,14 +149,14 @@ function restoreOptions() {
 }
 
 // use the saved values for the form
-function showHideOptions() {
+function showHideOptionsFn() {
   // get saved values
   const { mailOptionsLength } = localStorage;
   let select;
   let mailtype;
   let i;
 
-  const mailOptions = getOptions();
+  const mailOptions = getOptionsFn();
 
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
@@ -169,9 +169,9 @@ function showHideOptions() {
 }
 
 // Count how many mail options are enabled
-function getOptionsShownCount() {
+function getOptionsShownCountFn() {
   // get saved values
-  const mailOptions = getOptions();
+  const mailOptions = getOptionsFn();
   const { mailOptionsLength } = localStorage;
   let mailtype;
   let optionsShownCount;
@@ -191,9 +191,9 @@ function getOptionsShownCount() {
 }
 
 // Get the currently enabled mail option
-function getSingleOptionInt() {
+function getSingleOptionIntFn() {
   // get saved values
-  const mailOptions = getOptions();
+  const mailOptions = getOptionsFn();
   const { mailOptionsLength } = localStorage;
   let mailtype;
   let optionInt;
@@ -331,7 +331,7 @@ function addNewLines(linesEnabled, lineCount, breakChar) {
 }
 
 // update preview
-function getPreview() {
+function getPreviewFn() {
   // update preview text
   const preview = $('#previewText');
   let startMessage = $('#mail_before').val();
@@ -363,7 +363,7 @@ function getPreview() {
 }
 
 // Create email page option for each context type.
-function createContext(contextName, oncLink) {
+function createContextFn(contextName, oncLink) {
   const contexts = ['page', 'link', 'selection'];
   let context;
   let title;
@@ -401,7 +401,7 @@ function saveDefaultOptions() {
   }
 }
 
-function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
+function createEmailTabFn(info, tab, mailsrvr, newLineChar, newWindow) {
   let emailBody = '';
   let urlString = '';
   // const pageUrl = getLink(info, tab);
@@ -504,7 +504,7 @@ function toggleNewWindowChbox() {
 }
 
 // handle email link
-function openEmailHandler(mailPickerInt) {
+function openEmailHandlerFn(mailPickerInt) {
   chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
     const tab = tabs[0];
     const info = '';
@@ -534,6 +534,41 @@ function openEmailHandler(mailPickerInt) {
   });
 }
 
-export const restoreOptionsFn = restoreOptions;
-export const showHideOptionsFn = showHideOptions;
-export const getPreviewFn = getPreview;
+// get link
+function getLink(info, tab) {
+  let pageUrl;
+
+  if (info.linkUrl) {
+    // context if link
+    pageUrl = info.linkUrl;
+  } else {
+    pageUrl = tab.url;
+  }
+  // pageUrl = encodeURIComponent(pageUrl);
+  // console.log("page url: " + pageUrl);
+  return pageUrl;
+}
+
+// get title
+function getTitle(info, tab) {
+  let pageTitle;
+
+  if (info.linkUrl) {
+    // context if link
+    pageTitle = '';
+  } else {
+    pageTitle = tab.title;
+  }
+  // console.log("page title: " + pageTitle);
+  return pageTitle;
+}
+
+export const restoreOptions = restoreOptionsFn;
+export const showHideOptions = showHideOptionsFn;
+export const getPreview = getPreviewFn;
+export const getOptions = getOptionsFn;
+export const createEmailTab = createEmailTabFn;
+export const createContext = createContextFn;
+export const getOptionsShownCount = getOptionsShownCountFn;
+export const openEmailHandler = openEmailHandlerFn;
+export const getSingleOptionInt = getSingleOptionIntFn;

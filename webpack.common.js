@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');

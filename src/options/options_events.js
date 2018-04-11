@@ -2,9 +2,9 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './options.css';
-import { restoreOptionsFn } from '../functions';
+import { restoreOptions } from '../functions';
 
-function btnSaveClickHandler() {
+function btnSaveClickHandlerFn() {
   const isInvalid = validate_body_options();
 
   if (!isInvalid) {
@@ -12,7 +12,7 @@ function btnSaveClickHandler() {
   }
   save_sender_options();
 }
-function newLineAfterClickHandler() {
+function newLineAfterClickHandlerFn() {
   const optionDisable = $('#newLineAfterNum');
 
   if (!optionDisable.prop('disabled')) {
@@ -23,7 +23,7 @@ function newLineAfterClickHandler() {
 
   getPreview();
 }
-function newLineBeforeClickHandler() {
+function newLineBeforeClickHandlerFn() {
   const optionDisable = $('#newLineBeforeNum');
 
   if (!optionDisable.prop('disabled')) {
@@ -34,11 +34,11 @@ function newLineBeforeClickHandler() {
 
   getPreview();
 }
-function btnResetClickHandler() {
+function btnResetClickHandlerFn() {
   restore_options();
   getPreview();
 }
-function mailPicker0ClickHandler() {
+function mailPicker0ClickHandlerFn() {
   changeAll(this, 'mail_picker');
   save_sender_options();
 }
@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
   form.onsubmit = () => false;
 });
 
-export const btnSaveClickHandlerFn = btnSaveClickHandler;
-export const newLineAfterClickHandlerFn = newLineAfterClickHandler;
-export const newLineBeforeClickHandlerFn = newLineBeforeClickHandler;
-export const btnResetClickHandlerFn = btnResetClickHandler;
-export const mailPicker0ClickHandlerFn = mailPicker0ClickHandler;
+export const btnSaveClickHandler = btnSaveClickHandlerFn;
+export const newLineAfterClickHandler = newLineAfterClickHandlerFn;
+export const newLineBeforeClickHandler = newLineBeforeClickHandlerFn;
+export const btnResetClickHandler = btnResetClickHandlerFn;
+export const mailPicker0ClickHandler = mailPicker0ClickHandlerFn;
