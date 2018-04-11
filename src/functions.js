@@ -81,6 +81,22 @@ function getOptionsFn() {
   return mailOptions;
 }
 
+// toggle new window checkbox when mail sender is unchecked
+function toggleNewWindowChbox() {
+  const { mailOptionsLength } = localStorage;
+  let child;
+  let i;
+
+  for (i = 1; i <= mailOptionsLength; i += 1) {
+    child = localStorage[`mail_picker_${i}`];
+    if (child === 'false') {
+      document.getElementById(`new_window_${i}`).setAttribute('disabled', 'true');
+    } else {
+      document.getElementById(`new_window_${i}`).setAttribute('disabled', '');
+    }
+  }
+}
+
 // use the saved values for the form
 function restoreOptionsFn() {
   // get saved values
@@ -131,21 +147,21 @@ function restoreOptionsFn() {
   }
 
   const [newLineAfterNum] = mailOptions;
-  $('#newLineAfterNum').val(newLineAfterNum);
+  document.getElementById('newLineAfterNum').value = newLineAfterNum;
 
   const [newLineBefore] = mailOptions;
   select = $('#newLineBefore');
   if (newLineBefore === 'true') {
     select.prop('checked', true);
-    $('#newLineBeforeNum').prop('disabled', false);
+    document.getElementById('newLineBeforeNum').setAttribute('disabled', '');
   } else {
-    $('#newLineBeforeNum').prop('disabled', true);
+    document.getElementById('newLineBeforeNum').setAttribute('disabled', 'true');
   }
 
   const [newLineBeforeNum] = mailOptions;
-  $('#newLineBeforeNum').val(newLineBeforeNum);
+  document.getElementById('newLineBeforeNum').value = newLineBeforeNum;
 
-  toggle_newWindow_chbox();
+  toggleNewWindowChbox();
 }
 
 // use the saved values for the form
@@ -212,26 +228,26 @@ function getSingleOptionIntFn() {
 
 // Saves options to localStorage.
 // only email body section
-function saveBodyOptions() {
-  const mailTo = $('#mail_to').val();
+function saveBodyOptionsFn() {
+  const mailTo = document.getElementById('mail_to').value;
   localStorage.mail_to = mailTo;
 
-  const mailBefore = $('#mail_before').val();
+  const mailBefore = document.getElementById('mail_before').value;
   localStorage.mail_before = mailBefore;
 
-  const mailAfter = $('#mail_after').val();
+  const mailAfter = document.getElementById('mail_after').value;
   localStorage.mail_after = mailAfter;
 
-  const newLineAfter = $('#newLineAfter').prop('checked');
+  const newLineAfter = document.getElementById('newLineAfter').getAttribute('checked');
   localStorage.newLineAfter = newLineAfter;
 
-  const newLineAfterNum = $('#newLineAfterNum').val();
+  const newLineAfterNum = document.getElementById('newLineAfterNum').value;
   localStorage.newLineAfterNum = newLineAfterNum;
 
-  const newLineBefore = $('#newLineBefore').prop('checked');
+  const newLineBefore = document.getElementById('newLineBefore').getAttribute('checked');
   localStorage.newLineBefore = newLineBefore;
 
-  const newLineBeforeNum = $('#newLineBeforeNum').val();
+  const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
   localStorage.newLineBeforeNum = newLineBeforeNum;
 
   // Update status to let user know options were saved.
@@ -255,7 +271,7 @@ function saveBodyOptions() {
 
 // Saves options to localStorage.
 // only email sender selection
-function saveSenderOptions() {
+function saveSenderOptionsFn() {
   const { mailOptionsLength } = localStorage;
   let child;
   let i;
@@ -270,7 +286,7 @@ function saveSenderOptions() {
     localStorage[`new_window_${i}`] = child.prop('checked');
   }
 
-  toggle_newWindow_chbox();
+  toggleNewWindowChbox();
 
   // Update status to let user know options were saved.
 
@@ -280,21 +296,21 @@ function saveSenderOptions() {
 }
 
 // select/clear all toggle
-function changeAll(checkbox, element) {
+function changeAllFn(checkbox, element) {
   const { mailOptionsLength } = localStorage;
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if ($(checkbox).prop('checked')) {
-      $(`#${element}_${i}`).prop('checked', true);
+    if (checkbox.getAttribute('checked')) {
+      document.getElementById(`${element}_${i}`).setAttribute('checked', true);
     } else {
-      $(`#${element}_${i}`).prop('checked', false);
+      document.getElementById(`${element}_${i}`).setAttribute('checked', false);
     }
   }
 }
 
 // select/clear all checker
-function changeCheck(element) {
+function changeCheckFn(element) {
   let changeChecker = true;
   const { mailOptionsLength } = localStorage;
   let select;
@@ -487,22 +503,6 @@ function validateBodyOptions() {
   return errorFound;
 }
 
-// toggle new window checkbox when mail sender is unchecked
-function toggleNewWindowChbox() {
-  const { mailOptionsLength } = localStorage;
-  let child;
-  let i;
-
-  for (i = 1; i <= mailOptionsLength; i += 1) {
-    child = localStorage[`mail_picker_${i}`];
-    if (child === 'false') {
-      $(`#new_window_ ${i}`).prop('disabled', true);
-    } else {
-      $(`#new_window_${i}`).prop('disabled', false);
-    }
-  }
-}
-
 // handle email link
 function openEmailHandlerFn(mailPickerInt) {
   chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
@@ -572,3 +572,7 @@ export const createContext = createContextFn;
 export const getOptionsShownCount = getOptionsShownCountFn;
 export const openEmailHandler = openEmailHandlerFn;
 export const getSingleOptionInt = getSingleOptionIntFn;
+export const saveBodyOptions = saveBodyOptionsFn;
+export const saveSenderOptions = saveSenderOptionsFn;
+export const changeAll = changeAllFn;
+export const changeCheck = changeCheckFn;

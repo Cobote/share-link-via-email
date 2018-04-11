@@ -2,15 +2,15 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './options.css';
-import { restoreOptions } from '../functions';
+import { restoreOptions, saveBodyOptions, saveSenderOptions, changeAll, changeCheck } from '../functions';
 
 function btnSaveClickHandlerFn() {
   const isInvalid = validate_body_options();
 
   if (!isInvalid) {
-    save_body_options();
+    saveBodyOptions();
   }
-  save_sender_options();
+  saveSenderOptions();
 }
 function newLineAfterClickHandlerFn() {
   const optionDisable = $('#newLineAfterNum');
@@ -40,19 +40,19 @@ function btnResetClickHandlerFn() {
 }
 function mailPicker0ClickHandlerFn() {
   changeAll(this, 'mail_picker');
-  save_sender_options();
+  saveSenderOptions();
 }
 function mailPickerClickHandler() {
   changeCheck('mail_picker');
-  save_sender_options();
+  saveSenderOptions();
 }
 function newWindow0ClickHandler() {
   changeAll(this, 'new_window');
-  save_sender_options();
+  saveSenderOptions();
 }
 function newWindowClickHandler() {
   changeCheck('new_window');
-  save_sender_options();
+  saveSenderOptions();
 }
 
 // Add event listeners once the DOM has fully loaded by listening for the
