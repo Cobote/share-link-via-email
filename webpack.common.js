@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    emailme: './src/emailme.js',
+    background: './src/background.js',
     options_events: './src/options/options_events.js',
     popup: './src/popup/popup.js',
   },

@@ -2,58 +2,9 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './options.css';
-import { restoreOptions, saveBodyOptions, saveSenderOptions, changeAll, changeCheck, validateBodyOptions } from '../functions';
-
-function btnSaveClickHandlerFn() {
-  const isInvalid = validateBodyOptions();
-
-  if (!isInvalid) {
-    saveBodyOptions();
-  }
-  saveSenderOptions();
-}
-function newLineAfterClickHandlerFn() {
-  const optionDisable = $('#newLineAfterNum');
-
-  if (!optionDisable.prop('disabled')) {
-    optionDisable.prop('disabled', 'disabled');
-  } else {
-    optionDisable.prop('disabled', false);
-  }
-
-  getPreview();
-}
-function newLineBeforeClickHandlerFn() {
-  const optionDisable = $('#newLineBeforeNum');
-
-  if (!optionDisable.prop('disabled')) {
-    optionDisable.prop('disabled', 'disabled');
-  } else {
-    optionDisable.prop('disabled', false);
-  }
-
-  getPreview();
-}
-function btnResetClickHandlerFn() {
-  restore_options();
-  getPreview();
-}
-function mailPicker0ClickHandlerFn() {
-  changeAll(this, 'mail_picker');
-  saveSenderOptions();
-}
-function mailPickerClickHandler() {
-  changeCheck('mail_picker');
-  saveSenderOptions();
-}
-function newWindow0ClickHandler() {
-  changeAll(this, 'new_window');
-  saveSenderOptions();
-}
-function newWindowClickHandler() {
-  changeCheck('new_window');
-  saveSenderOptions();
-}
+import optionsClickHandler from './click_handler';
+import { restoreOptions } from './save_options';
+import { getPreview } from './body_section';
 
 // Add event listeners once the DOM has fully loaded by listening for the
 // `DOMContentLoaded` event on the document, and adding your listeners to
@@ -63,37 +14,31 @@ document.addEventListener('DOMContentLoaded', () => {
   let i;
 
   // on load events
-  restoreOptionsFn();
+  restoreOptions();
   getPreview();
   // end on load
 
   // listeners
-  $('#btn_save').click(btn_save_clickHandler);
-  $('#btn_restore').click(btn_reset_clickHandler);
-  $('#newLineAfter').change(newLineAfter_clickHandler);
-  $('#newLineBefore').change(newLineBefore_clickHandler);
-  $('#newLineAfterNum').keyup(getPreview);
-  $('#newLineBeforeNum').keyup(getPreview);
-  $('#mail_before').keyup(getPreview);
-  $('#mail_after').keyup(getPreview);
+  document.getElementById('btn_save').addEventListener('click', optionsClickHandler.btnSaveClickHandler);
+  document.getElementById('btn_restore').addEventListener('click', optionsClickHandler.btnResetClickHandler);
+  document.getElementById('newLineAfter').addEventListener('change', optionsClickHandler.newLineAfterClickHandler);
+  document.getElementById('newLineBefore').addEventListener('change', optionsClickHandler.newLineBeforeClickHandler);
+  document.getElementById('newLineAfterNum').addEventListener('keyup', getPreview);
+  document.getElementById('newLineBeforeNum').addEventListener('keyup', getPreview);
+  document.getElementById('mail_before').addEventListener('keyup', getPreview);
+  document.getElementById('mail_after').addEventListener('keyup', getPreview);
 
-  $('#mail_picker_0').change(mail_picker_0_clickHandler);
+  document.getElementById('mail_picker_0').addEventListener('change', optionsClickHandler.mailPicker0ClickHandler);
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    $(`#mail_picker_${i}`).change(mail_picker_clickHandler);
+    document.getElementById(`mail_picker_${i}`).addEventListener('change', optionsClickHandler.mailPickerClickHandler);
   }
 
-  $('#new_window_0').change(new_window_0_clickHandler);
+  document.getElementById('new_window_0').addEventListener('change', optionsClickHandler.newWindow0ClickHandler);
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    $(`#new_window_${i}`).change(new_window_clickHandler);
+    document.getElementById(`new_window_${i}`).addEventListener('change', optionsClickHandler.newWindowClickHandler);
   }
 
   // stop normal form submission
   const form = document.getElementById('optionsForm');
   form.onsubmit = () => false;
 });
-
-export const btnSaveClickHandler = btnSaveClickHandlerFn;
-export const newLineAfterClickHandler = newLineAfterClickHandlerFn;
-export const newLineBeforeClickHandler = newLineBeforeClickHandlerFn;
-export const btnResetClickHandler = btnResetClickHandlerFn;
-export const mailPicker0ClickHandler = mailPicker0ClickHandlerFn;

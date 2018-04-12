@@ -100,7 +100,7 @@ function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
 }
 
 // create a new email
-function emailLinkFn(info, tab) {
+function emailLink(info, tab) {
   const newLineChar = '%0A';
 
   const mailOptions = getOptions();
@@ -112,7 +112,7 @@ function emailLinkFn(info, tab) {
 }
 
 // create a new Gmail
-function gmailLinkFn(info, tab) {
+function gmailLink(info, tab) {
   const newLineChar = '%0A';
 
   const mailOptions = getOptions();
@@ -124,7 +124,7 @@ function gmailLinkFn(info, tab) {
 }
 
 // create a new hotmail
-function hotmailLinkFn(info, tab) {
+function hotmailLink(info, tab) {
   const newLineChar = '%0A';
 
   const mailOptions = getOptions();
@@ -137,7 +137,7 @@ function hotmailLinkFn(info, tab) {
 }
 
 // create a new ymail
-function ymailLinkFn(info, tab) {
+function ymailLink(info, tab) {
   const newLineChar = '%0A';
 
   const mailOptions = getOptions();
@@ -150,7 +150,7 @@ function ymailLinkFn(info, tab) {
 }
 
 // create a new AOL mail
-function aolLinkFn(info, tab) {
+function aolLink(info, tab) {
   const newLineChar = '%20'; // using space
 
   const mailOptions = getOptions();
@@ -162,7 +162,7 @@ function aolLinkFn(info, tab) {
 }
 
 // create a new Inbox
-function inboxLinkFn(info, tab) {
+function inboxLink(info, tab) {
   const newLineChar = '%0A';
 
   const mailOptions = getOptions();
@@ -181,22 +181,22 @@ function openEmailHandlerFn(mailPickerInt) {
 
     switch (mailPickerInt) {
       case 1:
-        emailLinkFn(info, tab);
+        emailLink(info, tab);
         break;
       case 5:
-        aolLinkFn(info, tab);
+        aolLink(info, tab);
         break;
       case 2:
-        gmailLinkFn(info, tab);
+        gmailLink(info, tab);
         break;
       case 6:
-        inboxLinkFn(info, tab);
+        inboxLink(info, tab);
         break;
       case 3:
-        hotmailLinkFn(info, tab);
+        hotmailLink(info, tab);
         break;
       case 4:
-        ymailLinkFn(info, tab);
+        ymailLink(info, tab);
         break;
       default:
         break;
@@ -205,11 +205,11 @@ function openEmailHandlerFn(mailPickerInt) {
 }
 
 export const emailLinks = {
-  emailLink: emailLinkFn,
-  gmailLink: gmailLinkFn,
-  hotmailLink: hotmailLinkFn,
-  ymailLink: ymailLinkFn,
-  aolLink: aolLinkFn,
-  inboxLink: inboxLinkFn,
+  emailLink,
+  gmailLink,
+  hotmailLink,
+  ymailLink,
+  aolLink,
+  inboxLink,
 };
 export const openEmailHandler = openEmailHandlerFn;
