@@ -78,4 +78,69 @@ function getOptionsFn() {
   return mailOptions;
 }
 
+function saveDefaultOptionsFn() {
+  let i;
+
+  localStorage.mail_before = '';
+  localStorage.mail_after = '';
+  localStorage.mail_to = '';
+  localStorage.newLineAfter = false;
+  localStorage.newLineAfterNum = 1;
+  localStorage.newLineBefore = false;
+  localStorage.newLineBeforeNum = 1;
+
+  const { mailOptionsLength } = localStorage;
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    localStorage[`mail_picker_${i}`] = true;
+  }
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    localStorage[`new_window_${i}`] = false;
+  }
+}
+
+// Count how many mail options are enabled
+function getOptionsShownCountFn() {
+  // get saved values
+  const mailOptions = getOptionsFn();
+  const { mailOptionsLength } = localStorage;
+  let mailtype;
+  let optionsShownCount;
+  let i;
+
+  optionsShownCount = 0;
+
+  // Hide options not selected
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    mailtype = mailOptions[`mail_picker_${i}`];
+    if (mailtype === 'true') {
+      optionsShownCount += 1;
+    }
+  }
+
+  return optionsShownCount;
+}
+
+// Get the currently enabled mail option
+function getSingleOptionIntFn() {
+  // get saved values
+  const mailOptions = getOptionsFn();
+  const { mailOptionsLength } = localStorage;
+  let mailtype;
+  let optionInt;
+  let i;
+
+  // Hide options not selected
+  for (i = 0; i <= mailOptionsLength; i += 1) {
+    mailtype = mailOptions[`mail_picker_${i}`];
+    if (mailtype === 'true') {
+      optionInt = i;
+    }
+  }
+
+  return optionInt;
+}
+
 export const getOptions = getOptionsFn;
+export const saveDefaultOptions = saveDefaultOptionsFn;
+export const getOptionsShownCount = getOptionsShownCountFn;
+export const getSingleOptionInt = getSingleOptionIntFn;

@@ -1,5 +1,9 @@
+/* global chrome */
+
 import '../images/stock_mail.png';
-import { saveDefaultOptions, getOptions, createEmailTab, createContext, getOptionsShownCount, openEmailHandler, getSingleOptionInt } from './modules/functions';
+import { saveDefaultOptions, getOptionsShownCount, getSingleOptionInt } from './modules/local_storage';
+import createAllContext from './modules/create_context';
+import openEmailHandler from './modules/email_service_link';
 
 // Creates each of the links to be used by each type of Email client
 localStorage.mailOptionsLength = 6;
@@ -29,4 +33,17 @@ if (!firstRun) {
 if (!firstRun) {
   // Set all options to default
   saveDefaultOptions();
+}
+
+// Create email menu option for each context type
+createAllContext();
+
+// Check if only one option selected
+if (getOptionsShownCount() === 1) {
+  chrome.browserAction.setPopup({ popup: '' });
+  chrome.browserAction.onClicked.addListener(() => {
+    openEmailHandler(getSingleOptionInt());
+  });
+} else {
+  chrome.browserAction.setPopup({ popup: 'popup.html' });
 }
