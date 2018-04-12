@@ -400,7 +400,7 @@ function createContextFn(contextName, oncLink) {
   }
 }
 
-function saveDefaultOptions() {
+function saveDefaultOptionsFn() {
   let i;
 
   localStorage.mail_before = '';
@@ -420,32 +420,33 @@ function saveDefaultOptions() {
   }
 }
 
-function createEmailTabFn(info, tab, mailsrvr, newLineChar, newWindow) {
-  let emailBody = '';
-  let urlString = '';
-  // const pageUrl = getLink(info, tab);
-  let pageTitle = getTitle(info, tab);
+// get title
+function getTitle(info, tab) {
+  let pageTitle;
 
-  // pageUrl = encodeURIComponent(pageUrl);
-  pageTitle = encodeURIComponent(pageTitle);
-
-  emailBody = createEmailMessage(info, tab, mailsrvr, newLineChar);
-
-  urlString = `${mailsrvr}${pageTitle}&body=${emailBody}`;
-
-  // open link in new tab
-  // window.open(mailsrvr+pageTitle+'&body='+emailBody); // JS method
-  if (newWindow === 'true') {
-    chrome.tabs.create({ url: urlString }); // chrome api method - new tab
+  if (info.linkUrl) {
+    // context if link
+    pageTitle = '';
   } else {
-    chrome.tabs.update({ url: urlString });  // chrome api method - same page
+    pageTitle = tab.title;
   }
+  // console.log("page title: " + pageTitle);
+  return pageTitle;
+}
 
-  // write log of items used for the URL
-  // console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-  // console.log("item " + info.menuItemId + " was clicked");
-  // console.log("info: " + JSON.stringify(info));
-  // console.log("tab: " + JSON.stringify(tab));
+// get link
+function getLink(info, tab) {
+  let pageUrl;
+
+  if (info.linkUrl) {
+    // context if link
+    pageUrl = info.linkUrl;
+  } else {
+    pageUrl = tab.url;
+  }
+  // pageUrl = encodeURIComponent(pageUrl);
+  // console.log("page url: " + pageUrl);
+  return pageUrl;
 }
 
 function createEmailMessage(info, tab, mailsrvr, newLineChar) {
@@ -475,8 +476,36 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   return emailBody;
 }
 
+function createEmailTabFn(info, tab, mailsrvr, newLineChar, newWindow) {
+  let emailBody = '';
+  let urlString = '';
+  // const pageUrl = getLink(info, tab);
+  let pageTitle = getTitle(info, tab);
+
+  // pageUrl = encodeURIComponent(pageUrl);
+  pageTitle = encodeURIComponent(pageTitle);
+
+  emailBody = createEmailMessage(info, tab, mailsrvr, newLineChar);
+
+  urlString = `${mailsrvr}${pageTitle}&body=${emailBody}`;
+
+  // open link in new tab
+  // window.open(mailsrvr+pageTitle+'&body='+emailBody); // JS method
+  if (newWindow === 'true') {
+    chrome.tabs.create({ url: urlString }); // chrome api method - new tab
+  } else {
+    chrome.tabs.update({ url: urlString }); // chrome api method - same page
+  }
+
+  // write log of items used for the URL
+  // console.log("link " + pageUrl + " - " + pageTitle + " was sent");
+  // console.log("item " + info.menuItemId + " was clicked");
+  // console.log("info: " + JSON.stringify(info));
+  // console.log("tab: " + JSON.stringify(tab));
+}
+
 // only email body section
-function validateBodyOptions() {
+function validateBodyOptionsFn() {
   let errorFound = false;
   let currentItem;
 
@@ -537,35 +566,6 @@ function openEmailHandlerFn(mailPickerInt) {
   });
 }
 
-// get link
-function getLink(info, tab) {
-  let pageUrl;
-
-  if (info.linkUrl) {
-    // context if link
-    pageUrl = info.linkUrl;
-  } else {
-    pageUrl = tab.url;
-  }
-  // pageUrl = encodeURIComponent(pageUrl);
-  // console.log("page url: " + pageUrl);
-  return pageUrl;
-}
-
-// get title
-function getTitle(info, tab) {
-  let pageTitle;
-
-  if (info.linkUrl) {
-    // context if link
-    pageTitle = '';
-  } else {
-    pageTitle = tab.title;
-  }
-  // console.log("page title: " + pageTitle);
-  return pageTitle;
-}
-
 export const restoreOptions = restoreOptionsFn;
 export const showHideOptions = showHideOptionsFn;
 export const getPreview = getPreviewFn;
@@ -579,3 +579,5 @@ export const saveBodyOptions = saveBodyOptionsFn;
 export const saveSenderOptions = saveSenderOptionsFn;
 export const changeAll = changeAllFn;
 export const changeCheck = changeCheckFn;
+export const saveDefaultOptions = saveDefaultOptionsFn;
+export const validateBodyOptions = validateBodyOptionsFn;

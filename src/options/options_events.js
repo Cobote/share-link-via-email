@@ -2,10 +2,10 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './options.css';
-import { restoreOptions, saveBodyOptions, saveSenderOptions, changeAll, changeCheck } from '../functions';
+import { restoreOptions, saveBodyOptions, saveSenderOptions, changeAll, changeCheck, validateBodyOptions } from '../functions';
 
 function btnSaveClickHandlerFn() {
-  const isInvalid = validate_body_options();
+  const isInvalid = validateBodyOptions();
 
   if (!isInvalid) {
     saveBodyOptions();
