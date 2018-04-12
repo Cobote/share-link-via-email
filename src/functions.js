@@ -111,20 +111,20 @@ function restoreOptionsFn() {
   // Restores check box state
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
-    select = $(`mail_picker_${i}`);
+    select = document.getElementById(`mail_picker_${i}`);
     if (mailtype === 'true') {
-      select.prop('checked', true);
+      select.setAttribute('checked', true);
     } else {
-      select.prop('checked', false);
+      select.setAttribute('checked', false);
     }
   }
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`new_window_${i}`];
-    select = $(`#new_window_${i}`);
+    select = document.getElementById(`new_window_${i}`);
     if (mailtype === 'true') {
-      select.prop('checked', true);
+      select.setAttribute('checked', true);
     } else {
-      select.prop('checked', false);
+      select.setAttribute('checked', false);
     }
   }
 
@@ -138,9 +138,9 @@ function restoreOptionsFn() {
   document.getElementById('mail_after').value = afterMsg;
 
   const [newLineAfter] = mailOptions;
-  select = $('#newLineAfter');
+  select = document.getElementById('newLineAfter');
   if (newLineAfter === 'true') {
-    select.prop('checked', true);
+    select.setAttribute('checked', true);
     document.getElementById('newLineAfterNum').setAttribute('disabled', '');
   } else {
     document.getElementById('newLineAfterNum').setAttribute('disabled', 'true');
@@ -150,9 +150,9 @@ function restoreOptionsFn() {
   document.getElementById('newLineAfterNum').value = newLineAfterNum;
 
   const [newLineBefore] = mailOptions;
-  select = $('#newLineBefore');
+  select = document.getElementById('newLineBefore');
   if (newLineBefore === 'true') {
-    select.prop('checked', true);
+    select.setAttribute('checked', true);
     document.getElementById('newLineBeforeNum').setAttribute('disabled', '');
   } else {
     document.getElementById('newLineBeforeNum').setAttribute('disabled', 'true');
@@ -177,9 +177,9 @@ function showHideOptionsFn() {
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
-    select = $(`#mail_picker_${i}`);
+    select = document.getElementById(`mail_picker_${i}`);
     if (mailtype !== 'true') {
-      select.hide();
+      select.style.display = 'none';
     }
   }
 }
@@ -251,17 +251,20 @@ function saveBodyOptionsFn() {
   localStorage.newLineBeforeNum = newLineBeforeNum;
 
   // Update status to let user know options were saved.
-  const status = $('#status');
+  const status = document.getElementById('status');
   const statusCss = 'alert alert-success text-center';
-  status.html('<strong>Email body settings saved</strong>');
-  status.parent().addClass(statusCss);
-  status.parent().hide();
-  status.parent().slideToggle();
+  status.innerHTML = '<strong>Email body settings saved</strong>';
+  status.parentElement.classList.add(statusCss);
+  status.style.display = 'none';
+  // status.parent().slideToggle();
+  // TODO: replace slideToggle with something else??
   setTimeout(() => {
-    status.parent().slideToggle(() => {
-      status.html('');
-      status.parent().removeClass(statusCss);
-    });
+    // status.parent().slideToggle(() => {
+    //   status.innerHTML = '';
+    //   status.parentElement.classList.remove(statusCss);
+    // });
+    status.innerHTML = '';
+    status.parentElement.classList.remove(statusCss);
   }, 3000);
 
   // reload context menu with new settings
@@ -277,13 +280,13 @@ function saveSenderOptionsFn() {
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    child = $(`#mail_picker_${i}`);
-    localStorage[`mail_picker_${i}`] = child.prop('checked');
+    child = document.getElementById(`mail_picker_${i}`);
+    localStorage[`mail_picker_${i}`] = child.getAttribute('checked');
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    child = $(`#new_window_${i}`);
-    localStorage[`new_window_${i}`] = child.prop('checked');
+    child = document.getElementById(`new_window_${i}`);
+    localStorage[`new_window_${i}`] = child.getAttribute('checked');
   }
 
   toggleNewWindowChbox();
@@ -317,15 +320,15 @@ function changeCheckFn(element) {
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    select = $(`#${element}_${i}`);
-    if (!select.prop('checked')) {
+    select = document.getElementById(`${element}_${i}`);
+    if (!select.getAttribute('checked')) {
       changeChecker = false;
     }
   }
 
   // set All check value
-  select = $(`#${element}_0`);
-  select.prop('checked', changeChecker);
+  select = document.getElementById(`${element}_0`);
+  select.setAttribute('checked', changeChecker);
 }
 
 function addNewLines(linesEnabled, lineCount, breakChar) {
@@ -349,13 +352,13 @@ function addNewLines(linesEnabled, lineCount, breakChar) {
 // update preview
 function getPreviewFn() {
   // update preview text
-  const preview = $('#previewText');
-  let startMessage = $('#mail_before').val();
-  let endMessage = $('#mail_after').val();
-  const newLineAfter = $('#newLineAfter').prop('checked');
-  const newLineAfterNum = $('#newLineAfterNum').val();
-  const newLineBefore = $('#newLineBefore').prop('checked');
-  const newLineBeforeNum = $('#newLineBeforeNum').val();
+  const preview = document.getElementById('previewText');
+  let startMessage = document.getElementById('mail_before').value;
+  let endMessage = document.getElementById('mail_after').value;
+  const newLineAfter = document.getElementById('newLineAfter').getAttribute('checked');
+  const newLineAfterNum = document.getElementById('newLineAfterNum').value;
+  const newLineBefore = document.getElementById('newLineBefore').getAttribute('checked');
+  const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
 
   let previewText = '';
   const exampleAddress = 'http://www.google.com';
@@ -375,7 +378,7 @@ function getPreviewFn() {
   previewText = startMessage + newLineAfterBody + exampleAddress + newLineBeforeBody + endMessage;
 
   // send preview to display
-  preview.html(previewText);
+  preview.innerHTML = previewText;
 }
 
 // Create email page option for each context type.
@@ -477,24 +480,24 @@ function validateBodyOptions() {
   let errorFound = false;
   let currentItem;
 
-  if ($('#newLineAfter').prop('checked')) {
-    currentItem = $('#newLineAfterNum');
-    if (currentItem.val() < 0) {
+  if (document.getElementById('newLineAfter').getAttribute('checked')) {
+    currentItem = document.getElementById('newLineAfterNum');
+    if (currentItem.value < 0) {
       // alert("New line before URL needs to be 0 or higher");
       errorFound = true;
     }
-    if ((Number.isNaN(currentItem.val()) || currentItem.val() === '')) {
+    if ((Number.isNaN(currentItem.value) || currentItem.value === '')) {
       // alert("New line before URL is not a number");
       errorFound = true;
     }
   }
-  if ($('#newLineBefore').prop('checked')) {
-    currentItem = $('#newLineBeforeNum');
-    if (currentItem.val() < 0) {
+  if (document.getElementById('newLineBefore').getAttribute('checked')) {
+    currentItem = document.getElementById('newLineBeforeNum');
+    if (currentItem.value < 0) {
       // alert("New line after URL needs to be 0 or higher");
       errorFound = true;
     }
-    if ((Number.isNaN(currentItem.val()) || currentItem.val() === '')) {
+    if ((Number.isNaN(currentItem.value) || currentItem.value === '')) {
       // alert("New line after URL is not a number");
       errorFound = true;
     }
