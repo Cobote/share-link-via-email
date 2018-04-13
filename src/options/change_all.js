@@ -18,7 +18,6 @@ function changeCheckFn(element) {
   const { mailOptionsLength } = localStorage;
   let i;
 
-  console.log('debug #1');
   for (i = 1; i <= mailOptionsLength; i += 1) {
     const select = document.getElementById(`${element}_${i}`);
     if (!select.checked) {
