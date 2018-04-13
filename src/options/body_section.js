@@ -7,7 +7,7 @@ function validateBodyOptionsFn() {
   let errorFound = false;
   let currentItem;
 
-  if (document.getElementById('newLineAfter').getAttribute('checked')) {
+  if (document.getElementById('newLineAfter').checked) {
     currentItem = document.getElementById('newLineAfterNum');
     if (currentItem.value < 0) {
       // alert("New line before URL needs to be 0 or higher");
@@ -18,7 +18,7 @@ function validateBodyOptionsFn() {
       errorFound = true;
     }
   }
-  if (document.getElementById('newLineBefore').getAttribute('checked')) {
+  if (document.getElementById('newLineBefore').checked) {
     currentItem = document.getElementById('newLineBeforeNum');
     if (currentItem.value < 0) {
       // alert("New line after URL needs to be 0 or higher");
@@ -45,13 +45,13 @@ function saveBodyOptionsFn() {
   const mailAfter = document.getElementById('mail_after').value;
   localStorage.mail_after = mailAfter;
 
-  const newLineAfter = document.getElementById('newLineAfter').getAttribute('checked');
+  const newLineAfter = document.getElementById('newLineAfter').checked;
   localStorage.newLineAfter = newLineAfter;
 
   const newLineAfterNum = document.getElementById('newLineAfterNum').value;
   localStorage.newLineAfterNum = newLineAfterNum;
 
-  const newLineBefore = document.getElementById('newLineBefore').getAttribute('checked');
+  const newLineBefore = document.getElementById('newLineBefore').checked;
   localStorage.newLineBefore = newLineBefore;
 
   const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
@@ -63,13 +63,7 @@ function saveBodyOptionsFn() {
   status.innerHTML = '<strong>Email body settings saved</strong>';
   status.parentElement.classList.add(statusCss);
   status.style.display = 'inline';
-  // status.parent().slideToggle();
-  // TODO: replace slideToggle with something else??
   setTimeout(() => {
-    // status.parent().slideToggle(() => {
-    //   status.innerHTML = '';
-    //   status.parentElement.classList.remove(statusCss);
-    // });
     status.innerHTML = '';
     status.parentElement.classList.remove(statusCss);
     status.style.display = 'none';
@@ -86,9 +80,9 @@ function getPreviewFn() {
   const preview = document.getElementById('previewText');
   let startMessage = document.getElementById('mail_before').value;
   let endMessage = document.getElementById('mail_after').value;
-  const newLineAfter = document.getElementById('newLineAfter').getAttribute('checked');
+  const newLineAfter = document.getElementById('newLineAfter').checked;
   const newLineAfterNum = document.getElementById('newLineAfterNum').value;
-  const newLineBefore = document.getElementById('newLineBefore').getAttribute('checked');
+  const newLineBefore = document.getElementById('newLineBefore').checked;
   const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
 
   let previewText = '';

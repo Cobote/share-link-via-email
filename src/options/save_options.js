@@ -27,12 +27,12 @@ function saveSenderOptionsFn() {
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`mail_picker_${i}`);
-    localStorage[`mail_picker_${i}`] = child.getAttribute('checked');
+    localStorage[`mail_picker_${i}`] = child.checked;
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`new_window_${i}`);
-    localStorage[`new_window_${i}`] = child.getAttribute('checked');
+    localStorage[`new_window_${i}`] = child.checked;
   }
 
   toggleNewWindowChbox();
@@ -60,18 +60,18 @@ function restoreOptionsFn() {
     mailtype = mailOptions[`mail_picker_${i}`];
     select = document.getElementById(`mail_picker_${i}`);
     if (mailtype === 'true') {
-      select.setAttribute('checked', true);
+      select.checked = true;
     } else {
-      select.setAttribute('checked', false);
+      select.checked = false;
     }
   }
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`new_window_${i}`];
     select = document.getElementById(`new_window_${i}`);
     if (mailtype === 'true') {
-      select.setAttribute('checked', true);
+      select.checked = true;
     } else {
-      select.setAttribute('checked', false);
+      select.checked = false;
     }
   }
 
@@ -87,7 +87,7 @@ function restoreOptionsFn() {
   const [newLineAfter] = mailOptions;
   select = document.getElementById('newLineAfter');
   if (newLineAfter === 'true') {
-    select.setAttribute('checked', true);
+    select.checked = true;
     document.getElementById('newLineAfterNum').disabled = false;
   } else {
     document.getElementById('newLineAfterNum').disabled = true;
@@ -102,7 +102,7 @@ function restoreOptionsFn() {
   const [newLineBefore] = mailOptions;
   select = document.getElementById('newLineBefore');
   if (newLineBefore === 'true') {
-    select.setAttribute('checked', true);
+    select.checked = true;
     document.getElementById('newLineBeforeNum').disabled = false;
   } else {
     document.getElementById('newLineBeforeNum').disabled = true;

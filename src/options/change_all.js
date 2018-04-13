@@ -4,10 +4,10 @@ function changeAllFn(checkbox, element) {
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (checkbox.getAttribute('checked')) {
-      document.getElementById(`${element}_${i}`).setAttribute('checked', true);
+    if (checkbox.checked) {
+      document.getElementById(`${element}_${i}`).checked = true;
     } else {
-      document.getElementById(`${element}_${i}`).setAttribute('checked', false);
+      document.getElementById(`${element}_${i}`).checked = false;
     }
   }
 }
@@ -16,19 +16,19 @@ function changeAllFn(checkbox, element) {
 function changeCheckFn(element) {
   let changeChecker = true;
   const { mailOptionsLength } = localStorage;
-  let select;
   let i;
 
+  console.log('debug #1');
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    select = document.getElementById(`${element}_${i}`);
-    if (!select.getAttribute('checked')) {
+    const select = document.getElementById(`${element}_${i}`);
+    if (!select.checked) {
       changeChecker = false;
     }
   }
 
   // set All check value
-  select = document.getElementById(`${element}_0`);
-  select.setAttribute('checked', changeChecker);
+  const selectAll = document.getElementById(`${element}_0`);
+  selectAll.checked = changeChecker;
 }
 
 export const changeAll = changeAllFn;
