@@ -11,23 +11,23 @@ function btnSaveClickHandler() {
   saveSenderOptions();
 }
 function newLineAfterClickHandler() {
-  const optionDisable = $('#newLineAfterNum');
+  const optionDisable = document.getElementById('newLineAfterNum');
 
-  if (!optionDisable.prop('disabled')) {
-    optionDisable.prop('disabled', 'disabled');
+  if (!optionDisable.disabled) {
+    optionDisable.disabled = true;
   } else {
-    optionDisable.prop('disabled', false);
+    optionDisable.disabled = false;
   }
 
   getPreview();
 }
 function newLineBeforeClickHandler() {
-  const optionDisable = $('#newLineBeforeNum');
+  const optionDisable = document.getElementById('newLineBeforeNum');
 
-  if (!optionDisable.prop('disabled')) {
-    optionDisable.prop('disabled', 'disabled');
+  if (!optionDisable.disabled) {
+    optionDisable.disabled = true;
   } else {
-    optionDisable.prop('disabled', false);
+    optionDisable.disabled = false;
   }
 
   getPreview();

@@ -23,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn_restore').addEventListener('click', optionsClickHandler.btnResetClickHandler);
   document.getElementById('newLineAfter').addEventListener('change', optionsClickHandler.newLineAfterClickHandler);
   document.getElementById('newLineBefore').addEventListener('change', optionsClickHandler.newLineBeforeClickHandler);
+  document.getElementById('newLineAfterNum').addEventListener('change', getPreview);
   document.getElementById('newLineAfterNum').addEventListener('keyup', getPreview);
+  document.getElementById('newLineBeforeNum').addEventListener('change', getPreview);
   document.getElementById('newLineBeforeNum').addEventListener('keyup', getPreview);
   document.getElementById('mail_before').addEventListener('keyup', getPreview);
   document.getElementById('mail_after').addEventListener('keyup', getPreview);

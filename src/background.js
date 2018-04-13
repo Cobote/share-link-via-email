@@ -3,7 +3,7 @@
 import '../images/stock_mail.png';
 import { saveDefaultOptions, getOptionsShownCount, getSingleOptionInt } from './modules/local_storage';
 import createAllContext from './modules/create_context';
-import openEmailHandler from './modules/email_service_link';
+import { openEmailHandler } from './modules/email_service_link';
 
 // Creates each of the links to be used by each type of Email client
 localStorage.mailOptionsLength = 6;

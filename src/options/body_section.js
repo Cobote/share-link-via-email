@@ -59,10 +59,10 @@ function saveBodyOptionsFn() {
 
   // Update status to let user know options were saved.
   const status = document.getElementById('status');
-  const statusCss = 'alert alert-success text-center';
+  const statusCss = ['alert', 'alert-success', 'text-center'];
   status.innerHTML = '<strong>Email body settings saved</strong>';
   status.parentElement.classList.add(statusCss);
-  status.style.display = 'none';
+  status.style.display = 'inline';
   // status.parent().slideToggle();
   // TODO: replace slideToggle with something else??
   setTimeout(() => {
@@ -72,6 +72,7 @@ function saveBodyOptionsFn() {
     // });
     status.innerHTML = '';
     status.parentElement.classList.remove(statusCss);
+    status.style.display = 'none';
   }, 3000);
 
   // reload context menu with new settings

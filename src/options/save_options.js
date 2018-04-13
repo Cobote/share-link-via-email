@@ -11,9 +11,9 @@ function toggleNewWindowChbox() {
   for (i = 1; i <= mailOptionsLength; i += 1) {
     child = localStorage[`mail_picker_${i}`];
     if (child === 'false') {
-      document.getElementById(`new_window_${i}`).setAttribute('disabled', 'true');
+      document.getElementById(`new_window_${i}`).disabled = true;
     } else {
-      document.getElementById(`new_window_${i}`).setAttribute('disabled', '');
+      document.getElementById(`new_window_${i}`).disabled = false;
     }
   }
 }
@@ -88,24 +88,30 @@ function restoreOptionsFn() {
   select = document.getElementById('newLineAfter');
   if (newLineAfter === 'true') {
     select.setAttribute('checked', true);
-    document.getElementById('newLineAfterNum').setAttribute('disabled', '');
+    document.getElementById('newLineAfterNum').disabled = false;
   } else {
-    document.getElementById('newLineAfterNum').setAttribute('disabled', 'true');
+    document.getElementById('newLineAfterNum').disabled = true;
   }
 
-  const [newLineAfterNum] = mailOptions;
+  let [newLineAfterNum] = mailOptions;
+  if (newLineAfterNum === undefined) {
+    newLineAfterNum = 0;
+  }
   document.getElementById('newLineAfterNum').value = newLineAfterNum;
 
   const [newLineBefore] = mailOptions;
   select = document.getElementById('newLineBefore');
   if (newLineBefore === 'true') {
     select.setAttribute('checked', true);
-    document.getElementById('newLineBeforeNum').setAttribute('disabled', '');
+    document.getElementById('newLineBeforeNum').disabled = false;
   } else {
-    document.getElementById('newLineBeforeNum').setAttribute('disabled', 'true');
+    document.getElementById('newLineBeforeNum').disabled = true;
   }
 
-  const [newLineBeforeNum] = mailOptions;
+  let [newLineBeforeNum] = mailOptions;
+  if (newLineBeforeNum === undefined) {
+    newLineBeforeNum = 0;
+  }
   document.getElementById('newLineBeforeNum').value = newLineBeforeNum;
 
   toggleNewWindowChbox();
