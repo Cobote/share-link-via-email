@@ -1,24 +1,19 @@
-/* global chrome */
+import { openEmailHandler } from '../modules/email_service_link';
 
-function openOptionsPageFn() {
-  chrome.runtime.openOptionsPage();
-}
-
-function mailPickerClickHandlerFn() {
+function mailPickerClickHandler() {
   let mailPickerInt;
 
-  mailPickerInt = $(this).attr('id');
+  mailPickerInt = this.id;
   // console.log(mail_picker_int);
   mailPickerInt = mailPickerInt.split('_').pop();
   // console.log(mail_picker_int);
   mailPickerInt = parseInt(mailPickerInt, 10);
   // console.log(mail_picker_int);
-  open_email_handler(mailPickerInt);
+  openEmailHandler(mailPickerInt);
 
   // Use timeout or email will not be created
   setTimeout(() => { window.close(); }, 100);
 }
 
 
-export const openOptionsPage = openOptionsPageFn;
-export const mailPickerClickHandler = mailPickerClickHandlerFn;
+export default mailPickerClickHandler;
