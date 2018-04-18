@@ -9,6 +9,7 @@ Chrome web store https://chrome.google.com/webstore/detail/ejdbkikfbnnhmachnnomj
 
 --
 Major changes:
+- v3.0 - Rewrite code
 - v1.4 - Improvements to the options page.
 - v1.2 - Added option to use the current tab or a new tab. Added field for who to send the email to.
 - V1.0 - Added AOL mail
