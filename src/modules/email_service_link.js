@@ -43,20 +43,20 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
     newLineAfterNum,
     newLineBefore,
     newLineBeforeNum,
-    beforeMsg,
-    afterMsg,
   ] = mailOptions;
+  const beforeMsg = mailOptions.mail_before;
+  const afterMsg = mailOptions.mail_after;
 
   const newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, newLineChar);
   const newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, newLineChar);
   let emailBody = '';
-  let beforeMsgEncoded = beforeMsg;
-  let afterMsgEncoded = afterMsg;
+  let beforeMsgEncoded = beforeMsg || '';
+  let afterMsgEncoded = afterMsg || '';
 
   pageUrl = encodeURIComponent(pageUrl);
   // pageTitle = encodeURIComponent(pageTitle);
 
-  if (beforeMsgEncoded !== '' && newLineAfterBody === '') {
+  if ((beforeMsgEncoded !== '') && newLineAfterBody === '') {
     beforeMsgEncoded += ' ';
   }
   beforeMsgEncoded = encodeURIComponent(beforeMsgEncoded);
