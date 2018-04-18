@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+	<title>Share link via email Options</title>
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="pb-3">Share link via email - Options</h1>
+
+		<form role="form" id="optionsForm">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row header-options">
+						<div class="col-md-6">
+							<h4>Email Sender Selection:</h4>
+						</div>
+					</div>
+					<div class="row body-options">
+						<div class="col-md-6">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="all" id="mail_picker_0">
+								<label class="form-check-label" for="mail_picker_0">
+									All email senders
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row body-options">
+						<div class="col-md-12">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="mailto" id="mail_picker_1">
+								<label class="form-check-label" for="mail_picker_1">
+									Default email client
+								</label>
+								<span class="tooltip-options float-right">Uses 'mailto' protocol handler</span>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="mailto" id="mail_picker_5">
+								<label class="form-check-label" for="mail_picker_5">
+									AOL mail
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="mailto" id="mail_picker_2">
+								<label class="form-check-label" for="mail_picker_2">
+									Gmail
+								</label>
+								<span class="tooltip-options float-right">Can use new lines</span>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="mailto" id="mail_picker_6">
+								<label class="form-check-label" for="mail_picker_6">
+									Inbox
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="mailto" id="mail_picker_3">
+								<label class="form-check-label" for="mail_picker_3">
+									Outlook.com
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="mailto" id="mail_picker_4">
+								<label class="form-check-label" for="mail_picker_4">
+									Yahoo! Mail
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row header-options">
+						<div class="col-md-6">
+							<h4>Open in new window?</h4>
+						</div>
+					</div>
+					<div class="row body-options">
+						<div class="col-md-6">
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="all" id="new_window_0">
+								<label class="form-check-label" for="new_window_0">
+									All email senders
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row body-options">
+						<div class="col-md-6">
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="newWindow" id="new_window_1">
+								<label class="form-check-label" for="new_window_1">
+									Default email client
+								</label>
+							</div>
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="newWindow" id="new_window_5">
+								<label class="form-check-label" for="new_window_5">
+									AOL mail
+								</label>
+							</div>
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="newWindow" id="new_window_2">
+								<label class="form-check-label" for="new_window_2">
+									Gmail
+								</label>
+							</div>
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="newWindow" id="new_window_6">
+								<label class="form-check-label" for="new_window_6">
+									Inbox
+								</label>
+							</div>
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="newWindow" id="new_window_3">
+								<label class="form-check-label" for="new_window_3">
+									Outlook.com
+								</label>
+							</div>
+							<div class="form-check new-win-checkbox">
+								<input class="form-check-input" type="checkbox" value="newWindow" id="new_window_4">
+								<label class="form-check-label" for="new_window_4">
+									Yahoo! Mail
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+
+			<div class="row header-options">
+				<div class="col-md-12">
+					<h4>Email Body Settings:</h4>
+				</div>
+			</div>
+			<div class="row body-options">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="mail_to">To: </label>
+						<input type="text" id="mail_to" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="row body-options">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="mail_before">Before URL message: </label>
+						<input type="text" id="mail_before" class="form-control" />
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-3">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="newLineAfter" id="newLineAfter">
+						<label class="form-check-label" for="newLineAfter">
+							New line before URL
+						</label>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-9">
+					<div class="form-group col-xs-4">
+						<input type="number" min="0" id="newLineAfterNum" class="form-control" value="0" />
+					</div>
+				</div>
+			</div>
+			<div class="row body-options">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="mail_after">After URL message: </label>
+						<input type="text" id="mail_after" class="form-control"></input>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-3">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="newLineBefore" id="newLineBefore">
+						<label class="form-check-label" for="newLineBefore">
+							New line after URL
+						</label>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-9">
+					<div class="form-group col-xs-4">
+						<input type="number" min="0" id="newLineBeforeNum" class="form-control" value="0" />
+					</div>
+				</div>
+			</div>
+			<div class="row body-options form-actions">
+				<div class="col-md-6">
+					<div class="form-group">
+						<button type="submit" id="btn_save" class="btn btn-primary">Save</button>
+						<button type="button" id="btn_restore" class="btn btn-secondary">Cancel</button>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div>
+						<span id="status">&nbsp;</span>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<div class="row header-preview-small pt-3">
+			<div class="col-md-6 offset-md-3 header-preview">
+				<h4>Email Body Preview:</h4>
+			</div>
+		</div>
+		<div class="row body-preview-small">
+			<div class="col-md-6 offset-md-3 body-preview">
+				<span id="previewText"></span>
+			</div>
+		</div>
+
+		<br/>
+	</div>
+</body>
+
+</html>

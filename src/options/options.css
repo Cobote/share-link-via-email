@@ -1,0 +1,53 @@
+.border {
+    border: 0px solid black;
+}
+.newLine {
+    width: 135px;
+}
+.clear {
+    background-color:white;
+}
+.nopadding {
+    padding:0px;
+}
+.centre {
+    text-align: center;
+}
+.tooltip-options {
+    border-bottom: 1px dashed #999;
+    display: inline;
+    color: grey;
+}
+.header-options {
+    background-color: #b0c4de;
+}
+.body-options {
+    background-color: #D6EBFF;
+}
+.header-preview {
+    background-color: #E6E6E6;
+}
+.body-preview {
+    background-color: #F2F2F2;
+}
+.match-row {
+	min-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.form-actions {
+	padding-top: 10px;
+	padding-left: 15px;
+	/* height: 82px; */
+}
+.new-win-checkbox {
+	color: grey;
+}
+@media (max-width: 991px) {
+	.header-preview-small {
+	    background-color: #E6E6E6;
+	}
+	.body-preview-small {
+	    background-color: #F2F2F2;
+	}
+}
