@@ -143,7 +143,7 @@ function hotmailLink(info, tab) {
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
-// create a new ymail
+// create a new ymail / yahoo
 function ymailLink(info, tab) {
   const newLineChar = '%0A';
 
@@ -153,6 +153,7 @@ function ymailLink(info, tab) {
 
   const mailsrvr = `http://compose.mail.yahoo.com?to=${mailTo}&subject=`;
   // mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
+  // const mailsrvr = `https://mail.yahoo.com?to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
