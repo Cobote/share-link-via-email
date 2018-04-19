@@ -45,5 +45,5 @@ if (getOptionsShownCount() === 1) {
     openEmailHandler(getSingleOptionInt());
   });
 } else {
-  chrome.browserAction.setPopup({ popup: 'popup.html' });
+  chrome.browserAction.setPopup({ popup: 'popup.html' })
 }

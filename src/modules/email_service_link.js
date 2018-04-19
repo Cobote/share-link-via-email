@@ -66,8 +66,15 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   }
   afterMsgEncoded = encodeURIComponent(afterMsgEncoded);
 
+  // selectionText
+  let selectionTextBody = '';
+  if (info.selectionText) {
+    selectionTextBody = info.selectionText;
+    pageUrl = ` From ${pageUrl}`;
+  }
 
-  emailBody = beforeMsgEncoded + newLineAfterBody + pageUrl + newLineBeforeBody + afterMsgEncoded;
+  emailBody = beforeMsgEncoded + newLineAfterBody + selectionTextBody + pageUrl +
+    newLineBeforeBody + afterMsgEncoded;
   return emailBody;
 }
 
