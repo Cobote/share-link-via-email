@@ -151,7 +151,7 @@ function ymailLink(info, tab) {
   const newWindow = mailOptions.new_window_4;
   const mailTo = mailOptions.mail_to;
 
-  const mailsrvr = `http://compose.mail.yahoo.com?to=${mailTo}&subject=`;
+  const mailsrvr = `https://compose.mail.yahoo.com?to=${mailTo}&subject=`;
   // mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
   // const mailsrvr = `https://mail.yahoo.com?to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
