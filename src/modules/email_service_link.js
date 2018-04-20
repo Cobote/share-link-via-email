@@ -66,8 +66,15 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   }
   afterMsgEncoded = encodeURIComponent(afterMsgEncoded);
 
+  // selectionText
+  let selectionTextBody = '';
+  if (info.selectionText) {
+    selectionTextBody = info.selectionText;
+    pageUrl = ` From ${pageUrl}`;
+  }
 
-  emailBody = beforeMsgEncoded + newLineAfterBody + pageUrl + newLineBeforeBody + afterMsgEncoded;
+  emailBody = beforeMsgEncoded + newLineAfterBody + selectionTextBody + pageUrl +
+    newLineBeforeBody + afterMsgEncoded;
   return emailBody;
 }
 
@@ -136,7 +143,7 @@ function hotmailLink(info, tab) {
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
-// create a new ymail
+// create a new ymail / yahoo
 function ymailLink(info, tab) {
   const newLineChar = '%0A';
 
@@ -144,8 +151,9 @@ function ymailLink(info, tab) {
   const newWindow = mailOptions.new_window_4;
   const mailTo = mailOptions.mail_to;
 
-  const mailsrvr = `http://compose.mail.yahoo.com?to=${mailTo}&subject=`;
+  const mailsrvr = `https://compose.mail.yahoo.com?to=${mailTo}&subject=`;
   // mailsrvr = 'https://us-mg40.mail.yahoo.com/neo/launch?action=compose&to=' + mailTo + '&subj=';
+  // const mailsrvr = `https://mail.yahoo.com?to=${mailTo}&subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
