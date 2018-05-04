@@ -38,12 +38,12 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
 
   // Get stored options
   const mailOptions = getOptions();
-  const [
+  const {
     newLineAfter,
     newLineAfterNum,
     newLineBefore,
     newLineBeforeNum,
-  ] = mailOptions;
+  } = mailOptions;
   const beforeMsg = mailOptions.mail_before;
   const afterMsg = mailOptions.mail_after;
 

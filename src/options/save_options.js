@@ -84,7 +84,7 @@ function restoreOptionsFn() {
   const afterMsg = mailOptions.mail_after;
   document.getElementById('mail_after').value = afterMsg;
 
-  const [newLineAfter] = mailOptions;
+  const { newLineAfter } = mailOptions;
   select = document.getElementById('newLineAfter');
   if (newLineAfter === 'true') {
     select.checked = true;
@@ -93,13 +93,13 @@ function restoreOptionsFn() {
     document.getElementById('newLineAfterNum').disabled = true;
   }
 
-  let [newLineAfterNum] = mailOptions;
+  let { newLineAfterNum } = mailOptions;
   if (newLineAfterNum === undefined) {
     newLineAfterNum = 0;
   }
   document.getElementById('newLineAfterNum').value = newLineAfterNum;
 
-  const [newLineBefore] = mailOptions;
+  const { newLineBefore } = mailOptions;
   select = document.getElementById('newLineBefore');
   if (newLineBefore === 'true') {
     select.checked = true;
@@ -108,7 +108,7 @@ function restoreOptionsFn() {
     document.getElementById('newLineBeforeNum').disabled = true;
   }
 
-  let [newLineBeforeNum] = mailOptions;
+  let { newLineBeforeNum } = mailOptions;
   if (newLineBeforeNum === undefined) {
     newLineBeforeNum = 0;
   }
