@@ -143,6 +143,18 @@ function hotmailLink(info, tab) {
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
+// create a new Office365
+function office365Link(info, tab) {
+  const newLineChar = '%0A';
+
+  const mailOptions = getOptions();
+  const newWindow = mailOptions.new_window_7;
+  const mailTo = mailOptions.mail_to;
+
+  const mailsrvr = `https://outlook.office.com/owa/?path=/mail/action/compose&to=${mailTo}&subject=`;
+  createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
+}
+
 // create a new ymail / yahoo
 function ymailLink(info, tab) {
   const newLineChar = '%0A';
