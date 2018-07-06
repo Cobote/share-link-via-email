@@ -29,6 +29,7 @@ function createAllContext() {
   const favoriteMailto = mailOptions.mail_picker_1;
   const favoriteGmail = mailOptions.mail_picker_2;
   const favoriteHotmail = mailOptions.mail_picker_3;
+  const favoriteOffice365 = mailOptions.mail_picker_7;
   const favoriteYmail = mailOptions.mail_picker_4;
   const favoriteAOL = mailOptions.mail_picker_5;
   const favoriteInbox = mailOptions.mail_picker_6;
@@ -48,6 +49,9 @@ function createAllContext() {
   }
   if (favoriteHotmail === 'true') {
     createContextItem('Outlook.com', emailLinks.hotmailLink);
+  }
+  if (favoriteOffice365 === 'true') {
+    createContextItem('Office365', emailLinks.office365Link);
   }
   if (favoriteYmail === 'true') {
     createContextItem('Yahoo! Mail', emailLinks.ymailLink);
