@@ -6,7 +6,7 @@ import createAllContext from './modules/create_context';
 import { openEmailHandler } from './modules/email_service_link';
 
 // Creates each of the links to be used by each type of Email client
-localStorage.mailOptionsLength = 6;
+localStorage.mailOptionsLength = 7;
 
 // check for first run
 let firstRun = (localStorage.firstRun === 'true');
