@@ -215,6 +215,9 @@ function openEmailHandlerFn(mailPickerInt) {
       case 3:
         hotmailLink(info, tab);
         break;
+      case 7:
+        office365Link(info, tab);
+        break;
       case 4:
         ymailLink(info, tab);
         break;
@@ -228,6 +231,7 @@ export const emailLinks = {
   emailLink,
   gmailLink,
   hotmailLink,
+  office365Link,
   ymailLink,
   aolLink,
   inboxLink,
