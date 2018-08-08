@@ -143,6 +143,18 @@ function hotmailLink(info, tab) {
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
+// create a new Office365
+function office365Link(info, tab) {
+  const newLineChar = '%0A';
+
+  const mailOptions = getOptions();
+  const newWindow = mailOptions.new_window_7;
+  const mailTo = mailOptions.mail_to;
+
+  const mailsrvr = `https://outlook.office.com/owa/?path=/mail/action/compose&to=${mailTo}&subject=`;
+  createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
+}
+
 // create a new ymail / yahoo
 function ymailLink(info, tab) {
   const newLineChar = '%0A';
@@ -203,6 +215,9 @@ function openEmailHandlerFn(mailPickerInt) {
       case 3:
         hotmailLink(info, tab);
         break;
+      case 7:
+        office365Link(info, tab);
+        break;
       case 4:
         ymailLink(info, tab);
         break;
@@ -216,6 +231,7 @@ export const emailLinks = {
   emailLink,
   gmailLink,
   hotmailLink,
+  office365Link,
   ymailLink,
   aolLink,
   inboxLink,
