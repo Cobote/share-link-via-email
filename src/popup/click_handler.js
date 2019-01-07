@@ -12,8 +12,9 @@ function mailPickerClickHandler() {
   openEmailHandler(mailPickerInt);
 
   // Use timeout or email will not be created
-  setTimeout(() => { window.close(); }, 100);
+  setTimeout(() => {
+    window.close();
+  }, 100);
 }
-
 
 export default mailPickerClickHandler;

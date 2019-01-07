@@ -1,7 +1,9 @@
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
@@ -9,7 +11,5 @@ module.exports = merge(common, {
   output: {
     path: path.resolve(__dirname, 'build_dev'),
   },
-  plugins: [
-    new CleanWebpackPlugin(['build_dev']),
-  ],
+  plugins: [new CleanWebpackPlugin(['build_dev'])],
 });
