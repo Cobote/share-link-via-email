@@ -19,25 +19,56 @@ document.addEventListener('DOMContentLoaded', () => {
   // end on load
 
   // listeners
-  document.getElementById('btn_save').addEventListener('click', optionsClickHandler.btnSaveClickHandler);
-  document.getElementById('btn_restore').addEventListener('click', optionsClickHandler.btnResetClickHandler);
-  document.getElementById('newLineAfter').addEventListener('change', optionsClickHandler.newLineAfterClickHandler);
-  document.getElementById('newLineBefore').addEventListener('change', optionsClickHandler.newLineBeforeClickHandler);
-  document.getElementById('newLineAfterNum').addEventListener('change', getPreview);
-  document.getElementById('newLineAfterNum').addEventListener('keyup', getPreview);
-  document.getElementById('newLineBeforeNum').addEventListener('change', getPreview);
-  document.getElementById('newLineBeforeNum').addEventListener('keyup', getPreview);
+  document
+    .getElementById('btn_save')
+    .addEventListener('click', optionsClickHandler.btnSaveClickHandler);
+  document
+    .getElementById('btn_restore')
+    .addEventListener('click', optionsClickHandler.btnResetClickHandler);
+  document
+    .getElementById('newLineAfter')
+    .addEventListener('change', optionsClickHandler.newLineAfterClickHandler);
+  document
+    .getElementById('newLineBefore')
+    .addEventListener('change', optionsClickHandler.newLineBeforeClickHandler);
+  document
+    .getElementById('newLineAfterNum')
+    .addEventListener('change', getPreview);
+  document
+    .getElementById('newLineAfterNum')
+    .addEventListener('keyup', getPreview);
+  document
+    .getElementById('newLineBeforeNum')
+    .addEventListener('change', getPreview);
+  document
+    .getElementById('newLineBeforeNum')
+    .addEventListener('keyup', getPreview);
   document.getElementById('mail_before').addEventListener('keyup', getPreview);
   document.getElementById('mail_after').addEventListener('keyup', getPreview);
 
-  document.getElementById('mail_picker_0').addEventListener('change', optionsClickHandler.mailPicker0ClickHandler);
+  document
+    .getElementById('mail_picker_0')
+    .addEventListener('change', optionsClickHandler.mailPicker0ClickHandler);
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    document.getElementById(`mail_picker_${i}`).addEventListener('change', optionsClickHandler.mailPickerClickHandler);
+    const mailPickEl = document.getElementById(`mail_picker_${i}`);
+    if (mailPickEl) {
+      mailPickEl.addEventListener(
+        'change',
+        optionsClickHandler.mailPickerClickHandler
+      );
+    }
   }
 
-  document.getElementById('new_window_0').addEventListener('change', optionsClickHandler.newWindow0ClickHandler);
+  document
+    .getElementById('new_window_0')
+    .addEventListener('change', optionsClickHandler.newWindow0ClickHandler);
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    document.getElementById(`new_window_${i}`).addEventListener('change', optionsClickHandler.newWindowClickHandler);
+    const newEl = document.getElementById(`new_window_${i}`);
+    if (newEl) {
+      document
+        .getElementById(`new_window_${i}`)
+        .addEventListener('change', optionsClickHandler.newWindowClickHandler);
+    }
   }
 
   // stop normal form submission

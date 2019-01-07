@@ -5,15 +5,17 @@ import { getOptions } from '../modules/local_storage';
 // toggle new window checkbox when mail sender is unchecked
 function toggleNewWindowChbox() {
   const { mailOptionsLength } = localStorage;
-  let child;
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    child = localStorage[`mail_picker_${i}`];
-    if (child === 'false') {
-      document.getElementById(`new_window_${i}`).disabled = true;
-    } else {
-      document.getElementById(`new_window_${i}`).disabled = false;
+    const newWinEl = document.getElementById(`new_window_${i}`);
+    if (newWinEl) {
+      const child = localStorage[`mail_picker_${i}`];
+      if (child === 'false') {
+        document.getElementById(`new_window_${i}`).disabled = true;
+      } else {
+        document.getElementById(`new_window_${i}`).disabled = false;
+      }
     }
   }
 }
@@ -27,12 +29,16 @@ function saveSenderOptionsFn() {
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`mail_picker_${i}`);
-    localStorage[`mail_picker_${i}`] = child.checked;
+    if (child) {
+      localStorage[`mail_picker_${i}`] = child.checked;
+    }
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`new_window_${i}`);
-    localStorage[`new_window_${i}`] = child.checked;
+    if (child) {
+      localStorage[`new_window_${i}`] = child.checked;
+    }
   }
 
   toggleNewWindowChbox();
@@ -59,19 +65,23 @@ function restoreOptionsFn() {
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
     select = document.getElementById(`mail_picker_${i}`);
-    if (mailtype === 'true') {
-      select.checked = true;
-    } else {
-      select.checked = false;
+    if (select) {
+      if (mailtype === 'true') {
+        select.checked = true;
+      } else {
+        select.checked = false;
+      }
     }
   }
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`new_window_${i}`];
     select = document.getElementById(`new_window_${i}`);
-    if (mailtype === 'true') {
-      select.checked = true;
-    } else {
-      select.checked = false;
+    if (select) {
+      if (mailtype === 'true') {
+        select.checked = true;
+      } else {
+        select.checked = false;
+      }
     }
   }
 
@@ -86,11 +96,13 @@ function restoreOptionsFn() {
 
   const { newLineAfter } = mailOptions;
   select = document.getElementById('newLineAfter');
-  if (newLineAfter === 'true') {
-    select.checked = true;
-    document.getElementById('newLineAfterNum').disabled = false;
-  } else {
-    document.getElementById('newLineAfterNum').disabled = true;
+  if (select) {
+    if (newLineAfter === 'true') {
+      select.checked = true;
+      document.getElementById('newLineAfterNum').disabled = false;
+    } else {
+      document.getElementById('newLineAfterNum').disabled = true;
+    }
   }
 
   let { newLineAfterNum } = mailOptions;
@@ -101,11 +113,13 @@ function restoreOptionsFn() {
 
   const { newLineBefore } = mailOptions;
   select = document.getElementById('newLineBefore');
-  if (newLineBefore === 'true') {
-    select.checked = true;
-    document.getElementById('newLineBeforeNum').disabled = false;
-  } else {
-    document.getElementById('newLineBeforeNum').disabled = true;
+  if (select) {
+    if (newLineBefore === 'true') {
+      select.checked = true;
+      document.getElementById('newLineBeforeNum').disabled = false;
+    } else {
+      document.getElementById('newLineBeforeNum').disabled = true;
+    }
   }
 
   let { newLineBeforeNum } = mailOptions;

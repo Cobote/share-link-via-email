@@ -47,8 +47,16 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   const beforeMsg = mailOptions.mail_before;
   const afterMsg = mailOptions.mail_after;
 
-  const newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, newLineChar);
-  const newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, newLineChar);
+  const newLineAfterBody = addNewLines(
+    newLineAfter,
+    newLineAfterNum,
+    newLineChar
+  );
+  const newLineBeforeBody = addNewLines(
+    newLineBefore,
+    newLineBeforeNum,
+    newLineChar
+  );
   let emailBody = '';
   let beforeMsgEncoded = beforeMsg || '';
   let afterMsgEncoded = afterMsg || '';
@@ -56,7 +64,7 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   pageUrl = encodeURIComponent(pageUrl);
   // pageTitle = encodeURIComponent(pageTitle);
 
-  if ((beforeMsgEncoded !== '') && newLineAfterBody === '') {
+  if (beforeMsgEncoded !== '' && newLineAfterBody === '') {
     beforeMsgEncoded += ' ';
   }
   beforeMsgEncoded = encodeURIComponent(beforeMsgEncoded);
@@ -73,8 +81,13 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
     pageUrl = ` From ${pageUrl}`;
   }
 
-  emailBody = beforeMsgEncoded + newLineAfterBody + selectionTextBody + pageUrl +
-    newLineBeforeBody + afterMsgEncoded;
+  emailBody =
+    beforeMsgEncoded +
+    newLineAfterBody +
+    selectionTextBody +
+    pageUrl +
+    newLineBeforeBody +
+    afterMsgEncoded;
   return emailBody;
 }
 
@@ -181,21 +194,9 @@ function aolLink(info, tab) {
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
-// create a new Inbox
-function inboxLink(info, tab) {
-  const newLineChar = '%0A';
-
-  const mailOptions = getOptions();
-  const newWindow = mailOptions.new_window_6;
-  const mailTo = mailOptions.mail_to;
-
-  const mailsrvr = `https://inbox.google.com/u/0/?to=${mailTo}&subject=`;
-  createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
-}
-
 // handle email link
 function openEmailHandlerFn(mailPickerInt) {
-  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+  chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
     const tab = tabs[0];
     const info = '';
 
@@ -208,9 +209,6 @@ function openEmailHandlerFn(mailPickerInt) {
         break;
       case 2:
         gmailLink(info, tab);
-        break;
-      case 6:
-        inboxLink(info, tab);
         break;
       case 3:
         hotmailLink(info, tab);
@@ -234,6 +232,5 @@ export const emailLinks = {
   office365Link,
   ymailLink,
   aolLink,
-  inboxLink,
 };
 export const openEmailHandler = openEmailHandlerFn;
