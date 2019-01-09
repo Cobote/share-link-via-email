@@ -47,10 +47,10 @@ function createAllContext() {
     createContextItem('Outlook.com', emailLinks.hotmailLink);
   }
   if (favoriteOffice365 === 'true') {
-    createContextItem('Office365', emailLinks.office365Link);
+    createContextItem('Office 365', emailLinks.office365Link);
   }
   if (favoriteYmail === 'true') {
-    createContextItem('Yahoo! Mail', emailLinks.ymailLink);
+    createContextItem('Yahoo Mail', emailLinks.ymailLink);
   }
 }
 
