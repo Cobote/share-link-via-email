@@ -7,24 +7,27 @@ function validateBodyOptionsFn() {
   let errorFound = false;
   let currentItem;
 
-  if (document.getElementById('newLineAfter').checked) {
+  const newLineAfterEl = document.getElementById('newLineAfter');
+  if (newLineAfterEl && newLineAfterEl.checked) {
     currentItem = document.getElementById('newLineAfterNum');
-    if (currentItem.value < 0) {
+    if (currentItem && currentItem.value < 0) {
       // alert("New line before URL needs to be 0 or higher");
       errorFound = true;
     }
-    if ((Number.isNaN(currentItem.value) || currentItem.value === '')) {
+    if (Number.isNaN(currentItem.value) || currentItem.value === '') {
       // alert("New line before URL is not a number");
       errorFound = true;
     }
   }
-  if (document.getElementById('newLineBefore').checked) {
+
+  const newLineBeforeEl = document.getElementById('newLineBefore');
+  if (newLineBeforeEl && newLineBeforeEl.checked) {
     currentItem = document.getElementById('newLineBeforeNum');
-    if (currentItem.value < 0) {
+    if (currentItem && currentItem.value < 0) {
       // alert("New line after URL needs to be 0 or higher");
       errorFound = true;
     }
-    if ((Number.isNaN(currentItem.value) || currentItem.value === '')) {
+    if (Number.isNaN(currentItem.value) || currentItem.value === '') {
       // alert("New line after URL is not a number");
       errorFound = true;
     }
@@ -90,7 +93,11 @@ function getPreviewFn() {
 
   // get new line string
   const newLineAfterBody = addNewLines(newLineAfter, newLineAfterNum, '<br/>');
-  const newLineBeforeBody = addNewLines(newLineBefore, newLineBeforeNum, '<br/>');
+  const newLineBeforeBody = addNewLines(
+    newLineBefore,
+    newLineBeforeNum,
+    '<br/>'
+  );
 
   if (startMessage !== '' && newLineAfterBody === '') {
     startMessage += ' ';
@@ -100,7 +107,12 @@ function getPreviewFn() {
   }
 
   // set preview text
-  previewText = startMessage + newLineAfterBody + exampleAddress + newLineBeforeBody + endMessage;
+  previewText =
+    startMessage +
+    newLineAfterBody +
+    exampleAddress +
+    newLineBeforeBody +
+    endMessage;
 
   // send preview to display
   preview.innerHTML = previewText;

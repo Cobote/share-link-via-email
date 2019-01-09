@@ -32,7 +32,6 @@ function createAllContext() {
   const favoriteOffice365 = mailOptions.mail_picker_7;
   const favoriteYmail = mailOptions.mail_picker_4;
   const favoriteAOL = mailOptions.mail_picker_5;
-  const favoriteInbox = mailOptions.mail_picker_6;
 
   // Create email menu option for each context type in this order
   if (favoriteMailto === 'true') {
@@ -44,17 +43,14 @@ function createAllContext() {
   if (favoriteGmail === 'true') {
     createContextItem('Gmail', emailLinks.gmailLink);
   }
-  if (favoriteInbox === 'true') {
-    createContextItem('Inbox', emailLinks.inboxLink);
-  }
   if (favoriteHotmail === 'true') {
     createContextItem('Outlook.com', emailLinks.hotmailLink);
   }
   if (favoriteOffice365 === 'true') {
-    createContextItem('Office365', emailLinks.office365Link);
+    createContextItem('Office 365', emailLinks.office365Link);
   }
   if (favoriteYmail === 'true') {
-    createContextItem('Yahoo! Mail', emailLinks.ymailLink);
+    createContextItem('Yahoo Mail', emailLinks.ymailLink);
   }
 }
 

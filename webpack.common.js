@@ -20,7 +20,8 @@ module.exports = {
           fallback: 'style-loader',
           use: 'css-loader',
         }),
-      }, {
+      },
+      {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
           {
@@ -43,8 +44,6 @@ module.exports = {
       template: 'src/popup/popup.html',
       filename: 'popup.html',
     }),
-    new CopyWebpackPlugin([
-      { from: 'manifest.json' },
-    ]),
+    new CopyWebpackPlugin([{ from: 'manifest.json' }]),
   ],
 };

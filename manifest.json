@@ -1,7 +1,7 @@
 {
   "name": "Share link via email",
   "short_name": "Share Link",
-  "version": "3.2",
+  "version": "3.2.1",
   "description": "Adds a button and context menu item to send the page URL or a link URL via email",
   "manifest_version": 2,
   "icons": {
@@ -9,10 +9,7 @@
     "48": "images/stock_mail.png",
     "128": "images/stock_mail.png"
   },
-  "permissions": [
-    "contextMenus",
-    "activeTab"
-  ],
+  "permissions": ["contextMenus", "activeTab"],
   "browser_action": {
     "default_icon": {
       "19": "images/stock_mail.png",
@@ -22,8 +19,6 @@
   },
   "options_page": "options.html",
   "background": {
-    "scripts": [
-        "js/background.js"
-    ]
+    "scripts": ["js/background.js"]
   }
 }

@@ -16,9 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // end on load
 
   // listeners
-  document.getElementById('optionsLink').addEventListener('click', () => chrome.runtime.openOptionsPage());
+  document
+    .getElementById('optionsLink')
+    .addEventListener('click', () => chrome.runtime.openOptionsPage());
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
-    document.getElementById(`mail_picker_${i}`).addEventListener('click', mailPickerClickHandler);
+    const mailPickerEl = document.getElementById(`mail_picker_${i}`);
+    if (mailPickerEl) {
+      document
+        .getElementById(`mail_picker_${i}`)
+        .addEventListener('click', mailPickerClickHandler);
+    }
   }
 });

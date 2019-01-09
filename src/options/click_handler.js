@@ -1,4 +1,8 @@
-import { validateBodyOptions, saveBodyOptions, getPreview } from './body_section';
+import {
+  validateBodyOptions,
+  saveBodyOptions,
+  getPreview,
+} from './body_section';
 import { saveSenderOptions, restoreOptions } from './save_options';
 import { changeAll, changeCheck } from './change_all';
 
