@@ -10,6 +10,7 @@ const ZipPlugin = require('zip-webpack-plugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
+  mode: 'production',
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'build'),
