@@ -11,15 +11,16 @@ import { openEmailHandler } from './modules/email_service_link';
 
 // Creates each of the links to be used by each type of Email client
 localStorage.mailOptionsLength = 7;
+// Turn off all Inbox selections
+localStorage.mail_picker_6 = false;
 
 // check for first run
 let firstRun = localStorage.firstRun === 'true';
 // now save that first run has started
 if (!firstRun) {
   localStorage.firstRun = 'true';
-}
-// check if any settings have been saved
-if (!firstRun) {
+
+  // check if any settings have been saved
   const { mailOptionsLength } = localStorage;
   let i;
 
@@ -35,7 +36,6 @@ if (!firstRun) {
     }
   }
 }
-// console.log("False if first time: " + firstRun);
 // run actions if first run & no settings saved
 if (!firstRun) {
   // Set all options to default
