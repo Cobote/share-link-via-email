@@ -127,7 +127,7 @@ function emailLink(info, tab) {
   const newWindow = mailOptions.new_window_1;
   const mailTo = mailOptions.mail_to;
 
-  const mailsrvr = `mailto:${mailTo}?Subject=`;
+  const mailsrvr = `mailto:${mailTo}?subject=`;
   createEmailTab(info, tab, mailsrvr, newLineChar, newWindow);
 }
 
