@@ -44,6 +44,6 @@ module.exports = {
       template: 'src/popup/popup.html',
       filename: 'popup.html',
     }),
-    new CopyWebpackPlugin([{ from: 'manifest.json' }]),
+    new CopyWebpackPlugin({ patterns: [{ from: 'manifest.json', },], }),
   ],
 };
