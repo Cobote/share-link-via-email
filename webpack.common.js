@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -15,17 +16,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        }),
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: require.resolve('file-loader'),
             options: { name: '[path][name].[ext]' },
           },
         ],
@@ -33,7 +31,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new ExtractTextPlugin('css/[name].css'),
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       chunks: ['options_events'],
       template: 'src/options/options.html',
@@ -46,4 +44,14 @@ module.exports = {
     }),
     new CopyWebpackPlugin({ patterns: [{ from: 'manifest.json', },], }),
   ],
+  resolve: {
+    plugins: [
+      PnpWebpackPlugin,
+    ],
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module),
+    ],
+  },
 };
