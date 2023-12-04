@@ -1,3 +1,5 @@
+/* global chrome */
+
 // functions used by the "Options" page of the extension
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,7 +12,7 @@ import { getPreview } from './body_section';
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
 document.addEventListener('DOMContentLoaded', () => {
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chrome.storage.local;
   let i;
 
   // on load events

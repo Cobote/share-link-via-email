@@ -1,14 +1,18 @@
+/* global chrome */
+
 // Restores saved values from localStorage.
 // if none saved, use default values
 function getOptionsFn() {
+  const chromeLocalStorage = chrome.storage.local;
+
   const mailOptions = [];
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chromeLocalStorage;
   let i;
 
   // Restores each mail type
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (localStorage[`mail_picker_${i}`]) {
-      mailOptions[`mail_picker_${i}`] = localStorage[`mail_picker_${i}`];
+    if (chromeLocalStorage[`mail_picker_${i}`]) {
+      mailOptions[`mail_picker_${i}`] = chromeLocalStorage[`mail_picker_${i}`];
     } else {
       // if not set, leave as off
       mailOptions[`mail_picker_${i}`] = 'false';
@@ -18,8 +22,8 @@ function getOptionsFn() {
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (localStorage[`new_window_${i}`]) {
-      mailOptions[`new_window_${i}`] = localStorage[`new_window_${i}`];
+    if (chromeLocalStorage[`new_window_${i}`]) {
+      mailOptions[`new_window_${i}`] = chromeLocalStorage[`new_window_${i}`];
     } else {
       // if not set, leave as off
       mailOptions[`new_window_${i}`] = 'false';
@@ -28,48 +32,48 @@ function getOptionsFn() {
     // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
   }
 
-  if (localStorage.mail_to) {
-    mailOptions.mail_to = localStorage.mail_to;
+  if (chromeLocalStorage.mail_to) {
+    mailOptions.mail_to = chromeLocalStorage.mail_to;
   } else {
     // default
     mailOptions.mail_to = '';
   }
 
   // email body
-  if (localStorage.mail_before) {
-    mailOptions.mail_before = localStorage.mail_before;
+  if (chromeLocalStorage.mail_before) {
+    mailOptions.mail_before = chromeLocalStorage.mail_before;
   } else {
     // default
     mailOptions.mail_before = '';
   }
-  if (localStorage.mail_after) {
-    mailOptions.mail_after = localStorage.mail_after;
+  if (chromeLocalStorage.mail_after) {
+    mailOptions.mail_after = chromeLocalStorage.mail_after;
   } else {
     // default
     mailOptions.mail_after = '';
   }
 
   // email body new lines
-  if (localStorage.newLineAfter) {
-    mailOptions.newLineAfter = localStorage.newLineAfter;
+  if (chromeLocalStorage.newLineAfter) {
+    mailOptions.newLineAfter = chromeLocalStorage.newLineAfter;
   } else {
     // default
     mailOptions.newLineAfter = false;
   }
-  if (localStorage.newLineAfterNum) {
-    mailOptions.newLineAfterNum = localStorage.newLineAfterNum;
+  if (chromeLocalStorage.newLineAfterNum) {
+    mailOptions.newLineAfterNum = chromeLocalStorage.newLineAfterNum;
   } else {
     // default
     mailOptions.newLineAfterNum = 1;
   }
-  if (localStorage.newLineBefore) {
-    mailOptions.newLineBefore = localStorage.newLineBefore;
+  if (chromeLocalStorage.newLineBefore) {
+    mailOptions.newLineBefore = chromeLocalStorage.newLineBefore;
   } else {
     // default
     mailOptions.newLineBefore = false;
   }
-  if (localStorage.newLineBeforeNum) {
-    mailOptions.newLineBeforeNum = localStorage.newLineBeforeNum;
+  if (chromeLocalStorage.newLineBeforeNum) {
+    mailOptions.newLineBeforeNum = chromeLocalStorage.newLineBeforeNum;
   } else {
     // default
     mailOptions.newLineBeforeNum = 1;
@@ -81,20 +85,20 @@ function getOptionsFn() {
 function saveDefaultOptionsFn() {
   let i;
 
-  localStorage.mail_before = '';
-  localStorage.mail_after = '';
-  localStorage.mail_to = '';
-  localStorage.newLineAfter = false;
-  localStorage.newLineAfterNum = 1;
-  localStorage.newLineBefore = false;
-  localStorage.newLineBeforeNum = 1;
+  chromeLocalStorage.mail_before = '';
+  chromeLocalStorage.mail_after = '';
+  chromeLocalStorage.mail_to = '';
+  chromeLocalStorage.newLineAfter = false;
+  chromeLocalStorage.newLineAfterNum = 1;
+  chromeLocalStorage.newLineBefore = false;
+  chromeLocalStorage.newLineBeforeNum = 1;
 
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chromeLocalStorage;
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    localStorage[`mail_picker_${i}`] = true;
+    chromeLocalStorage[`mail_picker_${i}`] = true;
   }
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    localStorage[`new_window_${i}`] = false;
+    chromeLocalStorage[`new_window_${i}`] = false;
   }
 }
 
@@ -102,7 +106,7 @@ function saveDefaultOptionsFn() {
 function getOptionsShownCountFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chromeLocalStorage;
   let mailtype;
   let optionsShownCount;
   let i;
@@ -124,7 +128,7 @@ function getOptionsShownCountFn() {
 function getSingleOptionIntFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chromeLocalStorage;
   let mailtype;
   let optionInt;
   let i;

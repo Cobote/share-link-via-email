@@ -4,13 +4,15 @@ import { getOptions } from '../modules/local_storage';
 
 // toggle new window checkbox when mail sender is unchecked
 function toggleNewWindowChbox() {
-  const { mailOptionsLength } = localStorage;
+  const chromeLocalStorage = chrome.storage.local;
+
+  const { mailOptionsLength } = chromeLocalStorage;
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
     const newWinEl = document.getElementById(`new_window_${i}`);
     if (newWinEl) {
-      const child = localStorage[`mail_picker_${i}`];
+      const child = chromeLocalStorage[`mail_picker_${i}`];
       if (child === 'false') {
         document.getElementById(`new_window_${i}`).disabled = true;
       } else {
@@ -23,21 +25,23 @@ function toggleNewWindowChbox() {
 // Saves options to localStorage.
 // only email sender selection
 function saveSenderOptionsFn() {
-  const { mailOptionsLength } = localStorage;
+  const chromeLocalStorage = chrome.storage.local;
+
+  const { mailOptionsLength } = chromeLocalStorage;
   let child;
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`mail_picker_${i}`);
     if (child) {
-      localStorage[`mail_picker_${i}`] = child.checked;
+      chromeLocalStorage[`mail_picker_${i}`] = child.checked;
     }
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`new_window_${i}`);
     if (child) {
-      localStorage[`new_window_${i}`] = child.checked;
+      chromeLocalStorage[`new_window_${i}`] = child.checked;
     }
   }
 
@@ -54,7 +58,7 @@ function saveSenderOptionsFn() {
 function restoreOptionsFn() {
   // get saved values
   let mailOptions = [];
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chrome.storage.local;
   let select;
   let mailtype;
   let i;

@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    background: './src/background.js',
+    service_worker: './src/service_worker.js',
     options_events: './src/options/options_events.js',
     popup: './src/popup/popup.js',
   },
@@ -42,16 +42,12 @@ module.exports = {
       template: 'src/popup/popup.html',
       filename: 'popup.html',
     }),
-    new CopyWebpackPlugin({ patterns: [{ from: 'manifest.json', },], }),
+    new CopyWebpackPlugin({ patterns: [{ from: 'manifest.json' }] }),
   ],
   resolve: {
-    plugins: [
-      PnpWebpackPlugin,
-    ],
+    plugins: [PnpWebpackPlugin],
   },
   resolveLoader: {
-    plugins: [
-      PnpWebpackPlugin.moduleLoader(module),
-    ],
+    plugins: [PnpWebpackPlugin.moduleLoader(module)],
   },
 };

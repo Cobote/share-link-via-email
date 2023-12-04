@@ -1,9 +1,11 @@
+/* global chrome */
+
 import { getOptions } from '../modules/local_storage';
 
 // use the saved values for the form
 function showHideOptions() {
   // get saved values
-  const { mailOptionsLength } = localStorage;
+  const { mailOptionsLength } = chrome.storage.local;
   let select;
   let mailtype;
   let i;

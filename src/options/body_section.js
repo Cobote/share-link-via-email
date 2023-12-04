@@ -39,26 +39,28 @@ function validateBodyOptionsFn() {
 // Saves options to localStorage.
 // only email body section
 function saveBodyOptionsFn() {
+  const chromeLocalStorage = chrome.storage.local;
+
   const mailTo = document.getElementById('mail_to').value;
-  localStorage.mail_to = mailTo;
+  chromeLocalStorage.mail_to = mailTo;
 
   const mailBefore = document.getElementById('mail_before').value;
-  localStorage.mail_before = mailBefore;
+  chromeLocalStorage.mail_before = mailBefore;
 
   const mailAfter = document.getElementById('mail_after').value;
-  localStorage.mail_after = mailAfter;
+  chromeLocalStorage.mail_after = mailAfter;
 
   const newLineAfter = document.getElementById('newLineAfter').checked;
-  localStorage.newLineAfter = newLineAfter;
+  chromeLocalStorage.newLineAfter = newLineAfter;
 
   const newLineAfterNum = document.getElementById('newLineAfterNum').value;
-  localStorage.newLineAfterNum = newLineAfterNum;
+  chromeLocalStorage.newLineAfterNum = newLineAfterNum;
 
   const newLineBefore = document.getElementById('newLineBefore').checked;
-  localStorage.newLineBefore = newLineBefore;
+  chromeLocalStorage.newLineBefore = newLineBefore;
 
   const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
-  localStorage.newLineBeforeNum = newLineBeforeNum;
+  chromeLocalStorage.newLineBeforeNum = newLineBeforeNum;
 
   // Update status to let user know options were saved.
   const status = document.getElementById('status');
