@@ -35,10 +35,16 @@ async function createEmailMessage(info, tab, mailsrvr, newLineChar) {
 
   // Get stored options
   const mailOptions = await getOptions();
-  const { newLineAfter, newLineAfterNum, newLineBefore, newLineBeforeNum } =
-    mailOptions;
-  const beforeMsg = mailOptions.mail_before;
-  const afterMsg = mailOptions.mail_after;
+  const {
+    newLineAfter,
+    newLineAfterNum,
+    newLineBefore,
+    newLineBeforeNum,
+    mail_before: mailBefore,
+    mail_after: mailAfter,
+  } = mailOptions;
+  const beforeMsg = mailBefore;
+  const afterMsg = mailAfter;
 
   const newLineAfterBody = addNewLines(
     newLineAfter,
@@ -84,7 +90,7 @@ async function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   return emailBody;
 }
 
-function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
+async function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
   let emailBody = '';
   let urlString = '';
   // const pageUrl = getLink(info, tab);
@@ -93,7 +99,7 @@ function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
   // pageUrl = encodeURIComponent(pageUrl);
   pageTitle = encodeURIComponent(pageTitle);
 
-  emailBody = createEmailMessage(info, tab, mailsrvr, newLineChar);
+  emailBody = await createEmailMessage(info, tab, mailsrvr, newLineChar);
 
   urlString = `${mailsrvr}${pageTitle}&body=${emailBody}`;
 
