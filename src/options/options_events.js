@@ -1,5 +1,3 @@
-/* global chrome */
-
 // functions used by the "Options" page of the extension
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,12 +5,13 @@ import './options.css';
 import optionsClickHandler from './click_handler';
 import { restoreOptions } from './save_options';
 import { getPreview } from './body_section';
+import { getValueFromLocalStorage } from '../modules/local_storage';
 
 // Add event listeners once the DOM has fully loaded by listening for the
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
-document.addEventListener('DOMContentLoaded', () => {
-  const { mailOptionsLength } = chrome.storage.local;
+document.addEventListener('DOMContentLoaded', async () => {
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   // on load events

@@ -51,14 +51,14 @@ async function saveSenderOptionsFn() {
 
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
-  chrome.extension.getBackgroundPage().window.location.reload();
+  // chrome.extension.getBackgroundPage().window.location.reload();
 }
 
 // use the saved values for the form
 async function restoreOptionsFn() {
   // get saved values
   let mailOptions = [];
-  const { mailOptionsLength } = chrome.storage.local;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let select;
   let mailtype;
   let i;

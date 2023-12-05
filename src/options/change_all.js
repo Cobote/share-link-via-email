@@ -1,8 +1,8 @@
-/* global chrome */
+import { getValueFromLocalStorage } from '../modules/local_storage';
 
 // select/clear all toggle
-function changeAllFn(checkbox, element) {
-  const { mailOptionsLength } = chrome.storage.local;
+async function changeAllFn(checkbox, element) {
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
@@ -18,9 +18,9 @@ function changeAllFn(checkbox, element) {
 }
 
 // select/clear all checker
-function changeCheckFn(element) {
+async function changeCheckFn(element) {
   let changeChecker = true;
-  const { mailOptionsLength } = chrome.storage.local;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {

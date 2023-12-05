@@ -4,12 +4,13 @@
 import './popup.css';
 import showHideOptions from './showHideOptions';
 import mailPickerClickHandler from './click_handler';
+import { getValueFromLocalStorage } from '../modules/local_storage';
 
 // Add event listeners once the DOM has fully loaded by listening for the
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
-document.addEventListener('DOMContentLoaded', () => {
-  const { mailOptionsLength } = chrome.storage.local;
+document.addEventListener('DOMContentLoaded', async () => {
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
   // on load events
   showHideOptions();
