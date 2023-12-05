@@ -9,37 +9,39 @@ import {
 import createAllContext from './modules/create_context';
 import { openEmailHandler } from './modules/email_service_link';
 
-// Creates each of the links to be used by each type of Email client
-chrome.storage.local.set({ mailOptionsLength: 7 });
-// Turn off all Inbox selections
-chrome.storage.local.set({ mail_picker_6: false });
+const init = async () => {
+  // Creates each of the links to be used by each type of Email client
+  if ((await chrome.storage.local.get(['mailOptionsLength'])) !== 7) {
+    await chrome.storage.local.set({ mailOptionsLength: 7 });
+  }
+  // Turn off all Inbox selections
+  if ((await chrome.storage.local.get(['mail_picker_6'])) !== false) {
+    await chrome.storage.local.set({ mail_picker_6: false });
+  }
 
-// check for first run
-chrome.storage.local.get(['firstRun']).then(async (result) => {
-  let firstRun = result.firstRun === 'true';
+  // check for first run
+  const firstRunString = await chrome.storage.local.get(['firstRun']);
+  let firstRun = firstRunString === 'true';
 
   // now save that first run has started
   if (!firstRun) {
     chrome.storage.local.set({ firstRun: 'false' });
 
     // check if any settings have been saved
-    const mailOptionsLength = await chrome.storage.sync.get(
+    const mailOptionsLength = await chrome.storage.local.get(
       'mailOptionsLength'
     );
     let i;
 
     for (i = 0; i <= mailOptionsLength; i += 1) {
-      const iName = `mail_picker_${i}`;
-      // eslint-disable-next-line no-loop-func
-      chrome.storage.local.get([iName]).then((iNameResult) => {
-        const mailPickerI = iNameResult[iName];
-
-        if (mailPickerI === 'true' || mailPickerI === 'false') {
-          firstRun = 'true';
-          // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"']
-          // as "+ localStorage["mail_picker_"+i]);
-        }
-      });
+      // eslint-disable-next-line no-await-in-loop
+      const mailPicker = await chrome.storage.local.get([`mail_picker_${i}`]);
+      if (mailPicker === 'true' || mailPicker === 'false') {
+        firstRun = true;
+        // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"']
+        // as "+ localStorage["mail_picker_"+i]);
+        break;
+      }
     }
   }
 
@@ -48,17 +50,18 @@ chrome.storage.local.get(['firstRun']).then(async (result) => {
     // Set all options to default
     saveDefaultOptions();
   }
-});
 
-// Create email menu option for each context type
-createAllContext();
+  // Create email menu option for each context type
+  createAllContext();
 
-// Check if only one option selected
-if (getOptionsShownCount() === 1) {
-  chrome.browserAction.setPopup({ popup: '' });
-  chrome.browserAction.onClicked.addListener(() => {
-    openEmailHandler(getSingleOptionInt());
-  });
-} else {
-  chrome.browserAction.setPopup({ popup: 'popup.html' });
-}
+  // Check if only one option selected
+  if (getOptionsShownCount() === 1) {
+    chrome.action.setPopup({ popup: '' });
+    chrome.action.onClicked.addListener(() => {
+      openEmailHandler(getSingleOptionInt());
+    });
+  } else {
+    chrome.action.setPopup({ popup: 'popup.html' });
+  }
+};
+init();

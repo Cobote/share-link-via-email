@@ -3,16 +3,17 @@
 import { getOptions } from '../modules/local_storage';
 
 // toggle new window checkbox when mail sender is unchecked
-function toggleNewWindowChbox() {
-  const chromeLocalStorage = chrome.storage.local;
-
-  const { mailOptionsLength } = chromeLocalStorage;
+async function toggleNewWindowChbox() {
+  const mailOptionsLength = await chrome.storage.local.get([
+    'mailOptionsLength',
+  ]);
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
     const newWinEl = document.getElementById(`new_window_${i}`);
     if (newWinEl) {
-      const child = chromeLocalStorage[`mail_picker_${i}`];
+      // eslint-disable-next-line no-await-in-loop
+      const child = await chrome.storage.local.get([`mail_picker_${i}`]);
       if (child === 'false') {
         document.getElementById(`new_window_${i}`).disabled = true;
       } else {
@@ -24,26 +25,29 @@ function toggleNewWindowChbox() {
 
 // Saves options to localStorage.
 // only email sender selection
-function saveSenderOptionsFn() {
-  const chromeLocalStorage = chrome.storage.local;
-
-  const { mailOptionsLength } = chromeLocalStorage;
+async function saveSenderOptionsFn() {
+  const mailOptionsLength = await chrome.storage.local.get([
+    'mailOptionsLength',
+  ]);
   let child;
   let i;
+  const nextSenderOptions = {};
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`mail_picker_${i}`);
     if (child) {
-      chromeLocalStorage[`mail_picker_${i}`] = child.checked;
+      nextSenderOptions[`mail_picker_${i}`] = child.checked;
     }
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`new_window_${i}`);
     if (child) {
-      chromeLocalStorage[`new_window_${i}`] = child.checked;
+      nextSenderOptions[`new_window_${i}`] = child.checked;
     }
   }
+
+  await chrome.storage.local.set(nextSenderOptions);
 
   toggleNewWindowChbox();
 

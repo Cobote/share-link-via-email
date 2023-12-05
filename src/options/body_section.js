@@ -38,29 +38,16 @@ function validateBodyOptionsFn() {
 
 // Saves options to localStorage.
 // only email body section
-function saveBodyOptionsFn() {
-  const chromeLocalStorage = chrome.storage.local;
-
-  const mailTo = document.getElementById('mail_to').value;
-  chromeLocalStorage.mail_to = mailTo;
-
-  const mailBefore = document.getElementById('mail_before').value;
-  chromeLocalStorage.mail_before = mailBefore;
-
-  const mailAfter = document.getElementById('mail_after').value;
-  chromeLocalStorage.mail_after = mailAfter;
-
-  const newLineAfter = document.getElementById('newLineAfter').checked;
-  chromeLocalStorage.newLineAfter = newLineAfter;
-
-  const newLineAfterNum = document.getElementById('newLineAfterNum').value;
-  chromeLocalStorage.newLineAfterNum = newLineAfterNum;
-
-  const newLineBefore = document.getElementById('newLineBefore').checked;
-  chromeLocalStorage.newLineBefore = newLineBefore;
-
-  const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
-  chromeLocalStorage.newLineBeforeNum = newLineBeforeNum;
+async function saveBodyOptionsFn() {
+  await chrome.storage.local.set({
+    mail_to: document.getElementById('mail_to').value,
+    mail_before: document.getElementById('mail_before').value,
+    mail_after: document.getElementById('mail_after').value,
+    newLineAfter: document.getElementById('newLineAfter').checked,
+    newLineAfterNum: document.getElementById('newLineAfterNum').value,
+    newLineBefore: document.getElementById('newLineBefore').checked,
+    newLineBeforeNum: document.getElementById('newLineBeforeNum').value,
+  });
 
   // Update status to let user know options were saved.
   const status = document.getElementById('status');

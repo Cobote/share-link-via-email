@@ -2,17 +2,19 @@
 
 // Restores saved values from localStorage.
 // if none saved, use default values
-function getOptionsFn() {
-  const chromeLocalStorage = chrome.storage.local;
-
+async function getOptionsFn() {
   const mailOptions = [];
-  const { mailOptionsLength } = chromeLocalStorage;
+  const mailOptionsLength = await chrome.storage.local.get([
+    'mailOptionsLength',
+  ]);
   let i;
 
   // Restores each mail type
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (chromeLocalStorage[`mail_picker_${i}`]) {
-      mailOptions[`mail_picker_${i}`] = chromeLocalStorage[`mail_picker_${i}`];
+    // eslint-disable-next-line no-await-in-loop
+    const mailPicker = await chrome.storage.local.get([`mail_picker_${i}`]);
+    if (mailPicker) {
+      mailOptions[`mail_picker_${i}`] = mailPicker;
     } else {
       // if not set, leave as off
       mailOptions[`mail_picker_${i}`] = 'false';
@@ -22,8 +24,10 @@ function getOptionsFn() {
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (chromeLocalStorage[`new_window_${i}`]) {
-      mailOptions[`new_window_${i}`] = chromeLocalStorage[`new_window_${i}`];
+    // eslint-disable-next-line no-await-in-loop
+    const newWindow = await chrome.storage.local.get([`new_window_${i}`]);
+    if (newWindow) {
+      mailOptions[`new_window_${i}`] = newWindow;
     } else {
       // if not set, leave as off
       mailOptions[`new_window_${i}`] = 'false';
@@ -32,48 +36,55 @@ function getOptionsFn() {
     // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
   }
 
-  if (chromeLocalStorage.mail_to) {
-    mailOptions.mail_to = chromeLocalStorage.mail_to;
+  const mailTo = await chrome.storage.local.get(['mail_to']);
+  if (mailTo) {
+    mailOptions.mail_to = mailTo;
   } else {
     // default
     mailOptions.mail_to = '';
   }
 
   // email body
-  if (chromeLocalStorage.mail_before) {
-    mailOptions.mail_before = chromeLocalStorage.mail_before;
+  const mailBefore = await chrome.storage.local.get(['mail_before']);
+  if (mailBefore) {
+    mailOptions.mail_before = mailBefore;
   } else {
     // default
     mailOptions.mail_before = '';
   }
-  if (chromeLocalStorage.mail_after) {
-    mailOptions.mail_after = chromeLocalStorage.mail_after;
+  const mailAfter = await chrome.storage.local.get(['mail_after']);
+  if (mailAfter) {
+    mailOptions.mail_after = mailAfter;
   } else {
     // default
     mailOptions.mail_after = '';
   }
 
   // email body new lines
-  if (chromeLocalStorage.newLineAfter) {
-    mailOptions.newLineAfter = chromeLocalStorage.newLineAfter;
+  const newLineAfter = await chrome.storage.local.get(['newLineAfter']);
+  if (newLineAfter) {
+    mailOptions.newLineAfter = newLineAfter;
   } else {
     // default
     mailOptions.newLineAfter = false;
   }
-  if (chromeLocalStorage.newLineAfterNum) {
-    mailOptions.newLineAfterNum = chromeLocalStorage.newLineAfterNum;
+  const newLineAfterNum = await chrome.storage.local.get(['newLineAfterNum']);
+  if (newLineAfterNum) {
+    mailOptions.newLineAfterNum = newLineAfterNum;
   } else {
     // default
     mailOptions.newLineAfterNum = 1;
   }
-  if (chromeLocalStorage.newLineBefore) {
-    mailOptions.newLineBefore = chromeLocalStorage.newLineBefore;
+  const newLineBefore = await chrome.storage.local.get(['newLineBefore']);
+  if (newLineBefore) {
+    mailOptions.newLineBefore = newLineBefore;
   } else {
     // default
     mailOptions.newLineBefore = false;
   }
-  if (chromeLocalStorage.newLineBeforeNum) {
-    mailOptions.newLineBeforeNum = chromeLocalStorage.newLineBeforeNum;
+  const newLineBeforeNum = await chrome.storage.local.get(['newLineBeforeNum']);
+  if (newLineBeforeNum) {
+    mailOptions.newLineBeforeNum = newLineBeforeNum;
   } else {
     // default
     mailOptions.newLineBeforeNum = 1;
@@ -82,31 +93,39 @@ function getOptionsFn() {
   return mailOptions;
 }
 
-function saveDefaultOptionsFn() {
+async function saveDefaultOptionsFn() {
   let i;
 
-  chromeLocalStorage.mail_before = '';
-  chromeLocalStorage.mail_after = '';
-  chromeLocalStorage.mail_to = '';
-  chromeLocalStorage.newLineAfter = false;
-  chromeLocalStorage.newLineAfterNum = 1;
-  chromeLocalStorage.newLineBefore = false;
-  chromeLocalStorage.newLineBeforeNum = 1;
+  const defaults = {
+    mail_before: '',
+    mail_after: '',
+    mail_to: '',
+    newLineAfter: false,
+    newLineAfterNum: 1,
+    ewLineBefore: false,
+    newLineBeforeNum: 1,
+  };
 
-  const { mailOptionsLength } = chromeLocalStorage;
+  const mailOptionsLength = await chrome.storage.local.get([
+    'mailOptionsLength',
+  ]);
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    chromeLocalStorage[`mail_picker_${i}`] = true;
+    defaults[`mail_picker_${i}`] = true;
   }
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    chromeLocalStorage[`new_window_${i}`] = false;
+    defaults[`new_window_${i}`] = false;
   }
+
+  await chrome.storage.local.set(defaults);
 }
 
 // Count how many mail options are enabled
-function getOptionsShownCountFn() {
+async function getOptionsShownCountFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const { mailOptionsLength } = chromeLocalStorage;
+  const mailOptionsLength = await chrome.storage.local.get([
+    'mailOptionsLength',
+  ]);
   let mailtype;
   let optionsShownCount;
   let i;
@@ -125,10 +144,12 @@ function getOptionsShownCountFn() {
 }
 
 // Get the currently enabled mail option
-function getSingleOptionIntFn() {
+async function getSingleOptionIntFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const { mailOptionsLength } = chromeLocalStorage;
+  const mailOptionsLength = await chrome.storage.local.get([
+    'mailOptionsLength',
+  ]);
   let mailtype;
   let optionInt;
   let i;
