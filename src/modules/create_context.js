@@ -16,7 +16,7 @@ function createContextItem(contextName, onClick) {
     chrome.contextMenus.create({
       title,
       contexts: [context],
-      id: context,
+      id: `${context}_${contextName}`,
     });
   }
 
