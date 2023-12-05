@@ -20,7 +20,7 @@ async function getOptionsFn() {
       mailOptions[`mail_picker_${i}`] = mailPicker;
     } else {
       // if not set, leave as off
-      mailOptions[`mail_picker_${i}`] = 'false';
+      mailOptions[`mail_picker_${i}`] = false;
       // console.log("mail_picker_" + i + " not found");
     }
     // console.log("mail_picker_" + i + ": " + localStorage["mail_picker_" + i]);
@@ -33,7 +33,7 @@ async function getOptionsFn() {
       mailOptions[`new_window_${i}`] = newWindow;
     } else {
       // if not set, leave as off
-      mailOptions[`new_window_${i}`] = 'false';
+      mailOptions[`new_window_${i}`] = false;
       // console.log("new_window_" + i + " not found");
     }
     // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
@@ -134,7 +134,7 @@ async function getOptionsShownCountFn() {
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
-    if (mailtype === 'true') {
+    if (mailtype) {
       optionsShownCount += 1;
     }
   }
@@ -154,7 +154,7 @@ async function getSingleOptionIntFn() {
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
-    if (mailtype === 'true') {
+    if (mailtype) {
       optionInt = i;
     }
   }

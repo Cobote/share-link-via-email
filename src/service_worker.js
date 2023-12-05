@@ -21,35 +21,14 @@ const init = async () => {
   }
 
   // check for first run
-  const firstRunString = await getValueFromLocalStorage('firstRun');
-  let firstRun = firstRunString === 'true';
-
-  // now save that first run has started
-  if (!firstRun) {
-    chrome.storage.local.set({ firstRun: 'false' });
-
-    // check if any settings have been saved
-    const mailOptionsLength = await getValueFromLocalStorage(
-      'mailOptionsLength'
-    );
-    let i;
-
-    for (i = 0; i <= mailOptionsLength; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      const mailPicker = await getValueFromLocalStorage(`mail_picker_${i}`);
-      if (mailPicker === 'true' || mailPicker === 'false') {
-        firstRun = true;
-        // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"']
-        // as "+ localStorage["mail_picker_"+i]);
-        break;
-      }
-    }
-  }
-
+  const firstRun = await getValueFromLocalStorage('firstRun');
   // run actions if first run & no settings saved
-  if (!firstRun) {
+  if (firstRun === true) {
     // Set all options to default
     saveDefaultOptions();
+  }
+  if (firstRun !== false) {
+    await chrome.storage.local.set({ firstRun: false });
   }
 
   // Create email menu option for each context type

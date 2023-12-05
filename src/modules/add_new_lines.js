@@ -3,7 +3,7 @@ function addNewLines(linesEnabled, lineCount, breakChar) {
   let lineString = '';
   let i;
 
-  if (linesEnabled !== false && linesEnabled !== 'false' && lineCount >= 1) {
+  if (linesEnabled && lineCount >= 1) {
     for (i = 0; i < lineCount; i += 1) {
       lineString += breakChar;
       // lineString = lineString + "<br/>";

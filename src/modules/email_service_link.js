@@ -38,12 +38,8 @@ function createEmailMessage(info, tab, mailsrvr, newLineChar) {
 
   // Get stored options
   const mailOptions = getOptions();
-  const {
-    newLineAfter,
-    newLineAfterNum,
-    newLineBefore,
-    newLineBeforeNum,
-  } = mailOptions;
+  const { newLineAfter, newLineAfterNum, newLineBefore, newLineBeforeNum } =
+    mailOptions;
   const beforeMsg = mailOptions.mail_before;
   const afterMsg = mailOptions.mail_after;
 
@@ -106,7 +102,7 @@ function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
 
   // open link in new tab
   // window.open(mailsrvr+pageTitle+'&body='+emailBody); // JS method
-  if (newWindow === 'true') {
+  if (newWindow) {
     chrome.tabs.create({ url: urlString }); // chrome api method - new tab
   } else {
     chrome.tabs.update({ url: urlString }); // chrome api method - same page
@@ -196,7 +192,7 @@ function aolLink(info, tab) {
 
 // handle email link
 function openEmailHandlerFn(mailPickerInt) {
-  chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
     const tab = tabs[0];
     const info = '';
 

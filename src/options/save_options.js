@@ -12,7 +12,7 @@ async function toggleNewWindowChbox() {
     if (newWinEl) {
       // eslint-disable-next-line no-await-in-loop
       const child = await getValueFromLocalStorage(`mail_picker_${i}`);
-      if (child === 'false') {
+      if (!child) {
         document.getElementById(`new_window_${i}`).disabled = true;
       } else {
         document.getElementById(`new_window_${i}`).disabled = false;
@@ -70,7 +70,7 @@ async function restoreOptionsFn() {
     mailtype = mailOptions[`mail_picker_${i}`];
     select = document.getElementById(`mail_picker_${i}`);
     if (select) {
-      if (mailtype === 'true') {
+      if (mailtype) {
         select.checked = true;
       } else {
         select.checked = false;
@@ -81,7 +81,7 @@ async function restoreOptionsFn() {
     mailtype = mailOptions[`new_window_${i}`];
     select = document.getElementById(`new_window_${i}`);
     if (select) {
-      if (mailtype === 'true') {
+      if (mailtype) {
         select.checked = true;
       } else {
         select.checked = false;
@@ -101,7 +101,7 @@ async function restoreOptionsFn() {
   const { newLineAfter } = mailOptions;
   select = document.getElementById('newLineAfter');
   if (select) {
-    if (newLineAfter === 'true') {
+    if (newLineAfter) {
       select.checked = true;
       document.getElementById('newLineAfterNum').disabled = false;
     } else {
@@ -118,7 +118,7 @@ async function restoreOptionsFn() {
   const { newLineBefore } = mailOptions;
   select = document.getElementById('newLineBefore');
   if (select) {
-    if (newLineBefore === 'true') {
+    if (newLineBefore) {
       select.checked = true;
       document.getElementById('newLineBeforeNum').disabled = false;
     } else {

@@ -34,22 +34,22 @@ function createAllContext() {
   const favoriteAOL = mailOptions.mail_picker_5;
 
   // Create email menu option for each context type in this order
-  if (favoriteMailto === 'true') {
+  if (favoriteMailto) {
     createContextItem('Email', emailLinks.emailLink);
   }
-  if (favoriteAOL === 'true') {
+  if (favoriteAOL) {
     createContextItem('AOL Mail', emailLinks.aolLink);
   }
-  if (favoriteGmail === 'true') {
+  if (favoriteGmail) {
     createContextItem('Gmail', emailLinks.gmailLink);
   }
-  if (favoriteHotmail === 'true') {
+  if (favoriteHotmail) {
     createContextItem('Outlook.com', emailLinks.hotmailLink);
   }
-  if (favoriteOffice365 === 'true') {
+  if (favoriteOffice365) {
     createContextItem('Office 365', emailLinks.office365Link);
   }
-  if (favoriteYmail === 'true') {
+  if (favoriteYmail) {
     createContextItem('Yahoo Mail', emailLinks.ymailLink);
   }
 }

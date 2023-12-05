@@ -15,7 +15,7 @@ async function showHideOptions() {
     mailtype = mailOptions[`mail_picker_${i}`];
     select = document.getElementById(`mail_picker_${i}`);
     if (select) {
-      if (mailtype !== 'true') {
+      if (!mailtype) {
         select.style.display = 'none';
       } else {
         isOptionSet = true;
