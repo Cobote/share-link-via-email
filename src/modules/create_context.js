@@ -4,7 +4,7 @@ import { getOptions } from './local_storage';
 import { emailLinks } from './email_service_link';
 
 // Create email page option for each context type.
-function createContextItem(contextName, oncLink) {
+function createContextItem(contextName, onClick) {
   const contexts = ['page', 'link', 'selection'];
   let context;
   let title;
@@ -16,9 +16,11 @@ function createContextItem(contextName, oncLink) {
     chrome.contextMenus.create({
       title,
       contexts: [context],
-      onclick: oncLink,
+      id: context,
     });
   }
+
+  chrome.contextMenus.onClicked.addListener(onClick);
 }
 
 async function createAllContext() {

@@ -35,7 +35,7 @@ const init = async () => {
   createAllContext();
 
   // Check if only one option selected
-  if (getOptionsShownCount() === 1) {
+  if ((await getOptionsShownCount()) === 1) {
     chrome.action.setPopup({ popup: '' });
     chrome.action.onClicked.addListener(() => {
       openEmailHandler(getSingleOptionInt());
