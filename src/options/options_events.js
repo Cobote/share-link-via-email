@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let i;
 
   // on load events
-  restoreOptions();
+  await restoreOptions();
   getPreview();
   // end on load
 

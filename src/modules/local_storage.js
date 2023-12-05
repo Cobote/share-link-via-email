@@ -21,9 +21,7 @@ async function getOptionsFn() {
     } else {
       // if not set, leave as off
       mailOptions[`mail_picker_${i}`] = false;
-      // console.log("mail_picker_" + i + " not found");
     }
-    // console.log("mail_picker_" + i + ": " + localStorage["mail_picker_" + i]);
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
@@ -34,9 +32,7 @@ async function getOptionsFn() {
     } else {
       // if not set, leave as off
       mailOptions[`new_window_${i}`] = false;
-      // console.log("new_window_" + i + " not found");
     }
-    // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
   }
 
   const mailTo = await getValueFromLocalStorage('mail_to');

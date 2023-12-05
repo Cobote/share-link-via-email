@@ -7,7 +7,7 @@ async function showHideOptions() {
   let select;
   let mailtype;
   let i;
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   let isOptionSet = false;
 
   // Hide options not selected

@@ -13,7 +13,6 @@ function getTitle(info, tab) {
   } else {
     pageTitle = tab.title;
   }
-  // console.log("page title: " + pageTitle);
   return pageTitle;
 }
 
@@ -27,17 +26,15 @@ function getLink(info, tab) {
   } else {
     pageUrl = tab.url;
   }
-  // pageUrl = encodeURIComponent(pageUrl);
-  // console.log("page url: " + pageUrl);
   return pageUrl;
 }
 
-function createEmailMessage(info, tab, mailsrvr, newLineChar) {
+async function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   let pageUrl = getLink(info, tab);
   // const pageTitle = getTitle(info, tab);
 
   // Get stored options
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const { newLineAfter, newLineAfterNum, newLineBefore, newLineBeforeNum } =
     mailOptions;
   const beforeMsg = mailOptions.mail_before;
@@ -107,19 +104,13 @@ function createEmailTab(info, tab, mailsrvr, newLineChar, newWindow) {
   } else {
     chrome.tabs.update({ url: urlString }); // chrome api method - same page
   }
-
-  // write log of items used for the URL
-  // console.log("link " + pageUrl + " - " + pageTitle + " was sent");
-  // console.log("item " + info.menuItemId + " was clicked");
-  // console.log("info: " + JSON.stringify(info));
-  // console.log("tab: " + JSON.stringify(tab));
 }
 
 // create a new email
-function emailLink(info, tab) {
+async function emailLink(info, tab) {
   const newLineChar = '%0A';
 
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const newWindow = mailOptions.new_window_1;
   const mailTo = mailOptions.mail_to;
 
@@ -128,10 +119,10 @@ function emailLink(info, tab) {
 }
 
 // create a new Gmail
-function gmailLink(info, tab) {
+async function gmailLink(info, tab) {
   const newLineChar = '%0A';
 
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const newWindow = mailOptions.new_window_2;
   const mailTo = mailOptions.mail_to;
 
@@ -140,10 +131,10 @@ function gmailLink(info, tab) {
 }
 
 // create a new hotmail
-function hotmailLink(info, tab) {
+async function hotmailLink(info, tab) {
   const newLineChar = '%0A';
 
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const newWindow = mailOptions.new_window_3;
   const mailTo = mailOptions.mail_to;
 
@@ -153,10 +144,10 @@ function hotmailLink(info, tab) {
 }
 
 // create a new Office365
-function office365Link(info, tab) {
+async function office365Link(info, tab) {
   const newLineChar = '%0A';
 
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const newWindow = mailOptions.new_window_7;
   const mailTo = mailOptions.mail_to;
 
@@ -165,10 +156,10 @@ function office365Link(info, tab) {
 }
 
 // create a new ymail / yahoo
-function ymailLink(info, tab) {
+async function ymailLink(info, tab) {
   const newLineChar = '%0A';
 
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const newWindow = mailOptions.new_window_4;
   const mailTo = mailOptions.mail_to;
 
@@ -179,10 +170,10 @@ function ymailLink(info, tab) {
 }
 
 // create a new AOL mail
-function aolLink(info, tab) {
+async function aolLink(info, tab) {
   const newLineChar = '%20'; // using space
 
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   const newWindow = mailOptions.new_window_5;
   const mailTo = mailOptions.mail_to;
 

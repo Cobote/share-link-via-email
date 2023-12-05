@@ -18,13 +18,12 @@ function createContextItem(contextName, oncLink) {
       contexts: [context],
       onclick: oncLink,
     });
-    // console.log("added '" + context + "' for " + contextName);
   }
 }
 
-function createAllContext() {
+async function createAllContext() {
   // Get stored options
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
 
   const favoriteMailto = mailOptions.mail_picker_1;
   const favoriteGmail = mailOptions.mail_picker_2;
