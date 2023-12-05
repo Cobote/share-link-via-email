@@ -5,22 +5,23 @@ import {
   saveDefaultOptions,
   getOptionsShownCount,
   getSingleOptionInt,
+  getValueFromLocalStorage,
 } from './modules/local_storage';
 import createAllContext from './modules/create_context';
 import { openEmailHandler } from './modules/email_service_link';
 
 const init = async () => {
   // Creates each of the links to be used by each type of Email client
-  if ((await chrome.storage.local.get(['mailOptionsLength'])) !== 7) {
+  if ((await getValueFromLocalStorage('mailOptionsLength')) !== 7) {
     await chrome.storage.local.set({ mailOptionsLength: 7 });
   }
   // Turn off all Inbox selections
-  if ((await chrome.storage.local.get(['mail_picker_6'])) !== false) {
+  if ((await getValueFromLocalStorage('mail_picker_6')) !== false) {
     await chrome.storage.local.set({ mail_picker_6: false });
   }
 
   // check for first run
-  const firstRunString = await chrome.storage.local.get(['firstRun']);
+  const firstRunString = await getValueFromLocalStorage('firstRun');
   let firstRun = firstRunString === 'true';
 
   // now save that first run has started
@@ -28,14 +29,14 @@ const init = async () => {
     chrome.storage.local.set({ firstRun: 'false' });
 
     // check if any settings have been saved
-    const mailOptionsLength = await chrome.storage.local.get(
+    const mailOptionsLength = await getValueFromLocalStorage(
       'mailOptionsLength'
     );
     let i;
 
     for (i = 0; i <= mailOptionsLength; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      const mailPicker = await chrome.storage.local.get([`mail_picker_${i}`]);
+      const mailPicker = await getValueFromLocalStorage(`mail_picker_${i}`);
       if (mailPicker === 'true' || mailPicker === 'false') {
         firstRun = true;
         // console.log("Not first time - found save option: localStorage['mail_picker_"+ i +"']

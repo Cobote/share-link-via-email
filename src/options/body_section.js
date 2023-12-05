@@ -63,7 +63,7 @@ async function saveBodyOptionsFn() {
 
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
-  chrome.extension.getBackgroundPage().window.location.reload();
+  // chrome.extension.getBackgroundPage().window.location.reload();
 }
 
 // update preview

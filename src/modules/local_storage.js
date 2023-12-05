@@ -1,18 +1,21 @@
 /* global chrome */
 
+export async function getValueFromLocalStorage(name) {
+  const objValue = await chrome.storage.local.get([name]);
+  return objValue[name];
+}
+
 // Restores saved values from localStorage.
 // if none saved, use default values
 async function getOptionsFn() {
-  const mailOptions = [];
-  const mailOptionsLength = await chrome.storage.local.get([
-    'mailOptionsLength',
-  ]);
+  const mailOptions = {};
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   // Restores each mail type
   for (i = 0; i <= mailOptionsLength; i += 1) {
     // eslint-disable-next-line no-await-in-loop
-    const mailPicker = await chrome.storage.local.get([`mail_picker_${i}`]);
+    const mailPicker = await getValueFromLocalStorage(`mail_picker_${i}`);
     if (mailPicker) {
       mailOptions[`mail_picker_${i}`] = mailPicker;
     } else {
@@ -25,7 +28,7 @@ async function getOptionsFn() {
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     // eslint-disable-next-line no-await-in-loop
-    const newWindow = await chrome.storage.local.get([`new_window_${i}`]);
+    const newWindow = await getValueFromLocalStorage(`new_window_${i}`);
     if (newWindow) {
       mailOptions[`new_window_${i}`] = newWindow;
     } else {
@@ -36,7 +39,7 @@ async function getOptionsFn() {
     // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
   }
 
-  const mailTo = await chrome.storage.local.get(['mail_to']);
+  const mailTo = await getValueFromLocalStorage('mail_to');
   if (mailTo) {
     mailOptions.mail_to = mailTo;
   } else {
@@ -45,14 +48,14 @@ async function getOptionsFn() {
   }
 
   // email body
-  const mailBefore = await chrome.storage.local.get(['mail_before']);
+  const mailBefore = await getValueFromLocalStorage('mail_before');
   if (mailBefore) {
     mailOptions.mail_before = mailBefore;
   } else {
     // default
     mailOptions.mail_before = '';
   }
-  const mailAfter = await chrome.storage.local.get(['mail_after']);
+  const mailAfter = await getValueFromLocalStorage('mail_after');
   if (mailAfter) {
     mailOptions.mail_after = mailAfter;
   } else {
@@ -61,28 +64,28 @@ async function getOptionsFn() {
   }
 
   // email body new lines
-  const newLineAfter = await chrome.storage.local.get(['newLineAfter']);
+  const newLineAfter = await getValueFromLocalStorage('newLineAfter');
   if (newLineAfter) {
     mailOptions.newLineAfter = newLineAfter;
   } else {
     // default
     mailOptions.newLineAfter = false;
   }
-  const newLineAfterNum = await chrome.storage.local.get(['newLineAfterNum']);
+  const newLineAfterNum = await getValueFromLocalStorage('newLineAfterNum');
   if (newLineAfterNum) {
     mailOptions.newLineAfterNum = newLineAfterNum;
   } else {
     // default
     mailOptions.newLineAfterNum = 1;
   }
-  const newLineBefore = await chrome.storage.local.get(['newLineBefore']);
+  const newLineBefore = await getValueFromLocalStorage('newLineBefore');
   if (newLineBefore) {
     mailOptions.newLineBefore = newLineBefore;
   } else {
     // default
     mailOptions.newLineBefore = false;
   }
-  const newLineBeforeNum = await chrome.storage.local.get(['newLineBeforeNum']);
+  const newLineBeforeNum = await getValueFromLocalStorage('newLineBeforeNum');
   if (newLineBeforeNum) {
     mailOptions.newLineBeforeNum = newLineBeforeNum;
   } else {
@@ -106,9 +109,7 @@ async function saveDefaultOptionsFn() {
     newLineBeforeNum: 1,
   };
 
-  const mailOptionsLength = await chrome.storage.local.get([
-    'mailOptionsLength',
-  ]);
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   for (i = 0; i <= mailOptionsLength; i += 1) {
     defaults[`mail_picker_${i}`] = true;
   }
@@ -123,9 +124,7 @@ async function saveDefaultOptionsFn() {
 async function getOptionsShownCountFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const mailOptionsLength = await chrome.storage.local.get([
-    'mailOptionsLength',
-  ]);
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let mailtype;
   let optionsShownCount;
   let i;
@@ -147,9 +146,7 @@ async function getOptionsShownCountFn() {
 async function getSingleOptionIntFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const mailOptionsLength = await chrome.storage.local.get([
-    'mailOptionsLength',
-  ]);
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let mailtype;
   let optionInt;
   let i;

@@ -1,19 +1,17 @@
 /* global chrome */
 
-import { getOptions } from '../modules/local_storage';
+import { getOptions, getValueFromLocalStorage } from '../modules/local_storage';
 
 // toggle new window checkbox when mail sender is unchecked
 async function toggleNewWindowChbox() {
-  const mailOptionsLength = await chrome.storage.local.get([
-    'mailOptionsLength',
-  ]);
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
     const newWinEl = document.getElementById(`new_window_${i}`);
     if (newWinEl) {
       // eslint-disable-next-line no-await-in-loop
-      const child = await chrome.storage.local.get([`mail_picker_${i}`]);
+      const child = await getValueFromLocalStorage(`mail_picker_${i}`);
       if (child === 'false') {
         document.getElementById(`new_window_${i}`).disabled = true;
       } else {
@@ -26,9 +24,7 @@ async function toggleNewWindowChbox() {
 // Saves options to localStorage.
 // only email sender selection
 async function saveSenderOptionsFn() {
-  const mailOptionsLength = await chrome.storage.local.get([
-    'mailOptionsLength',
-  ]);
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let child;
   let i;
   const nextSenderOptions = {};
@@ -59,7 +55,7 @@ async function saveSenderOptionsFn() {
 }
 
 // use the saved values for the form
-function restoreOptionsFn() {
+async function restoreOptionsFn() {
   // get saved values
   let mailOptions = [];
   const { mailOptionsLength } = chrome.storage.local;
@@ -67,7 +63,7 @@ function restoreOptionsFn() {
   let mailtype;
   let i;
 
-  mailOptions = getOptions();
+  mailOptions = await getOptions();
 
   // Restores check box state
   for (i = 0; i <= mailOptionsLength; i += 1) {
