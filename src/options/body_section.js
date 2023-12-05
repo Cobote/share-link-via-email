@@ -1,6 +1,7 @@
 /* global chrome */
 
 import addNewLines from '../modules/add_new_lines';
+import createAllContext from '../modules/create_context';
 
 // only email body section
 function validateBodyOptionsFn() {
@@ -63,7 +64,7 @@ async function saveBodyOptionsFn() {
 
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
-  // chrome.extension.getBackgroundPage().window.location.reload();
+  createAllContext();
 }
 
 // update preview
