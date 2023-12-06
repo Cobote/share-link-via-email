@@ -1,5 +1,6 @@
 /* global chrome */
 
+import createAllContext from '../modules/create_context';
 import { getOptions, getValueFromLocalStorage } from '../modules/local_storage';
 
 // toggle new window checkbox when mail sender is unchecked
@@ -51,7 +52,7 @@ async function saveSenderOptionsFn() {
 
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
-  // chrome.extension.getBackgroundPage().window.location.reload();
+  createAllContext();
 }
 
 // use the saved values for the form

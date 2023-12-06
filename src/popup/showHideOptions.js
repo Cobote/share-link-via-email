@@ -19,6 +19,7 @@ async function showHideOptions() {
         select.style.display = 'none';
       } else {
         isOptionSet = true;
+        select.style.display = 'inline';
       }
     }
   }
