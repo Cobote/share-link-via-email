@@ -1,13 +1,13 @@
-import { getOptions } from '../modules/local_storage';
+import { getOptions, getValueFromLocalStorage } from '../modules/local_storage';
 
 // use the saved values for the form
-function showHideOptions() {
+async function showHideOptions() {
   // get saved values
-  const { mailOptionsLength } = localStorage;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let select;
   let mailtype;
   let i;
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
   let isOptionSet = false;
 
   // Hide options not selected
@@ -15,10 +15,11 @@ function showHideOptions() {
     mailtype = mailOptions[`mail_picker_${i}`];
     select = document.getElementById(`mail_picker_${i}`);
     if (select) {
-      if (mailtype !== 'true') {
+      if (!mailtype) {
         select.style.display = 'none';
       } else {
         isOptionSet = true;
+        select.style.display = 'inline';
       }
     }
   }

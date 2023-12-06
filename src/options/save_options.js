@@ -1,17 +1,19 @@
 /* global chrome */
 
-import { getOptions } from '../modules/local_storage';
+import createAllContext from '../modules/create_context';
+import { getOptions, getValueFromLocalStorage } from '../modules/local_storage';
 
 // toggle new window checkbox when mail sender is unchecked
-function toggleNewWindowChbox() {
-  const { mailOptionsLength } = localStorage;
+async function toggleNewWindowChbox() {
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   for (i = 1; i <= mailOptionsLength; i += 1) {
     const newWinEl = document.getElementById(`new_window_${i}`);
     if (newWinEl) {
-      const child = localStorage[`mail_picker_${i}`];
-      if (child === 'false') {
+      // eslint-disable-next-line no-await-in-loop
+      const child = await getValueFromLocalStorage(`mail_picker_${i}`);
+      if (!child) {
         document.getElementById(`new_window_${i}`).disabled = true;
       } else {
         document.getElementById(`new_window_${i}`).disabled = false;
@@ -22,24 +24,27 @@ function toggleNewWindowChbox() {
 
 // Saves options to localStorage.
 // only email sender selection
-function saveSenderOptionsFn() {
-  const { mailOptionsLength } = localStorage;
+async function saveSenderOptionsFn() {
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let child;
   let i;
+  const nextSenderOptions = {};
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`mail_picker_${i}`);
     if (child) {
-      localStorage[`mail_picker_${i}`] = child.checked;
+      nextSenderOptions[`mail_picker_${i}`] = child.checked;
     }
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
     child = document.getElementById(`new_window_${i}`);
     if (child) {
-      localStorage[`new_window_${i}`] = child.checked;
+      nextSenderOptions[`new_window_${i}`] = child.checked;
     }
   }
+
+  await chrome.storage.local.set(nextSenderOptions);
 
   toggleNewWindowChbox();
 
@@ -47,26 +52,26 @@ function saveSenderOptionsFn() {
 
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
-  chrome.extension.getBackgroundPage().window.location.reload();
+  createAllContext();
 }
 
 // use the saved values for the form
-function restoreOptionsFn() {
+async function restoreOptionsFn() {
   // get saved values
   let mailOptions = [];
-  const { mailOptionsLength } = localStorage;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let select;
   let mailtype;
   let i;
 
-  mailOptions = getOptions();
+  mailOptions = await getOptions();
 
   // Restores check box state
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
     select = document.getElementById(`mail_picker_${i}`);
     if (select) {
-      if (mailtype === 'true') {
+      if (mailtype) {
         select.checked = true;
       } else {
         select.checked = false;
@@ -77,7 +82,7 @@ function restoreOptionsFn() {
     mailtype = mailOptions[`new_window_${i}`];
     select = document.getElementById(`new_window_${i}`);
     if (select) {
-      if (mailtype === 'true') {
+      if (mailtype) {
         select.checked = true;
       } else {
         select.checked = false;
@@ -97,7 +102,7 @@ function restoreOptionsFn() {
   const { newLineAfter } = mailOptions;
   select = document.getElementById('newLineAfter');
   if (select) {
-    if (newLineAfter === 'true') {
+    if (newLineAfter) {
       select.checked = true;
       document.getElementById('newLineAfterNum').disabled = false;
     } else {
@@ -114,7 +119,7 @@ function restoreOptionsFn() {
   const { newLineBefore } = mailOptions;
   select = document.getElementById('newLineBefore');
   if (select) {
-    if (newLineBefore === 'true') {
+    if (newLineBefore) {
       select.checked = true;
       document.getElementById('newLineBeforeNum').disabled = false;
     } else {

@@ -1,75 +1,89 @@
+/* global chrome */
+
+export async function getValueFromLocalStorage(name) {
+  const objValue = await chrome.storage.local.get([name]);
+  return objValue[name];
+}
+
 // Restores saved values from localStorage.
 // if none saved, use default values
-function getOptionsFn() {
-  const mailOptions = [];
-  const { mailOptionsLength } = localStorage;
+async function getOptionsFn() {
+  const mailOptions = {};
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let i;
 
   // Restores each mail type
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (localStorage[`mail_picker_${i}`]) {
-      mailOptions[`mail_picker_${i}`] = localStorage[`mail_picker_${i}`];
+    // eslint-disable-next-line no-await-in-loop
+    const mailPicker = await getValueFromLocalStorage(`mail_picker_${i}`);
+    if (mailPicker) {
+      mailOptions[`mail_picker_${i}`] = mailPicker;
     } else {
       // if not set, leave as off
-      mailOptions[`mail_picker_${i}`] = 'false';
-      // console.log("mail_picker_" + i + " not found");
+      mailOptions[`mail_picker_${i}`] = false;
     }
-    // console.log("mail_picker_" + i + ": " + localStorage["mail_picker_" + i]);
   }
 
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    if (localStorage[`new_window_${i}`]) {
-      mailOptions[`new_window_${i}`] = localStorage[`new_window_${i}`];
+    // eslint-disable-next-line no-await-in-loop
+    const newWindow = await getValueFromLocalStorage(`new_window_${i}`);
+    if (newWindow) {
+      mailOptions[`new_window_${i}`] = newWindow;
     } else {
       // if not set, leave as off
-      mailOptions[`new_window_${i}`] = 'false';
-      // console.log("new_window_" + i + " not found");
+      mailOptions[`new_window_${i}`] = false;
     }
-    // console.log("new_window_" + i + ": " + localStorage["new_window_" + i]);
   }
 
-  if (localStorage.mail_to) {
-    mailOptions.mail_to = localStorage.mail_to;
+  const mailTo = await getValueFromLocalStorage('mail_to');
+  if (mailTo) {
+    mailOptions.mail_to = mailTo;
   } else {
     // default
     mailOptions.mail_to = '';
   }
 
   // email body
-  if (localStorage.mail_before) {
-    mailOptions.mail_before = localStorage.mail_before;
+  const mailBefore = await getValueFromLocalStorage('mail_before');
+  if (mailBefore) {
+    mailOptions.mail_before = mailBefore;
   } else {
     // default
     mailOptions.mail_before = '';
   }
-  if (localStorage.mail_after) {
-    mailOptions.mail_after = localStorage.mail_after;
+  const mailAfter = await getValueFromLocalStorage('mail_after');
+  if (mailAfter) {
+    mailOptions.mail_after = mailAfter;
   } else {
     // default
     mailOptions.mail_after = '';
   }
 
   // email body new lines
-  if (localStorage.newLineAfter) {
-    mailOptions.newLineAfter = localStorage.newLineAfter;
+  const newLineAfter = await getValueFromLocalStorage('newLineAfter');
+  if (newLineAfter) {
+    mailOptions.newLineAfter = newLineAfter;
   } else {
     // default
     mailOptions.newLineAfter = false;
   }
-  if (localStorage.newLineAfterNum) {
-    mailOptions.newLineAfterNum = localStorage.newLineAfterNum;
+  const newLineAfterNum = await getValueFromLocalStorage('newLineAfterNum');
+  if (newLineAfterNum) {
+    mailOptions.newLineAfterNum = newLineAfterNum;
   } else {
     // default
     mailOptions.newLineAfterNum = 1;
   }
-  if (localStorage.newLineBefore) {
-    mailOptions.newLineBefore = localStorage.newLineBefore;
+  const newLineBefore = await getValueFromLocalStorage('newLineBefore');
+  if (newLineBefore) {
+    mailOptions.newLineBefore = newLineBefore;
   } else {
     // default
     mailOptions.newLineBefore = false;
   }
-  if (localStorage.newLineBeforeNum) {
-    mailOptions.newLineBeforeNum = localStorage.newLineBeforeNum;
+  const newLineBeforeNum = await getValueFromLocalStorage('newLineBeforeNum');
+  if (newLineBeforeNum) {
+    mailOptions.newLineBeforeNum = newLineBeforeNum;
   } else {
     // default
     mailOptions.newLineBeforeNum = 1;
@@ -78,31 +92,35 @@ function getOptionsFn() {
   return mailOptions;
 }
 
-function saveDefaultOptionsFn() {
+async function saveDefaultOptionsFn() {
   let i;
 
-  localStorage.mail_before = '';
-  localStorage.mail_after = '';
-  localStorage.mail_to = '';
-  localStorage.newLineAfter = false;
-  localStorage.newLineAfterNum = 1;
-  localStorage.newLineBefore = false;
-  localStorage.newLineBeforeNum = 1;
+  const defaults = {
+    mail_before: '',
+    mail_after: '',
+    mail_to: '',
+    newLineAfter: false,
+    newLineAfterNum: 1,
+    ewLineBefore: false,
+    newLineBeforeNum: 1,
+  };
 
-  const { mailOptionsLength } = localStorage;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    localStorage[`mail_picker_${i}`] = true;
+    defaults[`mail_picker_${i}`] = true;
   }
   for (i = 0; i <= mailOptionsLength; i += 1) {
-    localStorage[`new_window_${i}`] = false;
+    defaults[`new_window_${i}`] = false;
   }
+
+  await chrome.storage.local.set(defaults);
 }
 
 // Count how many mail options are enabled
-function getOptionsShownCountFn() {
+async function getOptionsShownCountFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const { mailOptionsLength } = localStorage;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let mailtype;
   let optionsShownCount;
   let i;
@@ -112,7 +130,7 @@ function getOptionsShownCountFn() {
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
-    if (mailtype === 'true') {
+    if (mailtype) {
       optionsShownCount += 1;
     }
   }
@@ -121,10 +139,10 @@ function getOptionsShownCountFn() {
 }
 
 // Get the currently enabled mail option
-function getSingleOptionIntFn() {
+async function getSingleOptionIntFn() {
   // get saved values
   const mailOptions = getOptionsFn();
-  const { mailOptionsLength } = localStorage;
+  const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let mailtype;
   let optionInt;
   let i;
@@ -132,7 +150,7 @@ function getSingleOptionIntFn() {
   // Hide options not selected
   for (i = 0; i <= mailOptionsLength; i += 1) {
     mailtype = mailOptions[`mail_picker_${i}`];
-    if (mailtype === 'true') {
+    if (mailtype) {
       optionInt = i;
     }
   }

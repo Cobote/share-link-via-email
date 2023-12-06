@@ -1,6 +1,7 @@
 /* global chrome */
 
 import addNewLines from '../modules/add_new_lines';
+import createAllContext from '../modules/create_context';
 
 // only email body section
 function validateBodyOptionsFn() {
@@ -38,27 +39,16 @@ function validateBodyOptionsFn() {
 
 // Saves options to localStorage.
 // only email body section
-function saveBodyOptionsFn() {
-  const mailTo = document.getElementById('mail_to').value;
-  localStorage.mail_to = mailTo;
-
-  const mailBefore = document.getElementById('mail_before').value;
-  localStorage.mail_before = mailBefore;
-
-  const mailAfter = document.getElementById('mail_after').value;
-  localStorage.mail_after = mailAfter;
-
-  const newLineAfter = document.getElementById('newLineAfter').checked;
-  localStorage.newLineAfter = newLineAfter;
-
-  const newLineAfterNum = document.getElementById('newLineAfterNum').value;
-  localStorage.newLineAfterNum = newLineAfterNum;
-
-  const newLineBefore = document.getElementById('newLineBefore').checked;
-  localStorage.newLineBefore = newLineBefore;
-
-  const newLineBeforeNum = document.getElementById('newLineBeforeNum').value;
-  localStorage.newLineBeforeNum = newLineBeforeNum;
+async function saveBodyOptionsFn() {
+  await chrome.storage.local.set({
+    mail_to: document.getElementById('mail_to').value,
+    mail_before: document.getElementById('mail_before').value,
+    mail_after: document.getElementById('mail_after').value,
+    newLineAfter: document.getElementById('newLineAfter').checked,
+    newLineAfterNum: document.getElementById('newLineAfterNum').value,
+    newLineBefore: document.getElementById('newLineBefore').checked,
+    newLineBeforeNum: document.getElementById('newLineBeforeNum').value,
+  });
 
   // Update status to let user know options were saved.
   const status = document.getElementById('status');
@@ -74,7 +64,7 @@ function saveBodyOptionsFn() {
 
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
-  chrome.extension.getBackgroundPage().window.location.reload();
+  createAllContext();
 }
 
 // update preview

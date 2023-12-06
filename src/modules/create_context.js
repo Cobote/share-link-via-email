@@ -3,8 +3,11 @@
 import { getOptions } from './local_storage';
 import { emailLinks } from './email_service_link';
 
+// eslint-disable-next-line no-use-before-define
+chrome.contextMenus.onClicked.addListener(handleContextClick);
+
 // Create email page option for each context type.
-function createContextItem(contextName, oncLink) {
+function createContextItem(contextName, emailLink) {
   const contexts = ['page', 'link', 'selection'];
   let context;
   let title;
@@ -16,15 +19,14 @@ function createContextItem(contextName, oncLink) {
     chrome.contextMenus.create({
       title,
       contexts: [context],
-      onclick: oncLink,
+      id: `${context}_${emailLink}`,
     });
-    // console.log("added '" + context + "' for " + contextName);
   }
 }
 
-function createAllContext() {
+async function createAllContext() {
   // Get stored options
-  const mailOptions = getOptions();
+  const mailOptions = await getOptions();
 
   const favoriteMailto = mailOptions.mail_picker_1;
   const favoriteGmail = mailOptions.mail_picker_2;
@@ -34,23 +36,53 @@ function createAllContext() {
   const favoriteAOL = mailOptions.mail_picker_5;
 
   // Create email menu option for each context type in this order
-  if (favoriteMailto === 'true') {
-    createContextItem('Email', emailLinks.emailLink);
+  if (favoriteMailto) {
+    createContextItem('Email', 'emailLink');
   }
-  if (favoriteAOL === 'true') {
-    createContextItem('AOL Mail', emailLinks.aolLink);
+  if (favoriteAOL) {
+    createContextItem('AOL Mail', 'aolLink');
   }
-  if (favoriteGmail === 'true') {
-    createContextItem('Gmail', emailLinks.gmailLink);
+  if (favoriteGmail) {
+    createContextItem('Gmail', 'gmailLink');
   }
-  if (favoriteHotmail === 'true') {
-    createContextItem('Outlook.com', emailLinks.hotmailLink);
+  if (favoriteHotmail) {
+    createContextItem('Outlook.com', 'hotmailLink');
   }
-  if (favoriteOffice365 === 'true') {
-    createContextItem('Office 365', emailLinks.office365Link);
+  if (favoriteOffice365) {
+    createContextItem('Office 365', 'office365Link');
   }
-  if (favoriteYmail === 'true') {
-    createContextItem('Yahoo Mail', emailLinks.ymailLink);
+  if (favoriteYmail) {
+    createContextItem('Yahoo Mail', 'ymailLink');
+  }
+}
+
+function handleContextClick(info, tab) {
+  const { menuItemId } = info;
+  const idSplit = menuItemId.split('_');
+  const [, emailLink] = idSplit;
+
+  switch (emailLink) {
+    case 'emailLink':
+      emailLinks.emailLink(info, tab);
+      break;
+    case 'aolLink':
+      emailLinks.aolLink(info, tab);
+      break;
+    case 'gmailLink':
+      emailLinks.gmailLink(info, tab);
+      break;
+    case 'hotmailLink':
+      emailLinks.hotmailLink(info, tab);
+      break;
+    case 'office365Link':
+      emailLinks.office365Link(info, tab);
+      break;
+    case 'ymailLink':
+      emailLinks.ymailLink(info, tab);
+      break;
+    default:
+      // console.log({ info, tab });
+      break;
   }
 }
 
