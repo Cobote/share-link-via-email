@@ -11,6 +11,7 @@ Chrome web store https://chrome.google.com/webstore/detail/ejdbkikfbnnhmachnnomj
 --
 Major changes:
 
+- v4.0 - Update to Manifest V3
 - v3.0 - Add selected text to email.
 - v1.4 - Improvements to the options page.
 - v1.2 - Added option to use the current tab or a new tab. Added field for who to send the email to.
