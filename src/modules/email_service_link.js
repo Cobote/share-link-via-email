@@ -76,7 +76,7 @@ async function createEmailMessage(info, tab, mailsrvr, newLineChar) {
   // selectionText
   let selectionTextBody = '';
   if (info.selectionText) {
-    selectionTextBody = info.selectionText;
+    selectionTextBody = encodeURIComponent(info.selectionText);
     pageUrl = ` From ${pageUrl}`;
   }
 

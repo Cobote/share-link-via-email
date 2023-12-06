@@ -3,8 +3,11 @@
 import { getOptions } from './local_storage';
 import { emailLinks } from './email_service_link';
 
+// eslint-disable-next-line no-use-before-define
+chrome.contextMenus.onClicked.addListener(handleContextClick);
+
 // Create email page option for each context type.
-function createContextItem(contextName, onClick) {
+function createContextItem(contextName, emailLink) {
   const contexts = ['page', 'link', 'selection'];
   let context;
   let title;
@@ -16,11 +19,9 @@ function createContextItem(contextName, onClick) {
     chrome.contextMenus.create({
       title,
       contexts: [context],
-      id: `${context}_${contextName}`,
+      id: `${context}_${emailLink}`,
     });
   }
-
-  chrome.contextMenus.onClicked.addListener(onClick);
 }
 
 async function createAllContext() {
@@ -36,22 +37,52 @@ async function createAllContext() {
 
   // Create email menu option for each context type in this order
   if (favoriteMailto) {
-    createContextItem('Email', emailLinks.emailLink);
+    createContextItem('Email', 'emailLink');
   }
   if (favoriteAOL) {
-    createContextItem('AOL Mail', emailLinks.aolLink);
+    createContextItem('AOL Mail', 'aolLink');
   }
   if (favoriteGmail) {
-    createContextItem('Gmail', emailLinks.gmailLink);
+    createContextItem('Gmail', 'gmailLink');
   }
   if (favoriteHotmail) {
-    createContextItem('Outlook.com', emailLinks.hotmailLink);
+    createContextItem('Outlook.com', 'hotmailLink');
   }
   if (favoriteOffice365) {
-    createContextItem('Office 365', emailLinks.office365Link);
+    createContextItem('Office 365', 'office365Link');
   }
   if (favoriteYmail) {
-    createContextItem('Yahoo Mail', emailLinks.ymailLink);
+    createContextItem('Yahoo Mail', 'ymailLink');
+  }
+}
+
+function handleContextClick(info, tab) {
+  const { menuItemId } = info;
+  const idSplit = menuItemId.split('_');
+  const [, emailLink] = idSplit;
+
+  switch (emailLink) {
+    case 'emailLink':
+      emailLinks.emailLink(info, tab);
+      break;
+    case 'aolLink':
+      emailLinks.aolLink(info, tab);
+      break;
+    case 'gmailLink':
+      emailLinks.gmailLink(info, tab);
+      break;
+    case 'hotmailLink':
+      emailLinks.hotmailLink(info, tab);
+      break;
+    case 'office365Link':
+      emailLinks.office365Link(info, tab);
+      break;
+    case 'ymailLink':
+      emailLinks.ymailLink(info, tab);
+      break;
+    default:
+      // console.log({ info, tab });
+      break;
   }
 }
 
