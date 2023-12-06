@@ -2,3 +2,14 @@
   cursor: pointer;
   background-color: #e6e6e6;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #000;
+    color: #fff;
+  }
+
+  .link:hover {
+    background-color: #666;
+  }
+}
