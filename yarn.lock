@@ -2191,12 +2191,12 @@ __metadata:
   linkType: hard
 
 "color-string@npm:^1.5.2":
-  version: 1.5.3
-  resolution: "color-string@npm:1.5.3"
+  version: 1.9.1
+  resolution: "color-string@npm:1.9.1"
   dependencies:
     color-name: "npm:^1.0.0"
     simple-swizzle: "npm:^0.2.2"
-  checksum: 7bd675dadc35f32f8d3d54785f099cef610eed5cc7d3fc86d9900f88efdbcbb61c62c0f9f1c98d124813c0b6214abeb20406523e4a974cecfdbbf7fe8eb0430b
+  checksum: 72aa0b81ee71b3f4fb1ac9cd839cdbd7a011a7d318ef58e6cb13b3708dca75c7e45029697260488709f1b1c7ac4e35489a87e528156c1e365917d1c4ccb9b9cd
   languageName: node
   linkType: hard
 
