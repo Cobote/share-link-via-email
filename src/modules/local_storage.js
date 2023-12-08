@@ -119,7 +119,7 @@ async function saveDefaultOptionsFn() {
 // Count how many mail options are enabled
 async function getOptionsShownCountFn() {
   // get saved values
-  const mailOptions = getOptionsFn();
+  const mailOptions = await getOptionsFn();
   const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let mailtype;
   let optionsShownCount;
@@ -141,7 +141,7 @@ async function getOptionsShownCountFn() {
 // Get the currently enabled mail option
 async function getSingleOptionIntFn() {
   // get saved values
-  const mailOptions = getOptionsFn();
+  const mailOptions = await getOptionsFn();
   const mailOptionsLength = await getValueFromLocalStorage('mailOptionsLength');
   let mailtype;
   let optionInt;
