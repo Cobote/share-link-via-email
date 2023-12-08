@@ -2,6 +2,7 @@
 
 import createAllContext from '../modules/create_context';
 import { getOptions, getValueFromLocalStorage } from '../modules/local_storage';
+import { setPopupClick } from '../modules/popop';
 
 // toggle new window checkbox when mail sender is unchecked
 async function toggleNewWindowChbox() {
@@ -53,6 +54,7 @@ async function saveSenderOptionsFn() {
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
   createAllContext();
+  setPopupClick();
 }
 
 // use the saved values for the form

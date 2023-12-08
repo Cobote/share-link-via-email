@@ -2,6 +2,7 @@
 
 import addNewLines from '../modules/add_new_lines';
 import createAllContext from '../modules/create_context';
+import { setPopupClick } from '../modules/popop';
 
 // only email body section
 function validateBodyOptionsFn() {
@@ -65,6 +66,7 @@ async function saveBodyOptionsFn() {
   // reload context menu with new settings
   chrome.contextMenus.removeAll();
   createAllContext();
+  setPopupClick();
 }
 
 // update preview

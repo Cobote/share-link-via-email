@@ -16,11 +16,14 @@ function createContextItem(contextName, emailLink) {
   for (i = 0; i < contexts.length; i += 1) {
     context = contexts[i];
     title = `Send ${context} via ${contextName}`;
-    chrome.contextMenus.create({
-      title,
-      contexts: [context],
-      id: `${context}_${emailLink}`,
-    });
+    chrome.contextMenus.create(
+      {
+        title,
+        contexts: [context],
+        id: `${context}_${emailLink}`,
+      },
+      () => chrome.runtime.lastError
+    );
   }
 }
 

@@ -3,12 +3,10 @@
 import '../images/stock_mail.png';
 import {
   saveDefaultOptions,
-  getOptionsShownCount,
-  getSingleOptionInt,
   getValueFromLocalStorage,
 } from './modules/local_storage';
 import createAllContext from './modules/create_context';
-import { openEmailHandler } from './modules/email_service_link';
+import { setPopupClick, addPopupListener } from './modules/popop';
 
 const init = async () => {
   // Creates each of the links to be used by each type of Email client
@@ -33,15 +31,7 @@ const init = async () => {
 
   // Create email menu option for each context type
   createAllContext();
-
-  // Check if only one option selected
-  if ((await getOptionsShownCount()) === 1) {
-    chrome.action.setPopup({ popup: '' });
-    chrome.action.onClicked.addListener(() => {
-      openEmailHandler(getSingleOptionInt());
-    });
-  } else {
-    chrome.action.setPopup({ popup: 'popup.html' });
-  }
+  addPopupListener();
+  setPopupClick();
 };
 init();
