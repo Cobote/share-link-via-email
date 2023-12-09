@@ -6,7 +6,9 @@ import {
   getValueFromLocalStorage,
 } from './modules/local_storage';
 import createAllContext from './modules/create_context';
-import { setPopupClick, addPopupListener } from './modules/popop';
+import { setPopupClick, openEmail } from './modules/popop';
+
+chrome.action.onClicked.addListener(openEmail);
 
 const init = async () => {
   // Creates each of the links to be used by each type of Email client
@@ -31,7 +33,6 @@ const init = async () => {
 
   // Create email menu option for each context type
   createAllContext();
-  addPopupListener();
   setPopupClick();
 };
 init();
