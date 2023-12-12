@@ -23,7 +23,7 @@ const init = async () => {
   // check for first run
   const firstRun = await getValueFromLocalStorage('firstRun');
   // run actions if first run & no settings saved
-  if (firstRun === true) {
+  if (firstRun !== false) {
     // Set all options to default
     saveDefaultOptions();
   }
